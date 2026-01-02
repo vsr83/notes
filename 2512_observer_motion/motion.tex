@@ -1550,7 +1550,7 @@ called \textbf{metamers}.
 % TBA: https://www.fourmilab.ch/documents/specrend
 
 
-\subsubsection{CIE 1931 Color Spaces and sRGB Encoding}
+\subsubsection{CIE 1931 Color Spaces and sRGB Encoding \label{sec:srgb}}
 We wish to convert spectrum to 8-bit sRGB values that can be rendered on 
 computer displays. This can be achieved by the use of CIE XYZ color-matching
 functions and then performing a conversion to SRGB and subsequent 
@@ -1810,8 +1810,9 @@ temperature), we obtain
 \begin {eqnarray}
     L = \pi AL_e.
 \end {eqnarray}
-For a black-body
+For a black-body, this yields the \textbf{Stefan-Boltzmann law}
 \begin {eqnarray}
+    \label{eq:boltzmann}
     L 
     =
     \pi A L_e
@@ -1828,7 +1829,7 @@ where the \textbf{Stefan-Boltzmann constant}
 \end {eqnarray}
 \subsubsection{Wien's Displacement Law}
 To obtain peak frequency of the black body radiance as a function of temperature,
-we derivate $(\ref{eq:blackbody_specfreq})$ w.r.t. frequency 
+we derivate $(\ref{eq:blackbody_specfreq})$ w.r.t. frequency
 \begin{eqnarray}
     \pdiff{L_{e,\nu}}{\nu}
     =
@@ -1846,23 +1847,84 @@ which admits numerical solution
 \begin {eqnarray}
     x = \frac{h\nu}{kT} \approx 2.821439372122078893
 \end {eqnarray}
-Thus, the blackbody radiance obtains it's peak at the frequency
-and wavelength
+Thus, the black-body radiance obtains it's peak at the frequency
 \begin {eqnarray}
     \nu_{peak} 
     &=& 
     \frac{kT}{h}x \approx 5.878925757646824946 T\cdot 10^{10}
     \:\textrm{Hz}\cdot\textrm{K}^{-1}
-    \\
+\end {eqnarray} 
+To obtain peak wavelength of the black body radiance as a function of temperature,
+we derivate $(\ref{eq:blackbody_specwave})$ w.r.t. wavelength
+\begin {eqnarray}
+    \pdiff{L_{e,\lambda}}{\lambda}
+    =
+    - \frac{10hc^2}{\lambda^6}
+    \left[
+        \exp\left(\frac{hc}{\lambda kT}\right) - 1
+    \right]^{-1}
+    +
+    \frac{2h^2c^3}{\lambda^7kT}
+    \exp\left(\frac{hc}{\lambda kT}\right)
+    \left[
+        \exp\left(\frac{hc}{\lambda kT}\right) - 1
+    \right]^{-2}
+    =
+    0.
+\end {eqnarray}
+Substitution of $y=hc/\lambda kT$ yields 
+\begin {eqnarray}
+    y = 5(1 - e^{-y}),
+\end {eqnarray}
+which admits numerical solution
+\begin {eqnarray}
+    y = \frac{hc}{\lambda kT} \approx 4.965114231744276303.
+\end {eqnarray}
+Thus, the black-body radiance obtains it's peak at the wavelength 
+\begin {eqnarray}
     \label{eq:wien}
     \lambda_{peak} 
     &=&
-    \frac{hc}{kTx}  
+    \frac{hc}{ky} \frac{1}{T}  
     \approx 2.897771955 / T\cdot 10^{-3}\:\textrm{m}\cdot\textrm{K}.
-\end {eqnarray} 
+\end {eqnarray}
 The equation $(\ref{eq:wien})$ is called the \textbf{Wien's displacement law}
-and is usually written in terms of the constant of proportionality $b=hc/kT$
-called the \textbf{Wien's displacement constant}.
+and is usually written in terms of the constant of proportionality $b=hc/ky$
+called the \textbf{Wien's displacement constant}. Note that when the blackbody 
+radiance is expressed as a function of wavelength and frequency, the peak occurs 
+at a different frequency in the sense that we cannot transform between the peak 
+wavelength and peak frequency with the relation $\lambda\nu = c$.
+
+Three examples of black-body spectra are shown in Figure \ref{fig:blackbody_example}.
+Substitution of $T = 4000\:\textrm{K}, 5000\:\textrm{K}$ and $6000\:\textrm{K}$ yields 
+$\lambda_{max} = 724.44\:\textrm{nm}, 579.55\:\textrm{nm}$ and $482.96\:\textrm{nm}$, 
+respectively. The increasing spectral radiance of the curves seems consistent with 
+$(\ref{eq:boltzmann})$ since $5^4/4^4 \approx 2.44$ and $6^4/5^4 \approx 2.49$.
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.65\columnwidth] {fig/blackbody_example.eps}
+     \caption{\label{fig:blackbody_example} Three examples of black-body spectra.}
+  \end {center}
+\end {figure}
+\subsubsection{Effective Temperature and Color}
+Visual perception of black-body as a function of its \textbf{effective temperature}
+is easily obtained using the computation in section \ref{sec:srgb}. In 
+Figure \ref{fig:effective_temperature}, SRGB values for black-bodies are displayed for a 
+temperature range. The XYZ-values have been normalized before SRGB conversion by division 
+with $\max\{X, Y, Z\}$.
+\begin {figure}[h]
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth] {fig/effective_temperature.eps}
+     \caption{\label{fig:effective_temperature} Visual perception of color for black-bodies at temperatures 
+     between $800$ K and $12000$ K.}
+  \end {center}
+\end {figure}
+
+\subsubsection{Doppler Transformation and Black-Body Radiance}
+For an observer moving at relativistic speeds, the perceived color of black-body sources
+can be significantly influenced by the Doppler effect. However, since the black-body 
+radiation is not monochromatic but consists of a continuous spectrum, the computation
+of the Doppler effect is no longer trivial.
 
 \subsection{Stars}
 \subsubsection{Spectral Classification of Stars}
