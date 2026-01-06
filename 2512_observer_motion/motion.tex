@@ -246,6 +246,7 @@ where the \textbf{Lorentz factor} is defined
 \end {eqnarray}
 Thus, we obtain the well-known formula for relativistic aberration
 \begin {eqnarray}
+    \label{eq:relativistic_aberration}
     \tan\theta' = \frac{y'}{x'} = \frac{\tan\theta}{\gamma(1 + \beta\sec\theta)}
 \end {eqnarray}
 and the more general expression
@@ -866,7 +867,7 @@ to the surface of a rotating planet, the stellar aberration may involve:
     planet. At the equator, Earth rotates approximately with the tangential
     velocity of $465$ meters per second, which amounts to a maximum 
     correction of $0.32$ arcseconds.
-    \item \textbf{Secular aberration} resulting from the approximately unifrom 
+    \item \textbf{Secular aberration} resulting from the approximately uniform 
     motion of the solar system around the center of the galaxy. For our 
     solar system, this velocity. is about $220$ km/s and amounts to a 
     maximum correction of 150". However, since the velocity changes very slowly, 
@@ -1508,9 +1509,8 @@ dot when $\beta\to 1$.
 \end {figure} 
 
 \newpage
-\section{Perception and Spectrum}
-\subsection{Visual Perception}
-\subsubsection{Human Vision and LMS Color Space}
+\section{Visual Perception}
+\subsection{Human Vision and LMS Color Space}
 Human vision is limited to the wavelength range between 380 and 700 nm. The 
 perception of color is based on three classes of cone cells on the retina.
 Each type of cone cell has different \textbf{spectral sensitivity}. That is,
@@ -1550,7 +1550,7 @@ called \textbf{metamers}.
 % TBA: https://www.fourmilab.ch/documents/specrend
 
 
-\subsubsection{CIE 1931 Color Spaces and sRGB Encoding \label{sec:srgb}}
+\subsection{CIE 1931 Color Spaces and sRGB Encoding \label{sec:srgb}}
 We wish to convert spectrum to 8-bit sRGB values that can be rendered on 
 computer displays. This can be achieved by the use of CIE XYZ color-matching
 functions and then performing a conversion to SRGB and subsequent 
@@ -1669,7 +1669,7 @@ where $C \in \{R, G, B\}$. Finally, the 8-bit quantized values are obtained via
 %    \right]
 %\end {eqnarray}
 
-\subsubsection{Example: Visible Wavelength Range}
+\subsection{Example: Visible Wavelength Range}
 To compute sRGB values corresponding to the visible wavelength range, select
 for each wavelength $\lambda'$
 \begin {eqnarray}
@@ -1698,11 +1698,13 @@ saturation in cases where the linear sRGB values become larger than 1. Then,
 and application of $(\ref{eq:sRGB})$ and $(\ref{eq:sRGB2})$ yield Figure \ref{fig:rgb}.
 \begin {figure}
   \begin {center}
-     \includegraphics [angle=0, width=0.8\columnwidth] {fig/rgb.eps}
-     \caption{\label{fig:rgb} RGB values obtained with $(\ref{eq:diracwavel})$.}
+     \includegraphics [angle=0, width=0.9\columnwidth] {fig/rgb.eps}
+     \caption{\label{fig:rgb} RGB values obtained with $(\ref{eq:diracwavel})$ with and 
+     without normalization.}
   \end {center}
 \end {figure}
 
+\section{Spectrum and Radiation}
 \subsection{Basic Radiometry}
 \subsubsection{Black-Body Radiance}
 \begin {figure}
@@ -1920,12 +1922,358 @@ with $\max\{X, Y, Z\}$.
   \end {center}
 \end {figure}
 
-\subsubsection{Doppler Transformation and Black-Body Radiance}
+\subsection{Lorentz Transformations}
+\textcolor{red}{It's somewhat likely that portion of details in this section are 
+wrong.}
+\subsubsection{Plane Waves and Intensity}
+\textbf{Intensity} $I$ associated to electromagnetic wave is the time-average of the 
+\textbf{Poynting vector} $\vc S$. That is,
+\begin {eqnarray}
+    I = |\langle\vc S\rangle| = \frac{1}{\mu_0}|\langle\vc E\times\vc B\rangle|,
+\end {eqnarray} 
+where $\mu_0$ is the permeability of vacuum 
+$\mu_0 = 1.25663706127\cdot 10^{-6}\:\textrm{N}\cdot\textrm{A}^{-2}$.
+Suppose inertial frame $S'$ is moving in the +x direction w.r.t. inertial frame 
+$S$ with velocity $v$. Then, the electric field $\vc E$ and the magnetic flux 
+density $\vc B$ vectors transform \cite{griffiths}
+\begin {eqnarray}
+\label{eq:lorentz_plane1}
+\vc E_{||}'    &=& \vc E_{||}, \\
+\vc E_{\perp}' &=& \gamma\left(\vc E_{\perp} + \vc v\times\vc B\right), \\
+\vc B_{||}'    &=& \vc B_{||}, \\
+\label{eq:lorentz_plane4}
+\vc B_{\perp}' &=& \gamma\left(\vc B_{\perp} - \frac{1}{c^2}\vc v\times\vc E\right), 
+\end {eqnarray}
+where we have used $||$ and $\perp$ to denote components parallel and perpendicular 
+to the motion. The velocity can be expressed $\vc v = v\vu x$.
+
+Consider a linearly polarized plane wave solution with propagation direction 
+at an angle $\theta$ w.r.t. $\vc v$:
+\begin {eqnarray}
+    \vc E &=& E_0 \left(
+        \cos\theta\:\vu y + \sin\theta\:\vu x
+    \right),
+    \\
+    \vc B &=& E_0/c\:\vu z,
+\end {eqnarray}
+where we have left out the $\cos(\vc k\cdot\vc r - \omega t + \delta)$ for brevity.
+Application of the Lorentz transformation 
+$(\ref{eq:lorentz_plane1})$-$(\ref{eq:lorentz_plane4})$ yields the fields in $S'$:
+\begin {eqnarray}
+    \vc E_{\perp}'
+    &=&
+    \gamma E_0\left(
+        \cos\theta - \beta
+    \right)\vu y,
+    \\
+    \vc E_{||}' 
+    &=&  
+    E_0\sin\theta\:\vu x,
+    \\
+    \vc B_{\perp}'
+    &=&
+    \gamma E_0/c\:\left(
+        1 - \beta\cos\theta
+    \right)\vu z,
+    \\
+    \vc B_{||}'
+    &=&
+    0.
+\end {eqnarray}
+Now the Poynting vector can be computed 
+\begin {eqnarray}
+    \frac{1}{\mu_0}\vc E'\times\vc B'
+    &=&
+    \frac{1}{\mu_0}
+    \vc E_{||}'\times\vc B_{\perp}' + \frac{1}{\mu_0}\vc E_{\perp}'\times\vc B_{\perp}'
+    \\
+    &=&
+    \frac{E_0^2}{\mu_0}
+    (1 - \beta\cos\theta)
+    \left\{
+    \left(\sin\theta\:\vu x\right)
+    \times 
+    \left(
+        \frac{\gamma}{c}\:\vu z
+    \right)
+    +
+    \left[
+        \gamma(\cos\theta - \beta)\vu y
+    \right]
+    \times 
+    \left(
+        \frac{\gamma}{c}\vu z
+    \right)
+    \right\}
+    \\
+    &=&
+    \frac{E_0^2\gamma}{c\mu_0}
+    (1 - \beta\cos\theta)
+    \left[
+        -\sin\theta\:\vu y 
+        + 
+        \gamma(\cos\theta - \beta)\:\vu z
+    \right].
+    \label{eq:poynting_plane}
+\end {eqnarray}
+Squaring the expression in square brackets yields 
+\begin {eqnarray}
+    \sin^2\theta + \frac{\cos^2\theta - 2\beta\cos\theta + \beta^2}{1 - \beta^2}
+    &=&
+    \frac{\sin^2\theta - \beta^2\sin^2\theta + \cos^2\theta - 2\beta\cos\theta + \beta^2}{1 - \beta^2}
+    \\
+    &=& 
+    \gamma^2(
+        1 - 2\beta\cos\theta + \beta^2\cos^2\theta
+    )
+    \\
+    &=& 
+    \gamma^2(1 - \beta\cos\theta)^2.
+\end {eqnarray}
+Substitution back to $(\ref{eq:poynting_plane})$ and application of 
+$(\ref{eq:doppler_relativistic})$, yields
+\begin {eqnarray}
+    \frac{1}{\mu_0}|\vc E'\times\vc B'|
+    =
+    \frac{E_0^2\gamma^2}{c\mu_0}(1 - \beta\cos\theta)^2
+    = 
+    \left(\frac{\omega'}{\omega}\right)^2 
+    \frac{1}{\mu_0}|\vc E\times\vc B|
+\end {eqnarray}
+Thus, the intensity of plane waves transforms between frames proportionally to the 
+square of frequency, where the frequency ratio follows from the equation 
+$(\ref{eq:doppler_relativistic})$ for the relativistic Doppler effect:
+\begin {eqnarray}
+    \label{eq:intensity_transform}
+    \boxed{
+    \quad
+    \frac{I'}{I}
+    =
+    \left(
+    \frac{\omega'}{\omega}
+    \right)^2
+    = 
+    \gamma^2(1 - \beta\cos\theta)^2
+    .
+    \quad
+    }
+\end {eqnarray}
+
+\subsubsection{Wave Four-Vector}
+Consider again a plane wave in $S$ propagating to a direction that makes the angle 
+$\theta$ with the +x direction in $S$. Then, if the frame $S'$ moves with velocity 
+$v$ into the +x direction w.r.t. $S$, the wave four-vectors 
+\begin {eqnarray}
+    k &=& (\omega/c, k\cos\theta, k\sin\theta, 0), \\
+    k' &=& (\omega'/c, k'\cos \theta', k'\sin\theta, 0)
+\end {eqnarray}
+in $S$ and $S'$ can be related by the inverse Lorentz transformation \cite{steane}
+\begin {eqnarray}
+    \label{eq:wavevec_four}
+    \begin {bmatrix}
+        \omega/c \\ k\cos\theta \\ k\sin\theta \\ 0
+    \end {bmatrix}
+    =
+    \begin {bmatrix}
+        \gamma & \gamma\beta & 0 & 0 \\
+        \gamma\beta & \gamma & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1
+    \end {bmatrix}
+    \begin {bmatrix}
+        \omega'/c \\ k'\cos\theta' \\ k'\sin\theta' \\ 0
+    \end {bmatrix}
+    =
+    \begin {bmatrix}
+        \gamma(\omega'/c + \beta k'\cos\theta') \\
+        \gamma(\beta\omega'/c + k'\cos\theta') \\
+        k'\sin\theta' \\
+        0
+    \end {bmatrix}.
+\end {eqnarray}
+This transformation is a treasure trove of useful information: The first row implies
+\begin {eqnarray}
+    \omega = \gamma(\omega' + \beta k'c\cos\theta') = \gamma\omega'(1 + \beta\cos\theta'),
+\end {eqnarray}
+which is equivalent to the relativistic Doppler effect in $(\ref{eq:doppler_relativistic})$.
+The ratio of the third and second rows can be expanded 
+\begin {eqnarray}
+    \tan\theta 
+    =
+    \frac{k'\sin\theta'}{\gamma(\beta\omega'/c + k'\cos\theta')}
+    =
+    \frac{\sin\theta'}{\gamma(\cos\theta' + \beta)}
+    = 
+    \frac{\tan\theta'}{\gamma(1 + \beta\sec\theta')},
+\end {eqnarray}
+which is the relativistic aberration formula $(\ref{eq:relativistic_aberration})$.
+The third row is equivalent to the y-component of $(\ref{eq:doppler_relativistic})$ for 
+the wave vector and by using the relation $k = \omega/c$ can be converted into an another 
+useful relation
+\begin {eqnarray}
+    \label{eq:useful_relation}
+    \omega\sin\theta = \omega'\sin\theta'.
+\end {eqnarray}
+The ratio of the second and first rows also yields the relation 
+\begin {eqnarray}
+    \label{eq:klorentz3}
+    \cos\theta 
+    = 
+    \frac{\beta\omega'/c + k'\cos\theta'}{\omega'/c + \beta k'\cos\theta'}
+    = 
+    \frac{\cos\theta' + \beta}{1 + \beta\cos\theta'}.
+\end {eqnarray}
+
+
+\subsubsection{Headlight Effect for Monochromatic Waves}
+Consider monochromatic radiation source fixed in $S'$ that radiates with equal power to 
+all directions. Suppose again also that the $S'$ moves w.r.t. $S$ to +x direction with 
+velocity $v$. Let $\theta'$ be the angle in $S'$ w.r.t. direction of velocity. We want 
+to find the dependence of radiated power density in $S$ on the angle $\theta$ and the 
+solid angle $\Omega$. The luminosity is dependent of the frame. In fact, it diverges 
+towards infinity as the speed of the source w.r.t. observer converges towards the 
+speed of light. However, if the source emits a (large) fixed number $N$ of particles 
+uniformly to all direction over some specific period, it makes sense to ask what is 
+the dependence of the density of expected number of particles on $\theta$ and $\Omega$.
+
+The number of particles per unit angle to the directions 
+$(\theta', \theta' + d\theta')$ can be written
+\begin {eqnarray}
+    \label{eq:Lthetadot}
+    \diff{N}{\theta'} 
+    = 
+    N \frac{2\pi r\sin\theta'}{4\pi r^2} r
+    = 
+    \frac{N}{2}\sin\theta'.
+\end {eqnarray}
+Now, we want to find an expression for the expected number of particles per unit 
+angle in $S$. 
+By chain rule, this should be equal to 
+\begin {eqnarray}
+    \diff{N}{\theta} = \diff{N}{\theta'}\diff{\theta'}{\theta}.
+\end {eqnarray}
+From $(\ref{eq:klorentz3})$, we can solve 
+\begin {eqnarray}
+    \cos\theta' = \frac{\cos\theta - \beta}{1 - \beta\cos\theta}.
+\end {eqnarray}
+Differentiating w.r.t. $\theta$, yields 
+\begin {eqnarray}
+    -\sin\theta'
+    \diff{\theta'}{\theta}
+    &=&
+    \frac{-\sin\theta(1 - \beta\cos\theta) - (\cos\theta - \beta)\beta\sin\theta}
+    {(1 - \beta\cos\theta)^2}
+    \\
+    &=&
+    \frac{-\sin\theta + \beta\sin\theta\cos\theta - \beta\sin\theta\cos\theta + \beta^2\sin\theta}
+    {(1 - \beta\cos\theta)^2}
+    \\
+    &=& 
+    \frac{-\sin\theta(1 - \beta^2)}
+    {(1 - \beta\cos\theta)^2}.
+\end {eqnarray}
+Thus, we obtain 
+\begin {eqnarray}
+    \diff{\theta'}{\theta}
+    =
+    \frac{\sin\theta}{\sin\theta'}\frac{1 - \beta^2}{(1 - \beta\cos\theta)^2}
+\end {eqnarray}
+Combination with $(\ref{eq:Lthetadot})$, yields
+\begin {eqnarray}
+    \diff{N}{\theta}
+    =
+    \diff{N}{\theta'}\diff{\theta'}{\theta}
+    =
+    \frac{N}{2}\sin\theta\frac{1 - \beta^2}{(1 - \beta\cos\theta)^2}.
+\end {eqnarray}
+In $S'$ the number of particles per solid angle is uniformly
+\begin {eqnarray}
+    \diff{N}{\Omega'} = \frac{N}{4\pi},
+\end {eqnarray}
+where $4\pi$ is the solid angle of the entire sphere.
+To obtain corresponding expression w.r.t. $\Omega$, we first note the relationship
+between solid angles and $\theta$
+\begin {eqnarray}
+    \diff{\theta}{\Omega} = \frac{1}{2\pi\sin\theta}.
+\end {eqnarray}
+Application of the chain rule now yields 
+\begin {eqnarray}
+    \diff{N}{\Omega}
+    =
+    \diff{N}{\theta}\diff{\theta}{\Omega}
+    =
+    \frac{N}{2}\sin\theta\frac{1-\beta^2}{(1-\beta\cos\theta)^2}
+    \frac{1}{2\pi\sin\theta}
+    = 
+    \frac{N}{4\pi}\frac{1}{\gamma^2(1 - \beta\cos\theta)^2}
+\end {eqnarray}
+and application of relativistic Doppler effect $(\ref{eq:doppler_relativistic})$
+leads to the desired result
+\begin {eqnarray}
+    \boxed{
+        \quad
+        \diff{N}{\Omega}
+        = 
+        \frac{N}{4\pi}
+        \left(\frac{\omega}{\omega'}\right)^2
+        =
+        \left(\frac{\omega}{\omega'}\right)^2
+        \diff{N}{\Omega'}
+        \quad
+    }
+\end {eqnarray}
+That is, the number of particles per unit solid angle transforms according to the 
+squared ratio of frequencies from the relativistic Doppler effect. However, note 
+that this derivation didn't involve EM radiation to which one could associate 
+frequency. To obtain a transformation for the radiated power density per unit solid 
+angle, we can use the relationship $(\ref{eq:intensity_transform})$ for the intensity 
+of plane waves in the two frames. If the preceding argument describes the "number" 
+of plane waves associated to specific power the intensity relates the power of 
+each plane wave. 
+
+This suggests that power density w.r.t. solid angle satisfies 
+\begin {eqnarray}
+    \boxed{
+        \quad
+        \diff{L}{\Omega} = \left(
+            \frac{\omega}{\omega'}
+        \right)^4 
+        \diff{L'}{\Omega'}.
+        \quad
+    }
+\end {eqnarray}
+
+
+\subsubsection{Black-Body Radiance}
 For an observer moving at relativistic speeds, the perceived color of black-body sources
 can be significantly influenced by the Doppler effect. However, since the black-body 
 radiation is not monochromatic but consists of a continuous spectrum, the computation
-of the Doppler effect is no longer trivial.
+of the Doppler effect is no longer trivial. In a continuous spectrum, we do not 
+expect a radiance that transforms proportionally to fourth power of the frequency:
+If the Doppler effect indicates a ratio $\omega/\omega'$ ratio of frequencies between 
+$S$ and $S'$ spectrum in the range $[\omega', \omega' + \Delta']$ in $S'$ will 
+correspond to spectrum in the range $[\omega, \omega + (\omega/\omega')\Delta']$ in $S$. 
+This suggests that radiance transforms instead to the third power.
 
+In $S'$, we have spectral radiance
+\begin {eqnarray}
+    L_{e, \nu'}(\nu') 
+    = 
+    \frac{2h{\nu'}^3}{c^2}
+    \left[
+        \exp\left(\frac{h\nu'}{kT'}\right) - 1
+    \right]^{-1}.
+\end {eqnarray}
+From superficial interpration of \cite{blackbody_doppler}, \cite{blackbody_doppler2},
+it seems that the argument to the exponential term transforms according to an 
+\textbf{effective temperature} so that 
+\begin {eqnarray}
+    T = \frac{T'}{\gamma(1 - \beta\cos\theta)} 
+    = 
+    \left(\frac{\omega}{\omega'}\right)T'.
+\end {eqnarray}
+The amplitude term is replaced with one with third power of the Doppler-transformed 
+frequency.
 \subsection{Stars}
 \subsubsection{Spectral Classification of Stars}
 \subsubsection{Observed Spectral Power Distribution}
@@ -1942,5 +2290,28 @@ of the Doppler effect is no longer trivial.
 \subsection{Brightness}
 \subsubsection{Headlight Effect}
 
+\begin {thebibliography}{1}
+    \bibitem{almanac}
+    Urban, Seidelmann, Explanatory Supplement to the Astronomical Alamanac, 
+    3rd Edition, University Science Books, 2012.
+    \bibitem{cie}
+    CIE 1931 2-deg XYZ CMFs, Colour \& Vision Research Laboratory, 
+    Institute of Opthalmology, University College London. Available at 
+    \url{http://cvrl.ioo.ucl.ac.uk/cie.htm}.
+    \bibitem{radiance}
+    Walker, Saunders, Hattenburg, Spectral Radiance Calibrations, 
+    NBS Special Publication 250-1, 1987.
+    \bibitem{blackbody_doppler}
+    Ford, O'Connell, Lorentz transformation of blackbody radiation, 
+    Phys. Rev. E 88, 2013.
+    \bibitem{blackbody_doppler2}
+    Yurtsever, Wilkinson, Limits and Signatures of Relativistic Spaceflight,
+    Acta Astronautica, Vol. 142, 2018
+    \bibitem{griffiths}
+    Griffiths, Introduction to Electrodynamics, 3rd Edition, Pearson, 2008.
+    \bibitem{steane}
+    Steane, Symmetry and Relativity, Lecture Notes, Oxford University, 2011.
+    Available at \url{https://users.physics.ox.ac.uk/~Steane/teaching/lecture_course.html}.
+\end {thebibliography}
 
 \end {document}
