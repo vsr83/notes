@@ -129,6 +129,13 @@
 \tableofcontents
 
 \newpage
+\section{Motivation}
+This document contains my notes on optical and visual effects resulting from 
+observer motion when the speed of light is finite. The discussed effects are 
+related to the interplay of aberration, Doppler effect, special relativity
+and the human perception of color. My interest on the topic arose from 
+attempts to solve fascinating problems in the textbook \cite{relativity_problems}
+and implementation of aberration correction algorithms.
 
 \section{Aberration Formulas}
 \subsection {Classical and Relativistic Aberration}
@@ -1509,8 +1516,255 @@ dot when $\beta\to 1$.
 \end {figure} 
 
 \newpage
-\section{Visual Perception}
-\subsection{Human Vision and LMS Color Space}
+\section{Human Perception}
+\subsection{Perspective Projection}
+\subsubsection{The Camera Frustrum}
+\textbf{Perspective projection} can be seen as an idealized representation how a
+camera or the human eye forms a two-dimensional image from light rays received from 
+a three-dimensional scene. Lines-of-sight are considered to converge on a single point,
+which is considered as the location of the camera. If the image is rectangular, all 
+potentially visible points in the scene are inside an infinite pyramidal shape 
+starting from camera position. Usually, the pyramid is truncated into a 
+\textbf{camera frustrum} with \textbf{near and far planes} orthogonal to the pointing 
+direction of the camera (see Figure \ref{fig:frustrum}) and all points outside the frustrum 
+are discarded (\textbf{culling}). 
+
+\begin {figure}[t]
+  \begin {center}
+    \begin{tikzpicture}
+        \draw[thick, ->] (0, 0) -- (0, 3);
+        \draw[thick, ->] (0, 0) -- (-1.5, -1.5);
+        \draw[thick, ->] (0, 0) -- (7.5, 0);
+
+        \draw[dashed] (0, 0) -- (8 - 1, 0 - 1 - 2);
+        \draw[dashed] (0, 0) -- (8 - 1, 0 - 1 + 2);
+        \draw[dashed] (0, 0) -- (8 + 1, 0 + 1 - 2);
+        \draw[dashed] (0, 0) -- (8 + 1, 0 + 1 + 2);
+
+        \draw[thick] (2 - 0.25, 0 - 0.25 - 0.5) -- (2 + 0.25, 0 + 0.25 - 0.5);
+        \draw[thick] (2 - 0.25, 0 - 0.25 + 0.5) -- (2 + 0.25, 0 + 0.25 + 0.5);
+        \draw[thick] (2 - 0.25, 0 - 0.25 - 0.5) -- (2 - 0.25, 0 - 0.25 + 0.5);
+        \draw[thick] (2 + 0.25, 0 + 0.25 - 0.5) -- (2 + 0.25, 0 + 0.25 + 0.5);
+
+        \draw[thick] (2 - 0.25, 0 - 0.25 - 0.5) -- (6 - 0.75, 0 - 0.75 - 1.5);
+        \draw[thick] (2 - 0.25, 0 - 0.25 + 0.5) -- (6 - 0.75, 0 - 0.75 + 1.5);
+        \draw[thick] (2 + 0.25, 0 + 0.25 - 0.5) -- (6 + 0.75, 0 + 0.75 - 1.5);
+        \draw[thick] (2 + 0.25, 0 + 0.25 + 0.5) -- (6 + 0.75, 0 + 0.75 + 1.5);
+
+        \draw[thick] (6 - 0.75, 0 - 0.75 - 1.5) -- (6 + 0.75, 0 + 0.75 - 1.5);
+        \draw[thick] (6 - 0.75, 0 - 0.75 + 1.5) -- (6 + 0.75, 0 + 0.75 + 1.5);
+        \draw[thick] (6 - 0.75, 0 - 0.75 - 1.5) -- (6 - 0.75, 0 - 0.75 + 1.5);
+        \draw[thick] (6 + 0.75, 0 + 0.75 - 1.5) -- (6 + 0.75, 0 + 0.75 + 1.5);
+
+        \draw[dashed] (2, 0) -- (2, 2.3);
+        \draw[dashed] (6, 0) -- (6, 2.3);
+        \draw (2, 2.5) node{$z_e=-n$};
+        \draw (6, 2.5) node{$z_e=-f$};
+
+
+        \draw (2, 0) node{$\bullet$};
+        \draw (6, 0) node{$\bullet$};
+
+        \draw (0.35,2.75) node{$y_e$};
+        \draw (-1.5,-1.1) node{$x_e$};
+        \draw (7.4,0.4) node{$-z_e$};
+    \end {tikzpicture}
+    \caption{\label{fig:frustrum} Infinite pyramid truncated into a camera frustrum by 
+             near and far planes at $z_e=-n$ and $z_e=-f$, respectively.}
+  \end {center}
+\end {figure}
+
+
+\subsubsection{Model, World and View Spaces}
+Intuitively, the image can be considered to form on the near plane. However, any real-world 
+software implementation typically involves a sequence of coordinate transformations 
+between the world space and normalized device coordinates. In this document, we use 
+standard OpenGL terms and conventions (see e.g. TBA). 
+
+Specific objects (e.g. cubes) in a scene might have their geometry defined in an object-specific
+\textbf{local space}, where the object in question is typically placed at the origin. 
+The actual scene inhabits a \textbf{world space} into which specific objects are placed 
+according to object-specific mapping defined by a \textbf{model matrix}. Each camera is placed 
+at the origin of the corresponding \textbf{view space} pointing to -z-direction and the 
+camera-specific transformation from the world space is defined by a \textbf{view matrix}.
+In the view space, the intersection of the frustrum and the near and far planes correspond to the sets
+\begin {eqnarray}
+    N &=&
+    [l, r]\times[b, t]\times\{-n\} ,
+    \\
+    F &=&
+    [fl/n, fr/n]\times[fb/n, ft/n]\times\{-f\},
+\end {eqnarray}
+where $l, r, b$ and $t$ refer to left, right, bottom and top coordinate values.
+
+Since the transformations between spaces may involve translation in addition to deformation and 
+rotation, 4x4-matrices operating on the Cartesian coordinates $(x,y,z,w)$ are used, where 
+$w=1$ in local, world and view spaces. The translation part of such transformation is 
+included in the last column as follows 
+\begin {eqnarray}
+    \begin {bmatrix}
+        R_{11} & R_{12} & R_{13} & \Delta x \\
+        R_{21} & R_{22} & R_{23} & \Delta y \\
+        R_{31} & R_{32} & R_{33} & \Delta z \\
+        0 & 0 & 0 & 1 
+    \end {bmatrix}
+    \begin {bmatrix}
+        x \\ y \\ z \\ 1
+    \end {bmatrix}
+    = 
+    \begin {bmatrix}
+        R\vc r + \Delta\vc r \\ 1
+    \end {bmatrix},
+\end {eqnarray}
+where we have denoted $\vc r = [x, y, z]^T$. Note that the matrix $R$ is not applied to 
+the translation part and thus the translation is not a translation in the source coordinate system.
+For example, if the camera is located at $(\vc p, 1)$ 
+in the world space and points to $+z$-direction, the transformation between the world space 
+coordinates $(x_w, y_w, z_w, w_w=1)$ to the view coordinates could be
+\begin {eqnarray}
+    \begin {bmatrix}
+        x_e \\ y_e \\ z_e \\ w_e
+    \end {bmatrix}
+    = 
+    \begin {bmatrix}
+        -1 & 0 & 0 & p_x \\
+        0 & 1 & 0 & -p_y \\
+        0 & 0 & -1 & p_z \\
+        0 & 0 & 0 & 1 
+    \end {bmatrix}
+    \begin {bmatrix}
+        x_w \\ y_w \\ z_w \\ 1
+    \end {bmatrix}
+    = 
+    \begin {bmatrix}
+        -x_w + p_x \\ +y_w - p_y \\ -z_w + p_z \\ 1
+    \end {bmatrix},
+\end {eqnarray}
+That is, the translation $(-p_x, -p_y, -p_z)$ in the world space corresponds to a translation 
+$(p_x, -p_y, p_z)$ in the view space.
+
+\subsubsection{The Clip Space, Projection and Normalized Device Coordinates}
+In order to draw triangles, lines or points on a screen and clip anything outside the camera 
+frustrum, the coordinates $(x_e, y_e, z_e, w_e = 1)$ from the view space are first 
+transformed into a \textbf{clip space} with a \textbf{projection matrix}. Then, culling 
+corresponds to discarding vertices with coordinates $(x_c, y_c, z_c, w_c)$ that satisfy
+\begin {eqnarray}
+    \label{eq:culling}
+    \max\left\{|x_c|, |y_c|, |z_c|\right\} > w_c.
+\end {eqnarray}
+In the clip space $w_c$ does not necessarily equal to $1$. Rather, the clip space is 
+an example of a \textbf{homogeneous space}, where the elements  
+$(\alpha x_c, \alpha y_c, \alpha z_c, \alpha)$ are considered equal for all non-zero 
+values of $\alpha$. After culling, the clip coordinates are therefore 
+transformed to \textbf{normalized device coordinates} inside the cube 
+$[-1, 1]\times[-1, 1]\times[-1, 1]$ with 
+\begin {eqnarray}
+    (x_n, y_n, z_n) = \left(x_c/w_c, y_c/w_c, z_c/w_c\right).
+\end {eqnarray}
+
+The projection matrix can be derived by first considering \textbf{projective plane coordinates}
+on the near plane and their relation to the normalized device coordinates. If we denote 
+coordinates in view space with $(x_e, y_e, z_e, w_e=1)$, the intersection between the line 
+to the origin and the near plane is at 
+\begin {eqnarray}
+    x_p = \frac{nx_e}{-z_e}, \quad 
+    y_p = \frac{ny_e}{-z_e}.
+\end {eqnarray}
+The normalized device coordinates $x_n, y_n$ on the near plane linearly map 
+intervals $[l, r]$ and $[b, t]$ to the intervals $[-1, 1]$ and $[-1, 1]$.
+Thus, we obtain 
+\begin {eqnarray}
+    x_n 
+    &=&
+    \frac{2x_p}{r - l} - \frac{r + l}{r - l},
+    \\
+    y_n 
+    &=&
+    \frac{2y_p}{t - b} - \frac{t + b}{t - b}.
+\end {eqnarray}
+Thus, selecting $w_c=-z_e$
+\begin {eqnarray}
+    x_n 
+    &=& 
+    \frac{1}{-z_e}\left(
+        \frac{2nx_e}{r-l} + \frac{r+l}{r-l}z_e
+    \right)
+    =
+    \frac{1}{w_e}\left(
+        \frac{2nx_e}{r-l} + \frac{r+l}{r-l}z_e
+    \right)
+    =
+    \frac{x_c}{w_e},
+    \\
+    y_n 
+    &=& 
+    \frac{1}{-z_e}\left(
+        \frac{2ny_e}{t-b} + \frac{t+b}{t-b}z_e
+    \right)
+    =
+    \frac{1}{w_e}\left(
+        \frac{2ny_e}{t-b} + \frac{t+b}{t-b}z_e
+    \right)
+    =
+    \frac{y_c}{w_e}.
+\end {eqnarray}
+We also want $z_n$ to obtain values in the interval $[-1, 1]$. Thus, requiring that 
+a linear map $z_c = Az_e + B$ maps
+$z_e = -n$ and $z_e = -f$ map to $z_c = -n$ and $z_c = f$, respectively, we get 
+\begin {eqnarray}
+    z_c 
+    &=&
+    -\frac{f+n}{f-n}z_e - \frac{2fn}{f-n}.
+\end {eqnarray}
+In order to check the result, we can compute the corresponding NDC coordinate
+\begin {eqnarray}
+    z_n 
+    = 
+    \frac{z_c}{-z_e}
+    = 
+    \frac{1}{f - n}\left(f + n + \frac{2fn}{z_e}\right).
+\end {eqnarray}
+Substituting $z_e = -n$ and $z_e = -f$ then yields $z_n=-1$ and $z_n=1$, respectively,
+as expected.
+
+Collecting the above results yields the projection matrix transforming the view 
+coordinates to clip coordinates
+\begin {eqnarray}
+    \boxed {
+        \quad
+        P
+        =
+        \begin {bmatrix}
+            2n/(r-l) & 0 & (r+l)/(r-l) & 0 \\
+            0 & 2n/(t-b) & (t+b)/(t-b) & 0 \\
+            0 & 0 & -(f+n)/(f-n) & -2fn/(f-n) \\
+            0 & 0 & -1 & 0
+        \end {bmatrix}
+        \quad
+    }
+\end {eqnarray}
+In order to understand the culling criterion $(\ref{eq:culling})$, 
+note that the projection matrix maps the intersection of each plane with constant $z_e$ 
+with the camera frustrum to
+\begin {eqnarray}
+    [z_e, -z_e]\times [z_e, -z_e]\times\{z_c\}\times\{-z_e\}
+    =
+    [-w_c, w_c]\times [-w_c, w_c]\times\{z_c\}\times\{w_c\}.
+\end {eqnarray}
+Any point on the plane outside the frustrum will satisfy $(\ref{eq:culling})$.
+On the other hand, if $z_c > w_c$, we get
+\begin {eqnarray}
+    z_c = -\frac{f + n}{f - n}z_e - \frac{2fn}{f - n} > w_c = - z_e 
+\end {eqnarray}
+from which it easily follows that $z_e < -f$. Similarly, if $z_c < - w_c$, we get
+\begin {eqnarray}
+    z_c = -\frac{f + n}{f - n}z_e - \frac{2fn}{f - n} < -w_c = z_e,
+\end {eqnarray}
+which yields $z_c > -n$.
+\subsubsection{Special Cases of a Projection Matrix}
+
+\subsection{Human Perception of Color}
+\subsubsection{Human Vision and LMS Color Space}
 Human vision is limited to the wavelength range between 380 and 700 nm. The 
 perception of color is based on three classes of cone cells on the retina.
 Each type of cone cell has different \textbf{spectral sensitivity}. That is,
@@ -1550,7 +1804,7 @@ called \textbf{metamers}.
 % TBA: https://www.fourmilab.ch/documents/specrend
 
 
-\subsection{CIE 1931 Color Spaces and sRGB Encoding \label{sec:srgb}}
+\subsubsection{CIE 1931 Color Spaces and sRGB Encoding \label{sec:srgb}}
 We wish to convert spectrum to 8-bit sRGB values that can be rendered on 
 computer displays. This can be achieved by the use of CIE XYZ color-matching
 functions and then performing a conversion to SRGB and subsequent 
@@ -1669,7 +1923,7 @@ where $C \in \{R, G, B\}$. Finally, the 8-bit quantized values are obtained via
 %    \right]
 %\end {eqnarray}
 
-\subsection{Example: Visible Wavelength Range}
+\subsubsection{Example: Visible Wavelength Range}
 To compute sRGB values corresponding to the visible wavelength range, select
 for each wavelength $\lambda'$
 \begin {eqnarray}
@@ -2268,6 +2522,7 @@ From superficial interpration of \cite{blackbody_doppler}, \cite{blackbody_doppl
 it seems that the argument to the exponential term transforms according to an 
 \textbf{effective temperature} so that 
 \begin {eqnarray}
+    \label{eq:effective_temperature_doppler}
     T = \frac{T'}{\gamma(1 - \beta\cos\theta)} 
     = 
     \left(\frac{\omega}{\omega'}\right)T'.
@@ -2275,11 +2530,44 @@ it seems that the argument to the exponential term transforms according to an
 The amplitude term is replaced with one with third power of the Doppler-transformed 
 frequency.
 \subsection{Stars}
-\subsubsection{Spectral Classification of Stars}
-\subsubsection{Observed Spectral Power Distribution}
-\subsubsection{Doppler Effect}
+\subsubsection{Spectrum of Stars}
+The electromagnetic spectrum of stars essentially follow the blackbody spectrum 
+complicated slightly by absorption and emission lines. However, for visual 
+effects discussed in this section, they can be approximated as ideal black-bodies.
+Spectral classification of the star essentially determines to the selection of an
+\textbf{effective temperature} $T_{eff}'$ used for the black-body spectrum in the 
+rest frame of the star. 
+%This effective temperature is further transformed based on the relativistic 
+%Doppler effect using $(\ref{eq:effective_temperature_doppler})$.
 
-\subsection{Planets}
+\subsubsection{Observed Color}
+To compute the color of a distant star observed by an observer in relative motion, 
+we simply compute the effective temperature $T_{eff}$ of the star in the frame 
+of the observer using $(\ref{eq:effective_temperature_doppler})$. When the observer 
+is travelling directly towards the star in longitudal motion, this corresponds to the 
+selection of $\theta=0$. Figure \ref{fig:blackbody_long_doppler} shows the observed 
+color for a range of effective temperatures (in $S'$) for an observer moving 
+with velocity $\beta$. Figure \ref{fig:blackbody_sun_doppler} shows the observed 
+color for a range of angles $\theta$ w.r.t. the direction of motion for a black-body 
+with the effective temperature $T'=5778$ K of the Sun. 
+
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.65\columnwidth, viewport=30 0 410 330, clip=true] {fig/blackbody_long_doppler.eps}
+     \caption{\label{fig:blackbody_long_doppler} Observed color of a black-body with 
+     given effective temperature for an observer in longitudal motion w.r.t. source.}
+  \end {center}
+\end {figure} 
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=60 0 600 270, clip=true] {fig/blackbody_sun_doppler.eps}
+     \caption{\label{fig:blackbody_sun_doppler} Observed color of a black-body 
+     approximating the Sun at an angle $\theta$ w.r.t. the direction of motion.}
+  \end {center}
+\end {figure} 
+
+\subsubsection{Observed Spectral Power Distribution}
 
 \newpage
 
@@ -2291,6 +2579,9 @@ frequency.
 \subsubsection{Headlight Effect}
 
 \begin {thebibliography}{1}
+    \bibitem{relativity_problems}
+    Lightman, Press, Price, Teukolsky, Problem Book in Relativity and Gravitation, 
+    Princeton University Press, 2017.
     \bibitem{almanac}
     Urban, Seidelmann, Explanatory Supplement to the Astronomical Alamanac, 
     3rd Edition, University Science Books, 2012.

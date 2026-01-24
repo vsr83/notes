@@ -68,14 +68,17 @@ ax3.set_xlabel("Effective Temperature (K)")
 ax3.set_ylabel("Observer Velocity (β)")
 #ax3.grid(color='k')
 
+fig3.savefig('../fig/blackbody_long_doppler.eps', format='eps')
+
 fig4, ax4 = plt.subplots()
+fig4.set_size_inches(9, 4)
 SRGB3 = []
 T = 5778
 for beta in np.arange(-0.99, 1.00, 0.01):
     print(beta)
     SRGB = []
     gamma = 1/np.sqrt(1 - beta*beta)
-    for theta in np.arange(-90, 90, 0.1):
+    for theta in np.arange(-180, 180, 0.25):
         theta_rad = np.radians(theta)
         Teff = T / gamma / (1 - beta * np.cos(theta_rad))
 
@@ -89,19 +92,23 @@ for beta in np.arange(-0.99, 1.00, 0.01):
 
 
 SRGB3 = np.flip(np.array(SRGB3), axis=0)
-ax4.imshow(SRGB3, extent=[0, 10000, 0, 10000])
+ax4.imshow(SRGB3, extent=[0, 20000, 0, 10000])
 
 beta = np.arange(0, 1, 0.01)
 gamma = 1/np.sqrt(1 - beta*beta)
 theta = np.degrees(np.acos(1/beta * (1 - 1/gamma)))
-ax4.plot(5000 * (1 + theta/90), 5000 * (1 + beta), 'k:')
-ax4.plot(5000 * (1 - theta/90), 5000 * (1 + beta), 'k:')
-ax4.plot(np.array([0, 10000]), np.array([5000, 5000]), 'k:')
+ax4.plot(10000 * (1 + theta/180), 5000 * (1 + beta), 'k:', linewidth=1)
+ax4.plot(10000 * (1 - theta/180), 5000 * (1 + beta), 'k:', linewidth=1)
+ax4.plot(10000 * (2.0 - theta/180), 5000 * (1 - beta), 'k:', linewidth=1)
+ax4.plot(10000 * (0.0 + theta/180), 5000 * (1 - beta), 'k:', linewidth=1)
+ax4.plot(np.array([0, 20000]), np.array([5000, 5000]), 'k:', linewidth=1)
 
 ax4.set_yticks([0, 5000, 10000], ['-1', '0.0', '1'])
-ax4.set_xticks([0, 2500, 5000, 7500, 10000], ['-90', '-45', '0', '45', '90'])
+ax4.set_xticks([0, 5000, 10000, 15000, 20000], ['-180', '-90', '0', '90', '180'])
 ax4.set_xlabel("Angle to Target (θ)")
 ax4.set_ylabel("Observer Velocity (β)")
 ax4.set_title("$\mathregular{T_{eff} = 5778} K$")
 #ax3.grid(color='k')
+fig4.savefig('../fig/blackbody_sun_doppler.eps', format='eps')
 plt.show()
+
