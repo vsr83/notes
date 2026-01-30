@@ -20,6 +20,7 @@
 \usepackage {siunitx}
 \usepackage {wasysym}
 \usepackage {marvosym}
+\usepackage {geometry}
 %\usepackage {mathabx}
 %\usepackage[urw-garamond]{mathdesign}
 \usepackage[small,bf]{caption}
@@ -69,6 +70,7 @@
 \newtheorem {theorem} {Theorem}
 \newtheorem {definition} {Definition}
 \newtheorem {postulate} {Postulate}
+\newtheorem {specialcase} {Special Case}
 
 \newcommand{\vu}[1]
 {
@@ -1739,7 +1741,7 @@ coordinates to clip coordinates
             0 & 2n/(t-b) & (t+b)/(t-b) & 0 \\
             0 & 0 & -(f+n)/(f-n) & -2fn/(f-n) \\
             0 & 0 & -1 & 0
-        \end {bmatrix}
+        \end {bmatrix}.
         \quad
     }
 \end {eqnarray}
@@ -1762,6 +1764,100 @@ from which it easily follows that $z_e < -f$. Similarly, if $z_c < - w_c$, we ge
 \end {eqnarray}
 which yields $z_c > -n$.
 \subsubsection{Special Cases of a Projection Matrix}
+\begin {specialcase}
+(General symmetric case): $l=-w, r=w, b=-h, b=h$
+\begin {eqnarray}
+    \label{eq:proj_gensym}
+    P
+    =
+    \begin {bmatrix}
+        n/w & 0 & 0 & 0 \\
+        0 & n/h & 0 & 0 \\
+        0 & 0 & -(f+n)/(f-n) & -2fn/(f-n) \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
+\end {specialcase}
+\begin {specialcase}
+(General infinite case): $f\to\infty$
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        2n/(r-l) & 0 & (r+l)/(r-l) & 0 \\
+        0 & 2n/(t-b) & (t+b)/(t-b) & 0 \\
+        0 & 0 & -1 & -2n \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
+\end {specialcase}
+\begin {specialcase}
+(Top-right case): $l=0, r=w, b=0, t=h$
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        2n/w & 0 & 1 & 0 \\
+        0 & 2n/h & 1 & 0 \\
+        0 & 0 & -(f+n)/(f-n) & -2fn/(f-n) \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
+\end {specialcase}
+\begin {specialcase}
+(Symmetric infinite case): $f\to\infty, l=-w, r=w, b=-h, b=h$
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        n/w & 0 & 0 & 0 \\
+        0 & n/h & 0 & 0 \\
+        0 & 0 & -1 & -2n \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
+\end {specialcase}
+\subsubsection{Field-of-View and Aspect Ratio}
+In the general symmetric case $(\ref{eq:proj_gensym})$, the parameters 
+$w$ and $h$ have a clear relationship to horizontal and vertical field-of-view
+\begin {eqnarray}
+    \tan\left(\frac{\textrm{FOV}_x}{2}\right) &=& \frac{w}{n}, \\
+    \tan\left(\frac{\textrm{FOV}_y}{2}\right) &=& \frac{h}{n}.
+\end {eqnarray}
+The projection matrix can be then written 
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        \dfrac{1}{\tan(FOV_x/2)} & 0 & 0 & 0 \\
+        0 & \dfrac{1}{\tan(FOV_y/2)} & 0 & 0 \\
+        0 & 0 & -\dfrac{f+n}{f-n} & \dfrac{-2fn}{f-n} \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
+Typically $\textrm{FOV}_y$ is written as FOV and $\textrm{FOV}_x$ is expressed 
+using \textbf{aspect ratio} $\alpha=w/h$. Thereafter,
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        \dfrac{1}{\alpha\tan(FOV/2)} & 0 & 0 & 0 \\
+        0 & \dfrac{1}{\tan(FOV/2)} & 0 & 0 \\
+        0 & 0 & -\dfrac{f+n}{f-n} & \dfrac{-2fn}{f-n} \\
+        0 & 0 & -1 & 0
+    \end {bmatrix},
+\end {eqnarray}
+which simplifies in the infinite case to
+\begin {eqnarray}
+    P
+    =
+    \begin {bmatrix}
+        \dfrac{1}{\alpha\tan(FOV/2)} & 0 & 0 & 0 \\
+        0 & \dfrac{1}{\tan(FOV/2)} & 0 & 0 \\
+        0 & 0 & -1 & -2n \\
+        0 & 0 & -1 & 0
+    \end {bmatrix}.
+\end {eqnarray}
 
 \subsection{Human Perception of Color}
 \subsubsection{Human Vision and LMS Color Space}
@@ -2573,7 +2669,90 @@ with the effective temperature $T'=5778$ K of the Sun.
 
 \section{Visual Effects at Relativistic Speeds}
 \subsection{Deformation}
-\subsubsection{Grid Deformation}
+\subsubsection{Spherical Grid}
+Consider spherical grid with $10^\circ$ steps w.r.t. coordinates
+$\theta\in[-90^\circ, 90^\circ]$ and $\phi\in[-180^\circ, 180^\circ]$, 
+where the relationship to Cartesian coordinates can be expressed as
+\begin {eqnarray}
+    x &=& R\cos\theta\cos\phi, \\
+    y &=& R\cos\theta\sin\phi, \\
+    z &=& R\sin\theta.
+\end {eqnarray}
+The radius $R$ is assumed to be so large that the uncorrected directions 
+towards the grid do not change and discussion of acceleration in the following 
+makes sense.
+
+Application of the relativistic aberration correction $(\ref{eq:properdir2})$ 
+to the grid with movement in $+x$ and $+z$ directions is shown Figure 
+\ref{fig:sph_grid_deform_360_x}
+and Figure 
+\ref{fig:sph_grid_deform_360_z}, respectively.
+Figure \ref{fig:sph_grid_perspective_x} and Figure \ref{fig:sph_grid_perspective_z} 
+show the deformation for an observer with $90^\circ$ field-of-view. 
+The comparison of the figures for motion in +x and +z directions indicates how the 
+selection of the axis pointing to the north pole in spherical coordinates influences 
+the simplicity of effect: When the motion is towards a pole, the effect becomes 
+independent of $\phi$.
+
+These visualizations show how as the observer accelerates towards the speed of light,
+aberration corresponds to an increasing compression towards the direction of motion 
+and stretching in the opposite direction. That is, towards the direction 
+of motion, the angular size of light sources will decrease and create an impression
+that the light sources are moving away from the observer while light sources 
+in the opposite direction will appear to move towards the observer. 
+
+If an observer launched into a direction normal to the galactic plane and 
+accelerated towards the speed of light, they would observe the galaxy as a 
+shrinking ring in the direction of movement. Similarly, if an observer launched 
+from the pole of Saturn at near the speed of light, they would see Saturn's rings 
+in the forward direction (for a very brief moment). One could find an 
+time-dependent acceleration that ensures that rings of Saturn would be observed 
+within given angle w.r.t. forward-direction.
+
+\newgeometry{left=1cm,bottom=0.1cm,top=0.1cm,right=1cm}
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_1.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_2.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_3.eps}
+     \caption{\label{fig:sph_grid_deform_360_x}Deformation of a spherical grid due to motion in $+x$ direction.}
+  \end {center}
+\end {figure} 
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_1.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_2.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_3.eps}
+     \caption{\label{fig:sph_grid_deform_360_z}Deformation of a spherical grid due to motion in $+z$ direction.}
+  \end {center}
+\end {figure} 
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_x.eps}
+     \caption{\label{fig:sph_grid_perspective_x}Deformation of a spherical grid due to motion in $+x$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_z.eps}
+     \caption{\label{fig:sph_grid_perspective_z}Deformation of a spherical grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+\newpage
+\restoregeometry
+\subsubsection{Rectangular Grid}
+
+
 \subsubsection{Solid Objects}
 \subsection{Brightness}
 \subsubsection{Headlight Effect}
