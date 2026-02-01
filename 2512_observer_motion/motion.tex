@@ -2709,6 +2709,27 @@ in the forward direction (for a very brief moment). One could find an
 time-dependent acceleration that ensures that rings of Saturn would be observed 
 within given angle w.r.t. forward-direction.
 
+\subsubsection{Rectangular Grid}
+For rectangular grid on a $z=$constant plane, the angular size of the plane can be 
+computed from $(\ref{eq:relativistic_aberration})$ by first rewriting 
+\begin {eqnarray}
+    \tan\theta' 
+    = 
+    \frac{\tan\theta}{\gamma(1 + \beta\sec\theta)}
+    =
+    \frac{\sin\theta/\cos\theta}{\gamma(1 + \beta/\cos\theta)}
+    =
+    \frac{\sin\theta}{\gamma(\cos\theta + \beta)}.
+\end {eqnarray}
+Substitution of $\theta=90^\circ$ then yields 
+\begin {eqnarray}
+    \label{eq:plane_aberration_limit}
+    \theta' = \arctan\frac{1}{\gamma\beta}
+\end {eqnarray}
+In Figures \ref{fig:rectangular_grid_z}, $z=$constant grid is drawn together with the limiting curve 
+$(\ref{eq:plane_aberration_limit})$ also shown in Figure \ref{fig:plane_aberration_limit}.
+Figures \ref{fig:rectangular_grid_y} shows $y=$constant grid.
+
 \newgeometry{left=1cm,bottom=0.1cm,top=0.1cm,right=1cm}
 \begin {figure}
   \begin {center}
@@ -2749,13 +2770,37 @@ within given angle w.r.t. forward-direction.
 \end {figure} 
 
 \newpage
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_z.eps}
+     \caption{\label{fig:rectangular_grid_z}Deformation of a $z=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.60\columnwidth, viewport=25 15 465 150] {fig/plane_aberration_limit.eps}
+     \caption{\label{fig:plane_aberration_limit}Angular radius of the circle into which 
+     the infinite plane with $z=$constant is aberrated into.}
+  \end {center}
+\end {figure} 
+
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_y.eps}
+     \caption{\label{fig:rectangular_grid_y}Deformation of a $y=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+
+\newpage
+
 \restoregeometry
-\subsubsection{Rectangular Grid}
 
 
 \subsubsection{Solid Objects}
-\subsection{Brightness}
-\subsubsection{Headlight Effect}
 
 \begin {thebibliography}{1}
     \bibitem{relativity_problems}
