@@ -196,6 +196,13 @@ and implementation of aberration correction algorithms.
     the train.}
   \end {center}
 \end {figure}
+A powerful introductory insight into many theories of physics can be gained from simple 
+thought experiments involving everyday things and phenomena often in extreme circumstances:
+For example, standard introduction to the theory of special relativity often is via
+thought experiments involving trains moving at relativistic velocities and flashes of 
+lightning. In a similar vein, we introduce the phenomenon of aberration with a thought 
+experiment, where the effect of finite speed is very apparent and intuitive.
+
 Consider a train cart fixed to the frame $S'$ moving in $+x$-direction with velocity 
 $v$ w.r.t. frame $S$ fixed to the ground. Passenger on the train observes the direction 
 of rain drops from the window. Suppose in $S$ it is raining from direction 
@@ -213,22 +220,34 @@ where $u$ is the velocity of the rain drop in $S$. In $S'$, we can express
 In $S'$, the angle $\theta'$ made by the rain drops w.r.t. positive x axis can be 
 expressed 
 \begin {eqnarray}
-    \tan\theta' 
-    = 
-    \frac{y'}{x'} 
-    =
-    \frac{u\sin\theta}{u\cos\theta + v} 
-    =
-    \frac{\tan\theta}{1 + \beta\sec\theta},
+    \label{eq:classical_aberration1}
+    \boxed{
+        \quad
+        \tan\theta' 
+        = 
+        \frac{y'}{x'} 
+        =
+        \frac{u\sin\theta}{u\cos\theta + v} 
+        =
+        \frac{\tan\theta}{1 + \beta\sec\theta},
+        \quad
+    }
 \end {eqnarray}
 where $\beta = v/u$ and $\sec\theta = 1/\cos\theta$. This classical formula is 
 limited angles in $+x$ direction. More generally,
 \begin {eqnarray}
-    \theta' 
-    =
-    \textrm{atan2}(\sin\theta, \cos\theta + \beta) 
+    \label{eq:classical_aberration2}
+    \boxed{
+        \quad
+        \theta' 
+        =
+        \textrm{atan2}(\sin\theta, \cos\theta + \beta).
+        \quad
+    }
 \end {eqnarray}
-
+The equations $(\ref{eq:classical_aberration1})$ and $(\ref{eq:classical_aberration2})$ 
+perfectly describe classical aberration and are accurate enough for most practical 
+cases. 
 \begin {figure}
   \begin {center}
      \includegraphics [angle=0, width=0.9\columnwidth] {fig/aberration.eps}
@@ -260,6 +279,7 @@ Thus, we obtain the well-known formula for relativistic aberration
 \end {eqnarray}
 and the more general expression
 \begin {eqnarray}
+    \label{eq:relativistic_aberration2}
     \theta' 
     =
     \textrm{atan2}\left[\sin\theta, \gamma(\cos\theta + \beta)\right]
@@ -268,7 +288,7 @@ The only difference between classical and relativistic aberration is the Lorentz
 factor. When $\beta$ is small, the difference between relativistic and classical 
 results can be usually ignored. At velocities close to the speed of light, the 
 Lorentz factor leads to light sources accumulating around direction of motion 
-(see Figure \ref{fig:classicrel}).
+(see Figure \ref{fig:classicrel}). This is called the \textbf{headlight effect}.
 
 \begin {figure}
   \begin {center}
@@ -320,7 +340,9 @@ for proper direction
 \end {eqnarray}
 
 \subsubsection{General Lorentz Transformation of Velocities}
-Let $S'$ move w.r.t. $S$ with velocity $\vc v$ and denote 
+In order to derive a vector formula for relativistic aberration, we need an expression 
+for general Lorentz transformation of velocities. We start by considering an inertial 
+frame $S'$ moving w.r.t. $S$ with velocity $\vc v$ and denote 
 \begin {eqnarray}
     \vc u := \diff{\vc r}{t}, 
     \quad
@@ -361,13 +383,13 @@ Now we can expand the components of velocity in $S'$
     =
     \frac{\vc u_\perp}{\gamma(1 - \vc v\cdot\vc u/c^2)}
 \end {eqnarray}
-The velocity in $S'$ can be expanded using 
+The velocity in $S'$ can be expanded using the projections
 \begin {eqnarray}
     \vc u_{||}=\frac{\vc u\cdot\vc v}{v^2}\vc v,
     \quad 
     \vc u_\perp = \vc u - \vc u_{||} = \vc u - \frac{\vc u\cdot\vc v}{v^2}\vc v
 \end {eqnarray}
-leading to 
+leading to the computation
 \begin {eqnarray}
     \vc u' &=& \vc u_{||}' + \vc u_\perp'
     \\
@@ -425,9 +447,9 @@ yields
         \left[
              \frac{c}{v^2}(\vu n\cdot\vc v)\left(\gamma - 1\right) - \gamma
         \right]
-    \right\}
+    \right\}.
 \end {eqnarray}
-or
+After division by $-c$, we get the expression
 \begin {eqnarray}
     \vu s 
     &=&
@@ -515,9 +537,18 @@ be expressed
         \quad
     }
 \end {eqnarray}
+This is the most general relativistic aberration formula equivalent to 
+$(\ref{eq:relativistic_aberration2})$. Application to any light source requires simply 
+the substitution of the direction $\vu p$ to target and vector beta factor $\vc\beta$.
+The result then points to observed direction to target. In the limit $\beta\to 0$, we get 
+$\vu s\to\vu p$ and in the limit $\beta\to 1$, $\vu s\to\vu\beta$. The same vector 
+formula (with different notation) can be found from \cite{almanac}.
 
 \subsection{Series Expansion of Aberration Correction}
 \subsubsection{Classical Aberration}
+In most practical applications, $\beta$ is small enough so we can approximate even the 
+classical correction with simpler formulas. 
+
 Cross product of $(\ref{eq:classical_properdir})$ with uncorrected 
 direction $\vc p$, yields
 \begin {eqnarray}
@@ -599,6 +630,9 @@ In most applications, where $\beta$ is small, we can approximate
         \quad
     }
 \end {eqnarray}
+It actually turns out that even the quadratic approximations are incompatible for 
+classical and relativistic expansions. Consequently, one should only apply the linear 
+part of $(\ref{eq:classical_series})$.
 
 \subsubsection{Relativistic Aberration}
 Cross product of $(\ref{eq:properdir2})$ with uncorrected direction $\vu p$, 
@@ -719,7 +753,8 @@ around $2$ mas and $0.2$ $\mu$as, respectively.
 \end {figure} 
 
 \subsection{Spherical Coordinates}
-We expand uncorrected direction 
+In many software implementations, the aberration correction is applied in terms of 
+spherical coordinates. We expand uncorrected direction 
 \begin {eqnarray}
     \vu p
     = 
@@ -777,6 +812,7 @@ Thereafter, we obtain
     = 
     - \beta_x\sin\alpha + \beta_y\cos\alpha.
 \end {eqnarray}
+This is equivalent to the equation $(23.4)$ in \cite{meeus}.
 \newpage
 \section{Stellar Aberration}
 \begin {figure}[t]
@@ -1518,7 +1554,7 @@ dot when $\beta\to 1$.
 \end {figure} 
 
 \newpage
-\section{Human Perception}
+\section{Human Perception and Computer Graphics}
 \subsection{Perspective Projection}
 \subsubsection{The Camera Frustrum}
 \textbf{Perspective projection} can be seen as an idealized representation how a
@@ -1529,7 +1565,7 @@ potentially visible points in the scene are inside an infinite pyramidal shape
 starting from camera position. Usually, the pyramid is truncated into a 
 \textbf{camera frustrum} with \textbf{near and far planes} orthogonal to the pointing 
 direction of the camera (see Figure \ref{fig:frustrum}) and all points outside the frustrum 
-are discarded (\textbf{culling}). 
+are discarded in a process called \textbf{culling}. 
 
 \begin {figure}[t]
   \begin {center}
@@ -1656,7 +1692,7 @@ corresponds to discarding vertices with coordinates $(x_c, y_c, z_c, w_c)$ that 
 \end {eqnarray}
 In the clip space $w_c$ does not necessarily equal to $1$. Rather, the clip space is 
 an example of a \textbf{homogeneous space}, where the elements  
-$(\alpha x_c, \alpha y_c, \alpha z_c, \alpha)$ are considered equal for all non-zero 
+$(\alpha x_c, \alpha y_c, \alpha z_c, \alpha)$ are considered equivalent for all non-zero 
 values of $\alpha$. After culling, the clip coordinates are therefore 
 transformed to \textbf{normalized device coordinates} inside the cube 
 $[-1, 1]\times[-1, 1]\times[-1, 1]$ with 
@@ -1858,6 +1894,12 @@ which simplifies in the infinite case to
         0 & 0 & -1 & 0
     \end {bmatrix}.
 \end {eqnarray}
+\subsection{Ray Tracing}
+\subsubsection{Viewport and Rays}
+\subsubsection{M{\"o}ller-Trumbore Algorithm}
+\subsubsection{Sphere-Ray Intersections}
+\subsubsection{Depth Buffer}
+\subsubsection{Reflections}
 
 \subsection{Human Perception of Color}
 \subsubsection{Human Vision and LMS Color Space}
@@ -2818,6 +2860,8 @@ Figures \ref{fig:rectangular_grid_y} shows $y=$constant grid.
     CIE 1931 2-deg XYZ CMFs, Colour \& Vision Research Laboratory, 
     Institute of Opthalmology, University College London. Available at 
     \url{http://cvrl.ioo.ucl.ac.uk/cie.htm}.
+    \bibitem{meeus}
+    Meeus, Astronomical Algorithms, Willmann-Bell, 2nd edition, 1998.
     \bibitem{radiance}
     Walker, Saunders, Hattenburg, Spectral Radiance Calibrations, 
     NBS Special Publication 250-1, 1987.
