@@ -15,12 +15,13 @@
 \usepackage {verbatim}
 \usepackage {fancyhdr}
 \usepackage {psfrag}
-\usepackage {listings}
 \usepackage {eso-pic}
 \usepackage {siunitx}
 \usepackage {wasysym}
 \usepackage {marvosym}
 \usepackage {geometry}
+\usepackage {listings}
+%\usepackage {xcolor}
 %\usepackage {mathabx}
 %\usepackage[urw-garamond]{mathdesign}
 \usepackage[small,bf]{caption}
@@ -139,8 +140,7 @@ and the human perception of color. My interest on the topic arose from
 attempts to solve fascinating problems in the textbook \cite{relativity_problems}
 and implementation of aberration correction algorithms.
 
-\section{Aberration Formulas}
-\subsection {Classical and Relativistic Aberration}
+\section{Aberration}
 \begin {figure}[t]
   \begin {center}
     \begin{tikzpicture}
@@ -233,8 +233,9 @@ expressed
         \quad
     }
 \end {eqnarray}
-where $\beta = v/u$ and $\sec\theta = 1/\cos\theta$. This classical formula is 
-limited angles in $+x$ direction. More generally,
+where we have defined the \textbf{beta factor} $\beta: = v/u$ and 
+$\sec\theta = 1/\cos\theta$. This classical formula is limited angles in $+x$ 
+direction. More generally, for an arbitrary direction
 \begin {eqnarray}
     \label{eq:classical_aberration2}
     \boxed{
@@ -255,14 +256,22 @@ cases.
      (bottom) aberration.}
   \end {center}
 \end {figure} 
-Consider now light in the context of Special Relativity with velocity vector 
-$\vc c = (-c\cos\theta, -c\sin\theta, 0)$. Then, simple application of Lorentz 
-transformation, yields 
+Consider now light in the context of Special Relativity. Then, simple 
+application of Lorentz transformation yields 
 \begin {eqnarray}
-    x' &=& \gamma(x - vt) 
-    = -\gamma(c\cos\theta + v) t,
-    \\
-    y' &=& y = -(c\sin\theta)t,
+    \begin {bmatrix}
+        t' \\ x' \\ y' \\ z'
+    \end {bmatrix}
+    =
+    \begin {bmatrix}
+        \gamma & - \gamma v / c^2 & 0 & 0 \\ 
+        -\gamma v & \gamma & 0 & 0  \\ 
+        0 & 0 & 1 & 0 \\ 
+        0 & 0 & 0 & 1
+    \end {bmatrix}
+    \begin {bmatrix}
+        t \\ x \\ y \\ z
+    \end {bmatrix},
 \end {eqnarray}
 where the \textbf{Lorentz factor} is defined
 \begin {eqnarray}
@@ -271,6 +280,14 @@ where the \textbf{Lorentz factor} is defined
     \frac{1}{\sqrt{1 - v^2/c^2}}
     =
     \frac{1}{\sqrt{1 - \beta^2}}.
+\end {eqnarray}
+After substitution of trajectory 
+$(x(t), y(t), z(t)) = (-ct\cos\theta, -ct\sin\theta, 0)$, we get
+\begin {eqnarray}
+    x' &=& \gamma(x - vt) 
+    = -\gamma(c\cos\theta + v) t,
+    \\
+    y' &=& y = -(c\sin\theta)t.
 \end {eqnarray}
 Thus, we obtain the well-known formula for relativistic aberration
 \begin {eqnarray}
@@ -288,7 +305,15 @@ The only difference between classical and relativistic aberration is the Lorentz
 factor. When $\beta$ is small, the difference between relativistic and classical 
 results can be usually ignored. At velocities close to the speed of light, the 
 Lorentz factor leads to light sources accumulating around direction of motion 
-(see Figure \ref{fig:classicrel}). This is called the \textbf{headlight effect}.
+(see Figure \ref{fig:classicrel}). This is called the \textbf{headlight effect} or 
+\textbf{relativistic beaming}.
+
+The aberration corrections are always rotationally symmetric w.r.t. axis 
+collinear to the direction of motion of the observer. That is, if we choose 
+a spherical coordinate system with a pole in the direction of motion, the 
+correction will be independent of longitude (see Figure \ref{fig:3d}). That is, 
+the correction will always map all directions on a line of latitude to 
+another line of latitude without changing longitude.
 
 \begin {figure}
   \begin {center}
@@ -299,12 +324,12 @@ Lorentz factor leads to light sources accumulating around direction of motion
 \end {figure} 
 
 
-
-\subsection{General Vector Expression for Aberration}
+\subsection {Aberration Formulas}
+\subsubsection{General Vector Expression for Aberration}
 For practical computations, it is often more convenient to use vectors. Any 
 vector expression for aberration will involve addition of velocity vectors,
 which is non-trivial in relativistic case.
-\subsubsection{Classical Aberration}
+%\subsubsection{Classical Aberration}
 In the classical case, the transformation of velocities is simply 
 \begin {eqnarray}
     \label{eq:classicaladd}
@@ -339,7 +364,7 @@ for proper direction
     }.
 \end {eqnarray}
 
-\subsubsection{General Lorentz Transformation of Velocities}
+%\subsubsection{General Lorentz Transformation of Velocities}
 In order to derive a vector formula for relativistic aberration, we need an expression 
 for general Lorentz transformation of velocities. We start by considering an inertial 
 frame $S'$ moving w.r.t. $S$ with velocity $\vc v$ and denote 
@@ -430,8 +455,7 @@ leading to the computation
     \right].
 \end {eqnarray}
 
-
-\subsubsection{Relativistic Aberration}
+%\subsubsection{Relativistic Aberration}
 Let $\vu n= \vc u/c$ be the direction of light propagation and 
 $\vu s = -\vc u'/c$ be the (relativistic) proper direction. Substitution to the
 General Lorentz Transformation for velocities $(\ref{eq:vector_lorentz_vel})$ then 
@@ -544,8 +568,8 @@ The result then points to observed direction to target. In the limit $\beta\to 0
 $\vu s\to\vu p$ and in the limit $\beta\to 1$, $\vu s\to\vu\beta$. The same vector 
 formula (with different notation) can be found from \cite{almanac}.
 
-\subsection{Series Expansion of Aberration Correction}
-\subsubsection{Classical Aberration}
+\subsubsection{Series Expansion of Aberration Correction}
+%\subsubsection{Classical Aberration}
 In most practical applications, $\beta$ is small enough so we can approximate even the 
 classical correction with simpler formulas. 
 
@@ -630,11 +654,12 @@ In most applications, where $\beta$ is small, we can approximate
         \quad
     }
 \end {eqnarray}
+
+Let's now consider the relativistic case.
 It actually turns out that even the quadratic approximations are incompatible for 
 classical and relativistic expansions. Consequently, one should only apply the linear 
 part of $(\ref{eq:classical_series})$.
-
-\subsubsection{Relativistic Aberration}
+%\subsubsection{Relativistic Aberration}
 Cross product of $(\ref{eq:properdir2})$ with uncorrected direction $\vu p$, 
 yields
 \begin {eqnarray}
@@ -724,7 +749,7 @@ Thus, again noting the sign, we obtain the approximation
         \quad        
     }
 \end {eqnarray}
-\subsubsection{Accuracy}
+%\subsubsection{Accuracy}
 The difference in the quadratic term between $(\ref{eq:relativistic_series})$ 
 and $(\ref{eq:classical_series})$ suggests that the linear approximation can be
 more preferrable than the quadratic classical approximation. 
@@ -736,7 +761,8 @@ For example, if Earth's speed along it's orbit is about $30$ km/s or
 $\beta\approx 10^{-4}$, the maximum relative error from linear and quadratic 
 approximations are on the scale of $10^{-4}$ and $10^{-8}$, respectively. If the 
 maximum aberration is around $20$", this corresponds to absolute errors 
-around $2$ mas and $0.2$ $\mu$as, respectively.
+around $2$ mas and $0.2$ $\mu$as, respectively. This error is so small, that 
+it can be only detected using Very Long Baseline Interferometry (VLBI).
 
 \begin {figure}
   \begin {center}
@@ -752,9 +778,9 @@ around $2$ mas and $0.2$ $\mu$as, respectively.
   \end {center}
 \end {figure} 
 
-\subsection{Spherical Coordinates}
-In many software implementations, the aberration correction is applied in terms of 
-spherical coordinates. We expand uncorrected direction 
+\subsubsection{Spherical Coordinates}
+In many software implementations and textbooks, approximate aberration corrections 
+are applied in terms of spherical coordinates. We expand uncorrected direction 
 \begin {eqnarray}
     \vu p
     = 
@@ -813,8 +839,8 @@ Thereafter, we obtain
     - \beta_x\sin\alpha + \beta_y\cos\alpha.
 \end {eqnarray}
 This is equivalent to the equation $(23.4)$ in \cite{meeus}.
-\newpage
-\section{Stellar Aberration}
+%\newpage
+\subsection{Stellar Aberration}
 \begin {figure}[t]
   \begin {center}
     \begin{tikzpicture}
@@ -931,8 +957,8 @@ on Earth, the maximum aberration is around $5.5$ arcseconds.
 The expressions developed in the previous section apply to all types of 
 aberration. 
 
-\subsection{Linear Approximation in Spherical Coordinates}
-\subsubsection{Annual Aberration}
+\subsubsection{Stellar and Diurnal Aberration in Spherical Coordinates}
+%\subsubsection{Annual Aberration}
 For elliptic orbits, the velocity and distance from the center can be 
 expressed 
 \begin {eqnarray}
@@ -998,7 +1024,8 @@ yields
     -\beta \sin\alpha \cos\omega t
     +\beta \cos\alpha \sin\omega t.
 \end {eqnarray}
-Suppose $\alpha=0$. Then, the above simplifies to 
+Note that $\delta$ and $\alpha$ are now spherical coordinates w.r.t. the ecliptic
+instead of the equator. Suppose $\alpha=0$. Then, the above simplifies to 
 \begin {eqnarray}
     \Delta\delta &=& 
     -\beta \sin\delta\cos\omega t,
@@ -1007,7 +1034,9 @@ Suppose $\alpha=0$. Then, the above simplifies to
     \beta\sin\omega t.
 \end {eqnarray}
 That is, annual aberration will lead to a displacement shaped like an ellipse
-with a period of one orbit (see Figure \ref{fig:aberration_ellipse}).
+with a period of one orbit (see Figure \ref{fig:aberration_ellipse}). For a star 
+is on ecliptic plane, the ellipse is degenerate. At zenith w.r.t. ecliptic plane, 
+it is a perfect circle.
 
 \begin {figure}[t]
   \begin {center}
@@ -1038,7 +1067,8 @@ with a period of one orbit (see Figure \ref{fig:aberration_ellipse}).
             the uncorrected position.}
   \end {center}
 \end {figure}
-\subsubsection{Diurnal Aberration}
+%\subsubsection{Diurnal Aberration}
+
 The velocity of the observer on the surface of Earth can be written
 \begin {eqnarray}
     v = \omega(R + h)\cos\phi,
@@ -1074,7 +1104,7 @@ For $\phi = 90^\circ$ (east), we obtain $\Delta a = -\beta\sin a$ and for
 $a = 0$, we obtain $\Delta\phi = \beta\cos\phi = -\beta\sin (\phi - 90^\circ)$, 
 which is consistent with $(\ref{eq:relativistic_series})$.
 
-\subsection{Planetary Aberration and Light-Time}
+\subsubsection{Planetary Aberration and Light-Time}
 The travel time of light between target and the observer is called 
 \textbf{light-time} and denoted $\tau$. When the direction to target 
 changes significantly during light-time, this requires a correction. 
@@ -1102,7 +1132,7 @@ $(\ref{eq:classical_properdir})$ is equivalent to the computation the uncorrecte
 direction to target at $t-\tau$. Note that this does not take into account 
 the diurnal aberration.
 
-\subsection{Practical Computation}
+\subsubsection{Practical Computation}
 The positions of stars are typically catalogued w.r.t. the Solar System 
 Barycenter (SSB) so that secular aberration is already included in the 
 catalogued positions. Thus, to compute the aberration correction for an 
@@ -1114,7 +1144,7 @@ Earth. Thereafter, $(\ref{eq:classical_properdir})$ and
 $(\ref{eq:properdir2})$ can be applied in any topocentric frame centered 
 on the observer position.
 
-\subsubsection{Transformations Between Frames}
+%\subsubsection{Transformations Between Frames}
 Let us denote the position and velocity coordinate vector for target 
 $C$ in frame with orientation $A$ and origin $B$ with $\vc r_{C(A)}^B$
 and $\vc v_{C(A)}^B$. Omission of $C$, $A$ or $B$ in an expression 
@@ -1157,7 +1187,7 @@ expand
 where the $\dot R_A^a\vc r_{(a)}$ corresponds to velocity component from 
 the rotation of $\vc r_{(a)}$ w.r.t. the origin.
 
-\subsubsection{Expansion of the Observer Velocity}
+%\subsubsection{Expansion of the Observer Velocity}
 The position and velocity vectors w.r.t. origins at the GEO and the SSB
 can be related by
 \begin {eqnarray}
@@ -1276,287 +1306,8 @@ Note that since the aberration relates to the velocity difference between
 the observer and the SSB in an inertial frame, it is not appropriate to 
 transfer the velocity of SSB to a topocentric frame, where it would rotate 
 around the observer location at very high speed.
-
-
-\newpage
-\section{Doppler Effect}
-\subsection{Classical and Relativistic Doppler Effect}
-\begin {figure}[t]
-  \begin {center}
-    \begin{tikzpicture}
-        \clip (-0.5, -1.5) rectangle (9, 1.5);
-\draw[color=gray!50] (7-5.5, 0.5) circle (3.5);
-\draw[color=gray!50] (7-5.375, 0.5) circle (3.25);
-\draw[color=gray!50] (7-5.25, 0.5) circle (3.0);
-\draw[color=gray!50] (7-5.125, 0.5) circle (2.75);
-\draw[color=gray!50] (7-5.0, 0.5) circle (2.5);
-\draw[color=gray!50] (7-4.875, 0.5) circle (2.25);
-\draw[color=gray!50] (7-4.75, 0.5) circle (2.0);
-\draw[color=gray!50] (7-4.625, 0.5) circle (1.75);
-\draw[color=gray!50] (7-4.5, 0.5) circle (1.5);
-\draw[color=gray!50] (7-4.375, 0.5) circle (1.25);
-\draw[color=gray!50] (7-4.25, 0.5) circle (1.0);
-\draw[color=gray!50] (7-4.125, 0.5) circle (0.75);
-\draw[color=gray!50] (7-4.0, 0.5) circle (0.5);
-\draw[color=gray!50] (7-3.875, 0.5) circle (0.25);
-
-        \draw[thick] (0, 0) -- (3, 0);
-        \draw[thick] (0, 1) -- (3, 1);
-        \draw[thick] (0, 0) -- (0, 1);
-        \draw[thick] (3, 0) -- (3, 1);
-        \draw[thick, ->] (3, 0.5) -- (6, 0.5);
-        \draw[thick] (3, 0.5) -- (5, -0.5);
-        \draw[thick] (1.5, 0.5) node{Emitter ($S'$)};
-        \draw[thick] (4.5, 0.8) node{$v$};
-        \draw[thick] (3.7, 0.14) arc(-45:0:0.5 and 0.5);
-        \draw[thick] (4.1, 0.3) node{$\theta$};
-        \draw[thick] (5.5, -0.7) ellipse (0.5 and 0.5);
-        \fill[black] (5.25, -0.55) ellipse (0.10 and 0.15);
-        \draw[thick] (5.25, -0.55) ellipse (0.175 and 0.25);
-        \draw[thick] (7.5, -0.5) node{Observer ($S$)};
-   \end {tikzpicture}
-    \caption{\label{fig:doppler_effect} Geometry associated to Doppler Effect.}
-  \end {center}
-\end {figure}
-
-
-Consider a light source fixed to an inertial frame $S'$ moving with velocity $v$ 
-w.r.t. an observer fixed to an inertial frame $S$ (see Figure 
-\ref{fig:doppler_effect}). Suppose that the direction of movement makes the angle 
-$\theta$ w.r.t. direction to the observer. Let $\vc v = v\vu x$ and represent the 
-wavefront towards the observer with phase angle
-\begin {eqnarray}
-    \phi(\vc x, t) = A\cos(\vc k\cdot\vc x - \omega t),
-\end {eqnarray}
-where the wave vector satisfies 
-\begin {eqnarray}
-    \vc k = k\cos\theta\:\vu x + k\sin\theta\:\vu y.
-\end {eqnarray}
-Substitution of $kx-\omega t = 0$ yields in vacuum $x = \omega t / k = ct$ and 
-$k = \omega/c$.
-
-The phase angle $\phi$ in the frames $S$ and $S'$ can be related by the Galilean
-transformation
-\begin {eqnarray}
-    t &=& t' \\
-    x &=& x' + vt \\
-    y &=& y' \\
-    z &=& z'
-\end {eqnarray}
-with the expansion 
-\begin {eqnarray}
-    \vc k\cdot\vc x - \omega t
-    &=&
-    kx \cos\theta + ky \sin\theta - \omega t 
-    \\
-    &=& 
-    k(x' + vt) \cos\theta + ky \sin\theta - \omega t 
-    \\
-    &=& 
-    kx'\cos\theta + ky'\sin\theta -\omega(1 -\beta\cos\theta)
-    \\
-    &=& 
-    \vc k'\cdot\vc x' - \omega' t
-\end {eqnarray}
-Thus, we obtain the expression for \textbf{classical Doppler Effect}
-\begin {eqnarray}
-    \boxed{
-        \quad
-        \omega = \frac{\omega'}{1 - \beta\cos\theta},
-        \quad
-        \vc k' = \vc k.
-        \quad
-    }
-\end {eqnarray}
-In the relativistic case, we replace the Galilean transformation with the Lorentz 
-transformation 
-\begin {eqnarray}
-    t &=& \gamma(t' + \beta x'/c) \\
-    x &=& \gamma(x' + vt) \\
-    y &=& y' \\
-    z &=& z'.
-\end {eqnarray}
-Now we can expand 
-\begin {eqnarray}
-    \vc k\cdot\vc x - \omega t 
-    &=& 
-    k\gamma(x' + vt')\cos\theta + ky\sin\theta  - \omega\gamma(t' + \beta x'/c)
-    \\
-    &=& 
-    \gamma (k\cos\theta - \omega\beta/c)x' 
-    + 
-    ky\sin\theta 
-    - 
-    \gamma(\omega - kv\cos\theta)) t'
-    \\
-    &=& 
-    \gamma k (\cos\theta - \beta)x'
-    +
-    ky'\sin\theta 
-    -
-    \gamma\omega(1 - \beta\cos\theta)t'
-    \\
-    &=& 
-    \vc k'\cdot\vc x' - \omega' t' 
-\end {eqnarray}
-and obtain the expression for \textbf{relativistic Doppler Effect}
-\begin {eqnarray}
-    \label{eq:doppler_relativistic}
-    \boxed{
-        \quad
-        \omega = \frac{\omega'}{\gamma(1 - \beta\cos\theta)},
-        \quad
-        \vc k' = \gamma k(\cos\theta - \beta)\vu x 
-        +
-        k\sin\theta\vu y.
-        \quad
-    }
-\end {eqnarray}
-The transformation of the wave vector corresponds to the relativistic aberration 
-correction. 
-
-\subsection{Interpretation}
-\subsubsection{Longitudal Doppler Effect}
-The special cases relating to longitudal motion are depicted in Figure \ref{fig:redshift_blueshift}.
-When $\theta = 180^\circ$ and $\theta = 0^\circ$, we can expand 
-\begin {eqnarray}
-    \frac{\omega}{\omega'}
-    &=&
-    \frac{1}{\gamma(1 + \beta)}
-    =
-    \frac{\sqrt{(1 + \beta)(1 - \beta)}}{1 + \beta}
-    = 
-    \sqrt{\frac{1 - \beta}{1 + \beta}} \leq 1
-    \\
-    \frac{\omega}{\omega'}
-    &=&
-    \frac{1}{\gamma(1 - \beta)}
-    =
-    \frac{\sqrt{(1 + \beta)(1 - \beta)}}{1 - \beta}
-    = 
-    \sqrt{\frac{1 + \beta}{1 - \beta}} \geq 1
-\end {eqnarray}
-respectively. 
-\begin {figure}[h]
-  \begin {center}
-    \begin{tikzpicture}
-        \draw[thick] (0, -2) -- (3, -2);
-        \draw[thick] (0, -1) -- (3, -1);
-        \draw[thick] (0, -2) -- (0, -1);
-        \draw[thick] (3, -2) -- (3, -1);
-        \draw[thick, ->] (3, -1.5) -- (5, -1.5);
-        \draw[thick] (1.5, -1.5) node{Emitter ($S'$)};
-        \draw[thick] (4.5, -1.2) node{$v$};
-        \draw[thick] (4.1, -1.7) node{$\theta=0$};
-        \draw[thick] (5.5, -1.5) ellipse (0.5 and 0.5);
-        \fill[black] (5.25, -1.5) ellipse (0.10 and 0.15);
-        \draw[thick] (5.25, -1.5) ellipse (0.175 and 0.25);
-        \draw[thick] (7.5, -1.5) node{Observer ($S$)};
-
-        \draw[thick] (0, 0) -- (3, 0);
-        \draw[thick] (0, 1) -- (3, 1);
-        \draw[thick] (0, 0) -- (0, 1);
-        \draw[thick] (3, 0) -- (3, 1);
-        \draw[thick, dotted] (0, 0.5) -- (-2, 0.5);
-        \draw[thick] (4.5, 0.8) node{$v$};
-        \draw[thick, ->] (3, 0.5) -- (5, 0.5);
-
-        \draw[thick] (1.5, 0.5) node{Emitter ($S'$)};
-        \draw[thick] (-0.9, 0.3) node{$\theta=180^\circ$};
-        \draw[thick] (-2.5, 0.5) ellipse (0.5 and 0.5);
-        \fill[black] (-2.25, 0.5) ellipse (0.10 and 0.15);
-        \draw[thick] (-2.25, 0.5) ellipse (0.175 and 0.25);
-        \draw[thick] (-4.5, 0.5) node{Observer ($S$)};
-        \end {tikzpicture}
-    \caption{\label{fig:redshift_blueshift} Geometry associated to maximal 
-             redshift (top) and maximal blueshift (below).}
-  \end {center}
-\end {figure}
-\subsubsection{Transverse Doppler Effect}
-With transverse motion, it is necessary to take into account the influence of
-aberration: The meaning of the direction of movement being at right angles to 
-the vector between the observer and the source is dependent on the frame. 
-Superficial analysis not taking aberration into account might suggest that a 
-planet orbiting a star a perfectly circular orbit would experience Doppler 
-redshift but in fact it will experience blueshift.
-
-Substitution of $\theta = \pi/2$ to $(\ref{eq:doppler_relativistic})$ yields 
-expression for transverse motion in $S$
-\begin {eqnarray}
-    \omega = \frac{\omega'}{\gamma} < \omega'
-\end {eqnarray}
-However, substitution of $\theta' = \pi/2$ yields $\beta = \cos\theta$ and 
-an expression for transverse motion in $S'$
-\begin {eqnarray}
-    \omega = \frac{\omega'}{\gamma(1 - \beta^2)} = \gamma\omega' > \omega'.
-\end {eqnarray}
-That is, transverse motion from the viewpoint of the observer leads to a 
-redshift and transverse motion from the viewpoint of the source leads to 
-a blueshift. A planet orbiting a star on a circular orbit will experience 
-Doppler blueshift of the starlight and a imaging satellite orbiting a planet 
-will experience (Doppler) redshift (see Figure \ref{fig:doppler_transverse}).
-
-\begin {figure}[t]
-  \begin {center}
-    \begin{tikzpicture}
-        \draw (7, 0) node{$\bullet$};
-        \draw (7, 0.35) node{$\sun$};
-        %\draw[thick] (0,0) circle (2);
-
-        \draw[thick] (9.0, 0) ellipse (0.5 and 0.5);
-        \fill[black] (8.75, 0) ellipse (0.10 and 0.15);
-        \draw[thick] (8.75, 0) ellipse (0.175 and 0.25);
-        \draw[thick] (10.75, 0) node{Observer ($S$)};
-        \draw[thick] (7, -0.5) node{Source ($S'$)};
-        \draw[thick] (9,0.5) arc (15:345:2);
-        \draw[thick, ->] (9, 0.5) -- (9, 2);
-        \draw[thick] (9.2, 1) node{$v$};
-
-        \draw[thick] (0,0) circle (2);
-        \draw[thick] (0.0, 0) ellipse (0.5 and 0.5);
-        \fill[black] (0.25, 0) ellipse (0.10 and 0.15);
-        \draw[thick] (0.25, 0) ellipse (0.175 and 0.25);
-        \draw[thick] (2, 0) node{$\bullet$};
-        \draw (1.65, 0) node{$\sun$};
-        \draw[thick, ->] (2, 0.0) -- (2, 2);
-        \draw[thick] (2.2, 1) node{$v$};
-        \draw[thick] (0.0, -0.75) node{Observer ($S$)};
-        \draw[thick] (3.25, 0.0) node{Source ($S'$)};
-
-    \end {tikzpicture}
-    \caption{\label{fig:doppler_transverse} Two examples of transverse motion:
-    Transverse motion in $S$ resulting in redshift (left) and transverse motion 
-    in $S'$ resulting in blueshift (right).}
-  \end {center}
-\end {figure}
-
-
-\subsubsection{Boundary Between Redshift and Blueshift}
-As shown previously, maximum blueshift and redshift are obtained at angles 
-$\theta=0^\circ$ and $\theta=180^\circ$, respectively. The boundary w.r.t. 
-values $\theta$ between redshift and blueshift occurs when $\omega=\omega'$
-or equivalently 
-\begin {eqnarray}
-    \gamma(1 - \beta\cos\theta) = 1
-    &\Leftrightarrow&
-    \cos\theta = \frac{1}{\beta}\left(1 - \frac{1}{\gamma}\right).
-\end {eqnarray}
-The limit is depicted in Figure \ref{fig:doppler_limits}. When $\beta$ 
-becomes larger, the region of blueshift gets smaller and converges to a 
-dot when $\beta\to 1$. 
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.8\columnwidth] {fig/doppler_limits.eps}
-     \caption{\label{fig:doppler_limits} Limit angle between redshift and blueshift.
-     For positive and negative $\beta$, the value is the lower and upper limit, respectively 
-     of the blueshift for $\theta$.}
-  \end {center}
-\end {figure} 
-
-\newpage
-\section{Human Perception and Computer Graphics}
 \subsection{Perspective Projection}
-\subsubsection{The Camera Frustrum}
+%\subsubsection{The Camera Frustrum}
 \textbf{Perspective projection} can be seen as an idealized representation how a
 camera or the human eye forms a two-dimensional image from light rays received from 
 a three-dimensional scene. Lines-of-sight are considered to converge on a single point,
@@ -1612,6 +1363,12 @@ are discarded in a process called \textbf{culling}.
   \end {center}
 \end {figure}
 
+Perspective projection is used to map points in the three-dimensional scene via
+normalized device coordinates to pixel coordinates on a screen or some other
+image system. All points from the same direction in the frustrum will be always 
+mapped to location on the screen. Aberration correction (e.g. $(\ref{eq:properdir2})$) 
+for the direction from the camera to the point on the scene is applied before 
+the perspective projection.
 
 \subsubsection{Model, World and View Spaces}
 Intuitively, the image can be considered to form on the near plane. However, any real-world 
@@ -1799,7 +1556,7 @@ from which it easily follows that $z_e < -f$. Similarly, if $z_c < - w_c$, we ge
     z_c = -\frac{f + n}{f - n}z_e - \frac{2fn}{f - n} < -w_c = z_e,
 \end {eqnarray}
 which yields $z_c > -n$.
-\subsubsection{Special Cases of a Projection Matrix}
+%\subsubsection{Special Cases of a Projection Matrix}
 \begin {specialcase}
 (General symmetric case): $l=-w, r=w, b=-h, b=h$
 \begin {eqnarray}
@@ -1843,6 +1600,7 @@ which yields $z_c > -n$.
 \begin {specialcase}
 (Symmetric infinite case): $f\to\infty, l=-w, r=w, b=-h, b=h$
 \begin {eqnarray}
+    \label{eq:syminfinite_proj}
     P
     =
     \begin {bmatrix}
@@ -1894,234 +1652,201 @@ which simplifies in the infinite case to
         0 & 0 & -1 & 0
     \end {bmatrix}.
 \end {eqnarray}
-\subsection{Ray Tracing}
-\subsubsection{Viewport and Rays}
-In order to determine an SRGB value for each pixel in an image, we start 
-ray tracing by mapping each pixel to an aberrated direction vector. The 
-aberrated vector is then transformed to a non-aberrated vector using inverse 
-aberration formula. That is instead of using the combination of perspective 
-projection and aberration correction, in ray tracing we apply inverse steps 
-in inverse order.
+\subsubsection{Implementation}
+\lstset{numbers=left, basicstyle=\footnotesize,breaklines=true}
+In the visualizations shown in this section, we use an implementation that 
+combines the symmetric infinite special case $(\ref{eq:syminfinite_proj})$
+of a projection matrix with a mapping to normalized device coordinates via 
+division by $w_c = -z_e$. We also reorient axes so that the camera points 
+to +z direction and positive $x_e, y_e$ will map to positive $x_n, y_n$.
 
-Consider the geometry of the viewport shown in Figure \ref{fig:viewport}.
-Let $\vc E$ be the camera location, $\vu t$ the target direction, 
-$\vc C = \vc E + d\:\vu t$ the center of the viewport and $\theta$ the 
-horizontal field-of-view.
-\begin {figure}[t]
+The second listing implements the vector aberration corrections 
+$(\ref{eq:properdir2})$ and $(\ref{eq:classical_properdir})$.
+
+\begin{lstlisting}[language=python, caption={Projection on world coordinates into screen or image coordinates.}]
+import numpy as np
+
+def project_ndc(p, n, w, h):
+    """Project point from the frustrum starting from [-w, w] x [-h, h] x {n} to [-1, 1] x [-1, 1]"""
+    x_n = (n * p[0]) / (w * p[2])
+    y_n = (n * p[1]) / (h * p[2])
+
+    return x_n, y_n
+
+def ndc_to_screen(x_n, y_n, x_min, x_max, y_min, y_max):
+    """Convert position from NDC coordinates to screen coordinates"""
+    x_s = 0.5 * ((x_max + x_min) + (x_max - x_min) * x_n)
+    y_s = 0.5 * ((y_max + y_min) + (y_max - y_min) * y_n)
+
+    return x_s, y_s
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Relativistic and classical aberration corrections.}]
+import numpy as np
+
+def aberrate_direction_rel(p, beta_vec):
+    """Apply relativistic aberration to the direction of a position vector."""
+
+    beta = np.linalg.norm(beta_vec)
+    gamma = 1 / np.sqrt(1 - beta * beta)
+    pu = p / np.linalg.norm(p)
+    
+    su = 1 / (gamma * (1 + np.dot(pu, beta_vec))) * (pu + gamma * beta_vec * 
+        (1 + np.dot(pu, beta_vec) * gamma / (gamma + 1)))
+    
+    s = su * np.linalg.norm(p)
+    return s
+
+def aberrate_direction_cla(p, beta_vec):
+    """Apply classical aberration to the direction of a position vector."""
+
+    beta = np.linalg.norm(beta_vec)
+    gamma = 1 / np.sqrt(1 - beta * beta)
+    pu = p / np.linalg.norm(p)
+    
+    su = (pu + beta_vec) / np.linalg.norm(pu + beta_vec)
+    
+    s = su * np.linalg.norm(p)
+    return s
+\end{lstlisting}
+\subsection{Deformation at Relativistic Speeds}
+\subsubsection{Spherical Grid}
+Consider spherical grid with $10^\circ$ steps w.r.t. coordinates
+$\theta\in[-90^\circ, 90^\circ]$ and $\phi\in[-180^\circ, 180^\circ]$, 
+where the relationship to Cartesian coordinates can be expressed as
+\begin {eqnarray}
+    x &=& R\cos\theta\cos\phi, \\
+    y &=& R\cos\theta\sin\phi, \\
+    z &=& R\sin\theta.
+\end {eqnarray}
+The radius $R$ is assumed to be so large that the uncorrected directions 
+towards the grid do not change and discussion of acceleration in the following 
+makes sense.
+
+Application of the relativistic aberration correction $(\ref{eq:properdir2})$ 
+to the grid with movement in $+x$ and $+z$ directions is shown Figure 
+\ref{fig:sph_grid_deform_360_x}
+and Figure 
+\ref{fig:sph_grid_deform_360_z}, respectively.
+Figure \ref{fig:sph_grid_perspective_x} and Figure \ref{fig:sph_grid_perspective_z} 
+show the deformation for an observer with $90^\circ$ field-of-view. 
+The comparison of the figures for motion in +x and +z directions indicates how the 
+selection of the axis pointing to the north pole in spherical coordinates influences 
+the simplicity of effect: When the motion is towards a pole, the effect becomes 
+independent of $\phi$.
+
+These visualizations show how as the observer accelerates towards the speed of light,
+aberration corresponds to an increasing compression towards the direction of motion 
+and stretching in the opposite direction. That is, towards the direction 
+of motion, the angular size of light sources will decrease and create an impression
+that the light sources are moving away from the observer while light sources 
+in the opposite direction will appear to move towards the observer. 
+
+If an observer launched into a direction normal to the galactic plane and 
+accelerated towards the speed of light, they would observe the galaxy as a 
+shrinking ring in the direction of movement. Similarly, if an observer launched 
+from the pole of Saturn at near the speed of light, they would see Saturn's rings 
+in the forward direction (for a very brief moment). One could find an 
+time-dependent acceleration that ensures that rings of Saturn would be observed 
+within given angle w.r.t. forward-direction.
+
+\subsubsection{Rectangular Grid}
+For rectangular grid on a $z=$constant plane, the angular size of the plane can be 
+computed from $(\ref{eq:relativistic_aberration})$ by first rewriting 
+\begin {eqnarray}
+    \tan\theta' 
+    = 
+    \frac{\tan\theta}{\gamma(1 + \beta\sec\theta)}
+    =
+    \frac{\sin\theta/\cos\theta}{\gamma(1 + \beta/\cos\theta)}
+    =
+    \frac{\sin\theta}{\gamma(\cos\theta + \beta)}.
+\end {eqnarray}
+Substitution of $\theta=90^\circ$ then yields 
+\begin {eqnarray}
+    \label{eq:plane_aberration_limit}
+    \theta' = \arctan\frac{1}{\gamma\beta}
+\end {eqnarray}
+In Figures \ref{fig:rectangular_grid_z}, $z=$constant grid is drawn together with the limiting curve 
+$(\ref{eq:plane_aberration_limit})$ also shown in Figure \ref{fig:plane_aberration_limit}.
+Figures \ref{fig:rectangular_grid_y} shows $y=$constant grid.
+
+\newgeometry{left=1cm,bottom=0.1cm,top=0.1cm,right=1cm}
+\begin {figure}
   \begin {center}
-    \begin{tikzpicture}
-        \draw[thick, ->] (0, 0) -- (-2,-2);
-        \draw[thick, ->] (0, 0) -- (0, 4);
-        %\draw[thick] (0, 0) -- (3.25, 0);
-        \draw[dashed] (0, 0) -- (4, 0);
-        \draw[thick, ->] (4, 0) -- (7, 0);
-        \draw[thick] (0,0) -- (4 - 1.0, -1.0);
-        \draw[thick] (0,0) -- (3, 0.6);
-        \draw[dashed] (3,0.6) -- (5, 1.0);
-
-        \draw (5.6, 2.25) node{$\vc P_{11}$};
-        \draw (5.6, -0.25) node{$\vc P_{1m}$};
-        \draw (2.35, -0.4) node{$\vc P_{k1}$};
-        \draw (2.35, -2.4) node{$\vc P_{km}$};
-        \draw (-0.5, 0) node{$\vc E$};
-        \draw (0, 0) node{$\bullet$};
-
-        \foreach \dy in {-1,...,1} {
-            \foreach \dx in {-2,...,2} {
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 - 0.25 + 0.5 * \dx, 0.25+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 + 0.25 + 0.5 * \dx, -0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx,-0.25+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, 0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
-                \draw (4.0 + 0.5 * \dx, 0.0+ 0.5 * \dx + \dy) node{$\bullet$};
-            }
-        }
-
-        \draw[dashed] (4 - 1, 0) -- (4 - 1,  1);
-        \draw[dashed] (4 + 1, 2) -- (4 + 1,  3);        
-        \draw[thick, <->] (4 - 1, 1) -- (4 + 1,  3);
-        \draw (4, 2.5) node{$h_x$};
-
-        \draw[dashed] (4 + 1, 2) -- (4 + 2,  2);
-        \draw[thick, <->] (4 + 2, 2) -- (4 + 2,  0);
-        \draw (6.5, 1) node{$h_y$};
-
-
-        \draw (4.0, 0.0) node{$\bullet$};
-        \draw[thick] (0.8,-0.25) arc (-55:15:0.4);
-        \draw (1.2, 0.0) node{$\theta$};
-        \draw (3.95, -0.25) node{$\vc C$};
-
-        \draw (-0.4,3.75) node{$\vu u$};
-        \draw (-2.2,-1.8) node{$\vu r$};
-        \draw (6.75,0.4) node{$\vu t$};
-    \end {tikzpicture}
-    \caption{\label{fig:viewport}Geometry of the viewport. Adapted from \cite{wiki_viewport}.}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_1.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_2.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_3.eps}
+     \caption{\label{fig:sph_grid_deform_360_x}Deformation of a spherical grid due to motion in $+x$ direction.}
   \end {center}
-\end {figure}
+\end {figure} 
 
-The width $h_x$ and height $h_y$ of the viewport can be related to the 
-distance $d$, field-of-view $\theta$ and the inverse aspect ratio 
-$(m-1)/(k-1)$ by 
-\begin {eqnarray}
-    h_x &=& 2d\tan\frac{\theta}{2}, \\
-    h_y &=& h_x\frac{m-1}{k-1},
-\end {eqnarray}
-where we have assumed square pixels. Neighboring pixels can be related by 
-shifting vectors 
-\begin {eqnarray}
-    \Delta\vc x &=& \frac{h_x}{k - 1}\vu r, \\
-    \Delta\vc y &=& \frac{h_y}{m - 1}\vu u.
-\end {eqnarray}
-Now the position of an arbitrary pixel 
-\begin {eqnarray}
-    \vc r_{ij} &=& \vc r_{11} + (i - 1)\Delta\vc x - (j - 1)\Delta\vc y,
-\end {eqnarray}
-where the top-left corner pixel can be written 
-\begin {eqnarray}
-    \vc r_{11} &=& \vc E + D\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
-\end {eqnarray}
-Thus, the direction vector to pixel $(i, j)$ in the frame of the observer
-\begin {eqnarray}
-    \vu R_{ij}' &=& \frac{\vc r_{ij} - \vc E}{||\vc r_{ij} - \vc E||}.
-\end {eqnarray}
-The direction vector can be then transformed to a direction vector $\vc R_{ij}$
-in a frame approximately fixed to the scene with $(\ref{eq:properdir2})$ by 
-replacing the vector beta factor of the observer $\vc\beta$ with $-\vc\beta$.
+\newpage
 
-\subsubsection{Ray-Triangle Intersections: M{\"o}ller-Trumbore Algorithm}
-Consider a ray 
-\begin {eqnarray}
-    \vc r(t) = \vc O + t\vc D : t \geq 0
-\end {eqnarray}
-possibly intersecting the plane $P$ containing the triangle defined by the vertices 
-$\vc v_1, \vc v_2, \vc v_3\in\mathbb{R}^3$. Then, a normal vector for the plane can be 
-written 
-\begin {eqnarray}
-    \vc n = (\vc v_2 - \vc v_1)\times (\vc v_3 - \vc v_1)
-    = \vc e_1 \times \vc e_2,
-\end {eqnarray}
-where we denote the two edges connected to $\vc v_1$ with 
-$\vc e_1 = \vc v_2 - \vc v_1$ and 
-$\vc e_2 = \vc v_3 - \vc v_1$.
-The ray will not intersect the plane if $\vc v\cdot\vc n  = 0$ unless $\vc O\in P$.
-When $\vc v\cdot\vc n\neq 0$, we wish to find the intersection of the ray with the 
-plane and determine whether the intersection is with the triangle. The 
-M{\"o}ller-Trumbore Algorithm uses barycentric coordinates $(w, u, v)$ so that 
-all points $\vc P\in P$ can be expressed
-\begin {eqnarray}
-    \vc P(w, u, v) = w\vc v_1 + u\vc v_2 + v\vc v_3.
-\end {eqnarray}
-For the points of the triangle, the conditions 
-\begin {eqnarray}
-    \label{eq:moller_cond1}
-    w, u, v &\geq& 0, \\
-    \label{eq:moller_cond2}
-    w + u + v &=& 1
-\end {eqnarray}
-hold and we can expand
-\begin {eqnarray}
-    \vc P(u, v) &=& (1 - u - v)\vc v_1 + u\vc v_2 + v\vc v_3
-    \\
-    &=& \vc v_1 + u(\vc v_2 - \vc v_1) + v(\vc v_3 - \vc v_1).
-    \\
-    \label{eq:barytri}
-    &=& \vc v_1 + u\vc e_1 + v\vc e_2
-\end {eqnarray}
-Now unless the triangle is degenerate, every intersection between the ray and 
-the plane can be expressed using $(\ref{eq:barytri})$. The intersection will 
-be with the triangle if the conditions $(\ref{eq:moller_cond1})$, 
-$(\ref{eq:moller_cond2})$ hold for a non-negative $t$. At the intersection 
-\begin {eqnarray}
-    \vc O + t\vc D = \vc v_1 + u\vc e_1 + v\vc e_2.
-\end {eqnarray}
-This can be reorganized into a linear system of equations 
-\begin {eqnarray}
-    \label{eq:moller_lin}
-    \vc O - \vc v_1 
-    =
-    \begin {bmatrix}
-        -\vc D & \vc e_1 & \vc e_2
-    \end {bmatrix}
-    \begin {bmatrix}
-        t \\ u \\ v
-    \end {bmatrix}.
-\end {eqnarray}
-The equation $(\ref{eq:moller_lin})$ can be easily solved with Cramer rule 
-$x_i = |A_i|/|A|$ for systems of linear equations $A\vc x=\vc b$, 
-where $A_i$ is formed from A by replacing column $i$ with $\vc b$.
-To apply the formula, we compute the determinants repeatedly using the 
-scalar triple product $|\vc a\:\:\vc b\:\:\vc c| = \vc a\cdot(\vc b\times\vc c)$
-\begin{eqnarray}
-    |A| 
-    &=& 
-    \begin {vmatrix}
-     -\vc D & \vc e_1 & \vc e_2
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-       \vc e_1 & \vc D &\vc e_2
-    \end {vmatrix}
-    = 
-    \vc e_1\cdot\vc D\times\vc e_2
-    \\
-    |A_1| 
-    &=& 
-    \begin {vmatrix}
-        \vc O - \vc v_1 & \vc e_1 & \vc e_2
-    \end {vmatrix}
-    \:\:\:=
-    \begin {vmatrix}
-       \vc e_2 & \vc O - \vc v_1 & \vc e_1
-    \end {vmatrix}
-    = 
-    \vc e_2 \cdot (\vc O - \vc v_1)\times \vc e_1
-    \\
-    |A_2| 
-    &=& 
-    \begin {vmatrix}
-        -\vc D & \vc O - \vc v_1 & \vc e_2
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-        \vc O - \vc v_1 & \vc D & \vc e_2
-    \end {vmatrix}
-    = 
-    (\vc O - \vc v_1)\cdot \vc D \times \vc e_2
-    \\
-    |A_3| 
-    &=& 
-    \begin {vmatrix}
-        -\vc D & \vc e_1 & \vc O - \vc v_1 
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-        \vc D & \vc O - \vc v_1 & \vc e_1
-    \end {vmatrix}
-    = 
-    \vc D\cdot (\vc O - \vc v_1) \times \vc e_1.
-\end {eqnarray}
-Thereafter, we can compute parameters for the intersection
-\begin {eqnarray}
-    t = |A_1|/|A|, \quad u = |A_2|/|A|, \quad v = |A_3|/|A|.
-\end {eqnarray}
-If $t<0$, the intersection is in the opposite direction to the ray.
-The conditions $(\ref{eq:moller_cond1})$ correspond to the following sufficient 
-conditions of the intersection being outside the triangle:
-\begin {eqnarray}
-    u+v > 1, \quad u < 0, \quad v < 0.
-\end {eqnarray}
-Similarly, the conditions $(\ref{eq:moller_cond2})$ correspond to 
-\begin {eqnarray}
-    u + v < 0 , \quad u > 1, \quad v > 1.
-\end {eqnarray}
-However, if $u, v\geq 0$ and $u+v \leq 1$, then also $u+v\geq 0$ and $u,v\leq 1$. Thus, 
-when using the conditions to dismiss intersections, checking the latter set after 
-the first is redundant.
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_1.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_2.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_3.eps}
+     \caption{\label{fig:sph_grid_deform_360_z}Deformation of a spherical grid due to motion in $+z$ direction.}
+  \end {center}
+\end {figure} 
 
-\subsubsection{Sphere-Ray Intersections}
-\subsubsection{Depth Buffer}
-\subsubsection{Reflections}
+\newpage
 
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_x.eps}
+     \caption{\label{fig:sph_grid_perspective_x}Deformation of a spherical grid due to motion in $+x$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_z.eps}
+     \caption{\label{fig:sph_grid_perspective_z}Deformation of a spherical grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+\newpage
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_z.eps}
+     \caption{\label{fig:rectangular_grid_z}Deformation of a $z=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.60\columnwidth, viewport=25 15 465 150] {fig/plane_aberration_limit.eps}
+     \caption{\label{fig:plane_aberration_limit}Angular radius of the circle into which 
+     the infinite plane with $z=$constant is aberrated into.}
+  \end {center}
+\end {figure} 
+
+
+\newpage
+
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_y.eps}
+     \caption{\label{fig:rectangular_grid_y}Deformation of a $y=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
+  \end {center}
+\end {figure} 
+
+
+\newpage
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/aberration_cubes.eps}
+     \caption{\label{fig:aberration_cubes}Deformation of a set of cubes.}
+  \end {center}
+\end {figure} 
+
+\newpage
+\restoregeometry
+\section{Spectrum, Color and Radiation}
 \subsection{Human Perception of Color}
 \subsubsection{Human Vision and LMS Color Space}
 Human vision is limited to the wavelength range between 380 and 700 nm. The 
@@ -2317,9 +2042,375 @@ and application of $(\ref{eq:sRGB})$ and $(\ref{eq:sRGB2})$ yield Figure \ref{fi
   \end {center}
 \end {figure}
 
-\section{Spectrum and Radiation}
-\subsection{Basic Radiometry}
-\subsubsection{Black-Body Radiance}
+\subsubsection{Implementation}
+\begin{lstlisting}[language=python, caption={Implementation of the integration of XYZ tristimulus 
+    values and conversion to SRGB.}]
+import numpy as np
+
+# CIE tristimulus values from http://cvrl.ioo.ucl.ac.uk/cie.htm
+# The Colour & Vision Research laboratory, Institute of Ophthalmology, University College London
+CIE_data = np.array([
+[360,0.000129900000,0.000003917000,0.000606100000],
+...
+[830,0.000001251141,0.000000451810,0.000000000000]]);
+
+CIE_wavel = CIE_data[:, 0]
+CIE_X = CIE_data[:, 1]
+CIE_Y = CIE_data[:, 2]
+CIE_Z = CIE_data[:, 3]
+
+def cie_xyz_integrate(wavelength, power):
+    """Integrate CIE tristimulus values.
+
+    @param: wavelength Wavelength array (nm) corresponding to the power array values.
+    @param: power      Spectral power distribution (W/m^2/nm) 
+    @return: X, Y, Z   The CIE tristimulus values.
+    """
+    # Interpolate values on the CIE wavelength grid.
+    power_interp = np.interp(CIE_wavel, wavelength, power)
+    
+    # Step size in CIE data equals to 1 nm.
+    step_size = 1
+
+    X = np.trapz(CIE_X * power_interp, CIE_wavel, step_size)
+    Y = np.trapz(CIE_Y * power_interp, CIE_wavel, step_size)
+    Z = np.trapz(CIE_Z * power_interp, CIE_wavel, step_size)
+
+    return X, Y, Z
+
+def cie_xyz_delta(wavelength):
+    """Integrate CIE tristimulus values with dirac delta.
+
+    @param: wavelength Wavelength for the dirac delta (nm).
+    @return: X, Y, Z   The CIE tristimulus values.
+    """
+
+    X = np.interp(wavelength, CIE_wavel, CIE_X)
+    Y = np.interp(wavelength, CIE_wavel, CIE_Y)
+    Z = np.interp(wavelength, CIE_wavel, CIE_Z)
+
+    return X, Y, Z
+
+
+def srgbl_srgb(srgbl_value):
+    """Convert SRGB-linear value to SRGB value
+    
+    @param srgbl_value: The SRGB linear value
+    @return: The SRGB value in the range [0, 1] with gamma correction and clipping.
+    """
+
+    # Apply clipping.
+    srgbl_value = max(0, srgbl_value)
+    srgbl_value = min(1, srgbl_value)
+
+    # Apply gamma or scaling.
+    if srgbl_value < 0.0031308:
+        value_out = 12.92 * srgbl_value 
+    else: 
+        value_out = 1.055 * (srgbl_value ** (1.0/2.4)) - 0.055
+    return value_out
+
+
+def cie_xyz_sgrb(X, Y, Z):
+    """Convert CIE tristimulus values to SRGB values
+    
+    @param: X The CIE tristimulus value X
+    @param: Y The CIE tristimulus value Y
+    @param: Z The CIE tristimulus value Z
+    @return R, G, B: The SRGB values.
+    """
+
+    srgbl_r =  3.2406255 * X - 1.5372080 * Y - 0.4986286 * Z
+    srgbl_g = -0.9689307 * X + 1.8757561 * Y + 0.0415175 * Z
+    srgbl_b =  0.0557101 * X - 0.2040211 * Y + 1.0569959 * Z
+
+    srgb_r = srgbl_srgb(srgbl_r)
+    srgb_g = srgbl_srgb(srgbl_g)
+    srgb_b = srgbl_srgb(srgbl_b)
+
+    return srgb_r, srgb_g, srgb_b
+\end{lstlisting}
+
+
+
+\subsection{Doppler Effect}
+\subsubsection{Classical and Relativistic Doppler Effect}
+\begin {figure}[t]
+  \begin {center}
+    \begin{tikzpicture}
+        \clip (-0.5, -1.5) rectangle (9, 1.5);
+\draw[color=gray!50] (7-5.5, 0.5) circle (3.5);
+\draw[color=gray!50] (7-5.375, 0.5) circle (3.25);
+\draw[color=gray!50] (7-5.25, 0.5) circle (3.0);
+\draw[color=gray!50] (7-5.125, 0.5) circle (2.75);
+\draw[color=gray!50] (7-5.0, 0.5) circle (2.5);
+\draw[color=gray!50] (7-4.875, 0.5) circle (2.25);
+\draw[color=gray!50] (7-4.75, 0.5) circle (2.0);
+\draw[color=gray!50] (7-4.625, 0.5) circle (1.75);
+\draw[color=gray!50] (7-4.5, 0.5) circle (1.5);
+\draw[color=gray!50] (7-4.375, 0.5) circle (1.25);
+\draw[color=gray!50] (7-4.25, 0.5) circle (1.0);
+\draw[color=gray!50] (7-4.125, 0.5) circle (0.75);
+\draw[color=gray!50] (7-4.0, 0.5) circle (0.5);
+\draw[color=gray!50] (7-3.875, 0.5) circle (0.25);
+
+        \draw[thick] (0, 0) -- (3, 0);
+        \draw[thick] (0, 1) -- (3, 1);
+        \draw[thick] (0, 0) -- (0, 1);
+        \draw[thick] (3, 0) -- (3, 1);
+        \draw[thick, ->] (3, 0.5) -- (6, 0.5);
+        \draw[thick] (3, 0.5) -- (5, -0.5);
+        \draw[thick] (1.5, 0.5) node{Emitter ($S'$)};
+        \draw[thick] (4.5, 0.8) node{$v$};
+        \draw[thick] (3.7, 0.14) arc(-45:0:0.5 and 0.5);
+        \draw[thick] (4.1, 0.3) node{$\theta$};
+        \draw[thick] (5.5, -0.7) ellipse (0.5 and 0.5);
+        \fill[black] (5.25, -0.55) ellipse (0.10 and 0.15);
+        \draw[thick] (5.25, -0.55) ellipse (0.175 and 0.25);
+        \draw[thick] (7.5, -0.5) node{Observer ($S$)};
+   \end {tikzpicture}
+    \caption{\label{fig:doppler_effect} Geometry associated to Doppler Effect.}
+  \end {center}
+\end {figure}
+
+
+Consider a light source fixed to an inertial frame $S'$ moving with velocity $v$ 
+w.r.t. an observer fixed to an inertial frame $S$ (see Figure 
+\ref{fig:doppler_effect}). Suppose that the direction of movement makes the angle 
+$\theta$ w.r.t. direction to the observer. Let $\vc v = v\vu x$ and represent the 
+wavefront towards the observer with phase angle
+\begin {eqnarray}
+    \phi(\vc x, t) = A\cos(\vc k\cdot\vc x - \omega t),
+\end {eqnarray}
+where the wave vector satisfies 
+\begin {eqnarray}
+    \vc k = k\cos\theta\:\vu x + k\sin\theta\:\vu y.
+\end {eqnarray}
+Substitution of $kx-\omega t = 0$ yields in vacuum $x = \omega t / k = ct$ and 
+$k = \omega/c$.
+
+The phase angle $\phi$ in the frames $S$ and $S'$ can be related by the Galilean
+transformation
+\begin {eqnarray}
+    t &=& t' \\
+    x &=& x' + vt \\
+    y &=& y' \\
+    z &=& z'
+\end {eqnarray}
+with the expansion 
+\begin {eqnarray}
+    \vc k\cdot\vc x - \omega t
+    &=&
+    kx \cos\theta + ky \sin\theta - \omega t 
+    \\
+    &=& 
+    k(x' + vt) \cos\theta + ky \sin\theta - \omega t 
+    \\
+    &=& 
+    kx'\cos\theta + ky'\sin\theta -\omega(1 -\beta\cos\theta)
+    \\
+    &=& 
+    \vc k'\cdot\vc x' - \omega' t
+\end {eqnarray}
+Thus, we obtain the expression for \textbf{classical Doppler Effect}
+\begin {eqnarray}
+    \boxed{
+        \quad
+        \omega = \frac{\omega'}{1 - \beta\cos\theta},
+        \quad
+        \vc k' = \vc k.
+        \quad
+    }
+\end {eqnarray}
+In the relativistic case, we replace the Galilean transformation with the Lorentz 
+transformation 
+\begin {eqnarray}
+    t &=& \gamma(t' + \beta x'/c) \\
+    x &=& \gamma(x' + vt) \\
+    y &=& y' \\
+    z &=& z'.
+\end {eqnarray}
+Now we can expand 
+\begin {eqnarray}
+    \vc k\cdot\vc x - \omega t 
+    &=& 
+    k\gamma(x' + vt')\cos\theta + ky\sin\theta  - \omega\gamma(t' + \beta x'/c)
+    \\
+    &=& 
+    \gamma (k\cos\theta - \omega\beta/c)x' 
+    + 
+    ky\sin\theta 
+    - 
+    \gamma(\omega - kv\cos\theta)) t'
+    \\
+    &=& 
+    \gamma k (\cos\theta - \beta)x'
+    +
+    ky'\sin\theta 
+    -
+    \gamma\omega(1 - \beta\cos\theta)t'
+    \\
+    &=& 
+    \vc k'\cdot\vc x' - \omega' t' 
+\end {eqnarray}
+and obtain the expression for \textbf{relativistic Doppler Effect}
+\begin {eqnarray}
+    \label{eq:doppler_relativistic}
+    \boxed{
+        \quad
+        \omega = \frac{\omega'}{\gamma(1 - \beta\cos\theta)},
+        \quad
+        \vc k' = \gamma k(\cos\theta - \beta)\vu x 
+        +
+        k\sin\theta\vu y.
+        \quad
+    }
+\end {eqnarray}
+The transformation of the wave vector corresponds to the relativistic aberration 
+correction. 
+
+\subsubsection{Longitudal and Transverse Motion}
+%\subsubsection{Longitudal Doppler Effect}
+The special cases relating to longitudal motion are depicted in Figure \ref{fig:redshift_blueshift}.
+When $\theta = 180^\circ$ and $\theta = 0^\circ$, we can expand 
+\begin {eqnarray}
+    \frac{\omega}{\omega'}
+    &=&
+    \frac{1}{\gamma(1 + \beta)}
+    =
+    \frac{\sqrt{(1 + \beta)(1 - \beta)}}{1 + \beta}
+    = 
+    \sqrt{\frac{1 - \beta}{1 + \beta}} \leq 1
+    \\
+    \frac{\omega}{\omega'}
+    &=&
+    \frac{1}{\gamma(1 - \beta)}
+    =
+    \frac{\sqrt{(1 + \beta)(1 - \beta)}}{1 - \beta}
+    = 
+    \sqrt{\frac{1 + \beta}{1 - \beta}} \geq 1
+\end {eqnarray}
+respectively. 
+\begin {figure}[h]
+  \begin {center}
+    \begin{tikzpicture}
+        \draw[thick] (0, -2) -- (3, -2);
+        \draw[thick] (0, -1) -- (3, -1);
+        \draw[thick] (0, -2) -- (0, -1);
+        \draw[thick] (3, -2) -- (3, -1);
+        \draw[thick, ->] (3, -1.5) -- (5, -1.5);
+        \draw[thick] (1.5, -1.5) node{Emitter ($S'$)};
+        \draw[thick] (4.5, -1.2) node{$v$};
+        \draw[thick] (4.1, -1.7) node{$\theta=0$};
+        \draw[thick] (5.5, -1.5) ellipse (0.5 and 0.5);
+        \fill[black] (5.25, -1.5) ellipse (0.10 and 0.15);
+        \draw[thick] (5.25, -1.5) ellipse (0.175 and 0.25);
+        \draw[thick] (7.5, -1.5) node{Observer ($S$)};
+
+        \draw[thick] (0, 0) -- (3, 0);
+        \draw[thick] (0, 1) -- (3, 1);
+        \draw[thick] (0, 0) -- (0, 1);
+        \draw[thick] (3, 0) -- (3, 1);
+        \draw[thick, dotted] (0, 0.5) -- (-2, 0.5);
+        \draw[thick] (4.5, 0.8) node{$v$};
+        \draw[thick, ->] (3, 0.5) -- (5, 0.5);
+
+        \draw[thick] (1.5, 0.5) node{Emitter ($S'$)};
+        \draw[thick] (-0.9, 0.3) node{$\theta=180^\circ$};
+        \draw[thick] (-2.5, 0.5) ellipse (0.5 and 0.5);
+        \fill[black] (-2.25, 0.5) ellipse (0.10 and 0.15);
+        \draw[thick] (-2.25, 0.5) ellipse (0.175 and 0.25);
+        \draw[thick] (-4.5, 0.5) node{Observer ($S$)};
+        \end {tikzpicture}
+    \caption{\label{fig:redshift_blueshift} Geometry associated to maximal 
+             redshift (top) and maximal blueshift (below).}
+  \end {center}
+\end {figure}
+%\subsubsection{Transverse Doppler Effect}
+With transverse motion, it is necessary to take into account the influence of
+aberration: The meaning of the direction of movement being at right angles to 
+the vector between the observer and the source is dependent on the frame. 
+Superficial analysis not taking aberration into account might suggest that a 
+planet orbiting a star a perfectly circular orbit would experience Doppler 
+redshift but in fact it will experience blueshift.
+Substitution of $\theta = \pi/2$ to $(\ref{eq:doppler_relativistic})$ yields 
+expression for transverse motion in $S$
+\begin {eqnarray}
+    \omega = \frac{\omega'}{\gamma} < \omega'
+\end {eqnarray}
+However, substitution of $\theta' = \pi/2$ yields $\beta = \cos\theta$ and 
+an expression for transverse motion in $S'$
+\begin {eqnarray}
+    \omega = \frac{\omega'}{\gamma(1 - \beta^2)} = \gamma\omega' > \omega'.
+\end {eqnarray}
+That is, transverse motion from the viewpoint of the observer leads to a 
+redshift and transverse motion from the viewpoint of the source leads to 
+a blueshift. A planet orbiting a star on a circular orbit will experience 
+Doppler blueshift of the starlight and a imaging satellite orbiting a planet 
+will experience (Doppler) redshift (see Figure \ref{fig:doppler_transverse}).
+
+\begin {figure}[t]
+  \begin {center}
+    \begin{tikzpicture}
+        \draw (7, 0) node{$\bullet$};
+        \draw (7, 0.35) node{$\sun$};
+        %\draw[thick] (0,0) circle (2);
+
+        \draw[thick] (9.0, 0) ellipse (0.5 and 0.5);
+        \fill[black] (8.75, 0) ellipse (0.10 and 0.15);
+        \draw[thick] (8.75, 0) ellipse (0.175 and 0.25);
+        \draw[thick] (10.75, 0) node{Observer ($S$)};
+        \draw[thick] (7, -0.5) node{Source ($S'$)};
+        \draw[thick] (9,0.5) arc (15:345:2);
+        \draw[thick, ->] (9, 0.5) -- (9, 2);
+        \draw[thick] (9.2, 1) node{$v$};
+
+        \draw[thick] (0,0) circle (2);
+        \draw[thick] (0.0, 0) ellipse (0.5 and 0.5);
+        \fill[black] (0.25, 0) ellipse (0.10 and 0.15);
+        \draw[thick] (0.25, 0) ellipse (0.175 and 0.25);
+        \draw[thick] (2, 0) node{$\bullet$};
+        \draw (1.65, 0) node{$\sun$};
+        \draw[thick, ->] (2, 0.0) -- (2, 2);
+        \draw[thick] (2.2, 1) node{$v$};
+        \draw[thick] (0.0, -0.75) node{Observer ($S$)};
+        \draw[thick] (3.25, 0.0) node{Source ($S'$)};
+
+    \end {tikzpicture}
+    \caption{\label{fig:doppler_transverse} Two examples of transverse motion:
+    Transverse motion in $S$ resulting in redshift (left) and transverse motion 
+    in $S'$ resulting in blueshift (right).}
+  \end {center}
+\end {figure}
+
+%\subsubsection{Boundary Between Redshift and Blueshift}
+As shown previously, maximum blueshift and redshift are obtained at angles 
+$\theta=0^\circ$ and $\theta=180^\circ$, respectively. The boundary w.r.t. 
+values $\theta$ between redshift and blueshift occurs when $\omega=\omega'$
+or equivalently 
+\begin {eqnarray}
+    \gamma(1 - \beta\cos\theta) = 1
+    &\Leftrightarrow&
+    \cos\theta = \frac{1}{\beta}\left(1 - \frac{1}{\gamma}\right).
+\end {eqnarray}
+The limit is depicted in Figure \ref{fig:doppler_limits}. When $\beta$ 
+becomes larger, the region of blueshift gets smaller and converges to a 
+dot when $\beta\to 1$. 
+\begin {figure}[h]
+  \begin {center}
+     \includegraphics [angle=0, width=0.8\columnwidth] {fig/doppler_limits.eps}
+     \caption{\label{fig:doppler_limits} Limit angle between redshift and blueshift.
+     For positive and negative $\beta$, the value is the lower and upper limit, respectively 
+     of the blueshift for $\theta$.}
+  \end {center}
+\end {figure} 
+
+\subsection{Spectrum and Radiation}
+\textcolor{red}{It's somewhat likely that portion of details in this section are 
+wrong.}
+
+\subsubsection{Basic Radiometry}
+%\subsubsection{Black-Body Radiance}
 \begin {figure}
   \begin {center}
      \includegraphics [angle=0, width=0.45\columnwidth] {fig/radiance.eps}
@@ -2442,7 +2533,7 @@ where the \textbf{Stefan-Boltzmann constant}
     = 
     5.670374419\cdot 10^{-8}\:\textrm{W}\cdot\textrm{m}^{-2}\cdot \textrm{K}^{-4}.
 \end {eqnarray}
-\subsubsection{Wien's Displacement Law}
+%\subsubsection{Wien's Displacement Law}
 To obtain peak frequency of the black body radiance as a function of temperature,
 we derivate $(\ref{eq:blackbody_specfreq})$ w.r.t. frequency
 \begin{eqnarray}
@@ -2521,7 +2612,7 @@ $(\ref{eq:boltzmann})$ since $5^4/4^4 \approx 2.44$ and $6^4/5^4 \approx 2.49$.
      \caption{\label{fig:blackbody_example} Three examples of black-body spectra.}
   \end {center}
 \end {figure}
-\subsubsection{Effective Temperature and Color}
+%\subsubsection{Effective Temperature and Color}
 Visual perception of black-body as a function of its \textbf{effective temperature}
 is easily obtained using the computation in section \ref{sec:srgb}. In 
 Figure \ref{fig:effective_temperature}, SRGB values for black-bodies are displayed for a 
@@ -2535,10 +2626,8 @@ with $\max\{X, Y, Z\}$.
   \end {center}
 \end {figure}
 
-\subsection{Lorentz Transformations}
-\textcolor{red}{It's somewhat likely that portion of details in this section are 
-wrong.}
-\subsubsection{Plane Waves and Intensity}
+\subsubsection{Lorentz Transformations}
+%\subsubsection{Plane Waves and Intensity}
 \textbf{Intensity} $I$ associated to electromagnetic wave is the time-average of the 
 \textbf{Poynting vector} $\vc S$. That is,
 \begin {eqnarray}
@@ -2857,7 +2946,7 @@ This suggests that power density w.r.t. solid angle satisfies
 \end {eqnarray}
 
 
-\subsubsection{Black-Body Radiance}
+\subsubsection{Black-Body Radiance and Stars}
 For an observer moving at relativistic speeds, the perceived color of black-body sources
 can be significantly influenced by the Doppler effect. However, since the black-body 
 radiation is not monochromatic but consists of a continuous spectrum, the computation
@@ -2888,8 +2977,9 @@ it seems that the argument to the exponential term transforms according to an
 \end {eqnarray}
 The amplitude term is replaced with one with third power of the Doppler-transformed 
 frequency.
-\subsection{Stars}
-\subsubsection{Spectrum of Stars}
+%\subsection{Stars}
+%\subsubsection{Spectrum of Stars}
+
 The electromagnetic spectrum of stars essentially follow the blackbody spectrum 
 complicated slightly by absorption and emission lines. However, for visual 
 effects discussed in this section, they can be approximated as ideal black-bodies.
@@ -2899,7 +2989,7 @@ rest frame of the star.
 %This effective temperature is further transformed based on the relativistic 
 %Doppler effect using $(\ref{eq:effective_temperature_doppler})$.
 
-\subsubsection{Observed Color}
+%\subsubsection{Observed Color}
 To compute the color of a distant star observed by an observer in relative motion, 
 we simply compute the effective temperature $T_{eff}$ of the star in the frame 
 of the observer using $(\ref{eq:effective_temperature_doppler})$. When the observer 
@@ -2926,148 +3016,245 @@ with the effective temperature $T'=5778$ K of the Sun.
   \end {center}
 \end {figure} 
 
+
+\newpage
+\section{Ray Tracing and Special Relativity}
+\subsection{Ray Tracing}
+\subsubsection{Viewport and Rays}
+In order to determine an SRGB value for each pixel in an image, we start 
+ray tracing by mapping each pixel to an aberrated direction vector. The 
+aberrated vector is then transformed to a non-aberrated vector using inverse 
+aberration formula. That is instead of using the combination of perspective 
+projection and aberration correction, in ray tracing we apply inverse steps 
+in inverse order.
+
+Consider the geometry of the viewport shown in Figure \ref{fig:viewport}.
+Let $\vc E$ be the camera location, $\vu t$ the target direction, 
+$\vc C = \vc E + d\:\vu t$ the center of the viewport and $\theta$ the 
+horizontal field-of-view.
+\begin {figure}[t]
+  \begin {center}
+    \begin{tikzpicture}
+        \draw[thick, ->] (0, 0) -- (-2,-2);
+        \draw[thick, ->] (0, 0) -- (0, 4);
+        %\draw[thick] (0, 0) -- (3.25, 0);
+        \draw[dashed] (0, 0) -- (4, 0);
+        \draw[thick, ->] (4, 0) -- (7, 0);
+        \draw[thick] (0,0) -- (4 - 1.0, -1.0);
+        \draw[thick] (0,0) -- (3, 0.6);
+        \draw[dashed] (3,0.6) -- (5, 1.0);
+
+        \draw (5.6, 2.25) node{$\vc P_{11}$};
+        \draw (5.6, -0.25) node{$\vc P_{1m}$};
+        \draw (2.35, -0.4) node{$\vc P_{k1}$};
+        \draw (2.35, -2.4) node{$\vc P_{km}$};
+        \draw (-0.5, 0) node{$\vc E$};
+        \draw (0, 0) node{$\bullet$};
+
+        \foreach \dy in {-1,...,1} {
+            \foreach \dx in {-2,...,2} {
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 - 0.25 + 0.5 * \dx, 0.25+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 + 0.25 + 0.5 * \dx, -0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx,-0.25+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, 0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
+                \draw (4.0 + 0.5 * \dx, 0.0+ 0.5 * \dx + \dy) node{$\bullet$};
+            }
+        }
+
+        \draw[dashed] (4 - 1, 0) -- (4 - 1,  1);
+        \draw[dashed] (4 + 1, 2) -- (4 + 1,  3);        
+        \draw[thick, <->] (4 - 1, 1) -- (4 + 1,  3);
+        \draw (4, 2.5) node{$h_x$};
+
+        \draw[dashed] (4 + 1, 2) -- (4 + 2,  2);
+        \draw[thick, <->] (4 + 2, 2) -- (4 + 2,  0);
+        \draw (6.5, 1) node{$h_y$};
+
+
+        \draw (4.0, 0.0) node{$\bullet$};
+        \draw[thick] (0.8,-0.25) arc (-55:15:0.4);
+        \draw (1.2, 0.0) node{$\theta$};
+        \draw (3.95, -0.25) node{$\vc C$};
+
+        \draw (-0.4,3.75) node{$\vu u$};
+        \draw (-2.2,-1.8) node{$\vu r$};
+        \draw (6.75,0.4) node{$\vu t$};
+    \end {tikzpicture}
+    \caption{\label{fig:viewport}Geometry of the viewport. Adapted from \cite{wiki_viewport}.}
+  \end {center}
+\end {figure}
+
+The width $h_x$ and height $h_y$ of the viewport can be related to the 
+distance $d$, field-of-view $\theta$ and the inverse aspect ratio 
+$(m-1)/(k-1)$ by 
+\begin {eqnarray}
+    h_x &=& 2d\tan\frac{\theta}{2}, \\
+    h_y &=& h_x\frac{m-1}{k-1},
+\end {eqnarray}
+where we have assumed square pixels. Neighboring pixels can be related by 
+shifting vectors 
+\begin {eqnarray}
+    \Delta\vc x &=& \frac{h_x}{k - 1}\vu r, \\
+    \Delta\vc y &=& \frac{h_y}{m - 1}\vu u.
+\end {eqnarray}
+Now the position of an arbitrary pixel 
+\begin {eqnarray}
+    \vc r_{ij} &=& \vc r_{11} + (i - 1)\Delta\vc x - (j - 1)\Delta\vc y,
+\end {eqnarray}
+where the top-left corner pixel can be written 
+\begin {eqnarray}
+    \vc r_{11} &=& \vc E + D\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
+\end {eqnarray}
+Thus, the direction vector to pixel $(i, j)$ in the frame of the observer
+\begin {eqnarray}
+    \vu R_{ij}' &=& \frac{\vc r_{ij} - \vc E}{||\vc r_{ij} - \vc E||}.
+\end {eqnarray}
+The direction vector can be then transformed to a direction vector $\vc R_{ij}$
+in a frame approximately fixed to the scene with $(\ref{eq:properdir2})$ by 
+replacing the vector beta factor of the observer $\vc\beta$ with $-\vc\beta$.
+
+\subsubsection{Ray-Triangle Intersections: M{\"o}ller-Trumbore Algorithm}
+Consider a ray 
+\begin {eqnarray}
+    \vc r(t) = \vc O + t\vc D : t \geq 0
+\end {eqnarray}
+possibly intersecting the plane $P$ containing the triangle defined by the vertices 
+$\vc v_1, \vc v_2, \vc v_3\in\mathbb{R}^3$. Then, a normal vector for the plane can be 
+written 
+\begin {eqnarray}
+    \vc n = (\vc v_2 - \vc v_1)\times (\vc v_3 - \vc v_1)
+    = \vc e_1 \times \vc e_2,
+\end {eqnarray}
+where we denote the two edges connected to $\vc v_1$ with 
+$\vc e_1 = \vc v_2 - \vc v_1$ and 
+$\vc e_2 = \vc v_3 - \vc v_1$.
+The ray will not intersect the plane if $\vc v\cdot\vc n  = 0$ unless $\vc O\in P$.
+When $\vc v\cdot\vc n\neq 0$, we wish to find the intersection of the ray with the 
+plane and determine whether the intersection is with the triangle. The 
+M{\"o}ller-Trumbore Algorithm uses barycentric coordinates $(w, u, v)$ so that 
+all points $\vc P\in P$ can be expressed
+\begin {eqnarray}
+    \vc P(w, u, v) = w\vc v_1 + u\vc v_2 + v\vc v_3.
+\end {eqnarray}
+For the points of the triangle, the conditions 
+\begin {eqnarray}
+    \label{eq:moller_cond1}
+    w, u, v &\geq& 0, \\
+    \label{eq:moller_cond2}
+    w + u + v &=& 1
+\end {eqnarray}
+hold and we can expand
+\begin {eqnarray}
+    \vc P(u, v) &=& (1 - u - v)\vc v_1 + u\vc v_2 + v\vc v_3
+    \\
+    &=& \vc v_1 + u(\vc v_2 - \vc v_1) + v(\vc v_3 - \vc v_1).
+    \\
+    \label{eq:barytri}
+    &=& \vc v_1 + u\vc e_1 + v\vc e_2
+\end {eqnarray}
+Now unless the triangle is degenerate, every intersection between the ray and 
+the plane can be expressed using $(\ref{eq:barytri})$. The intersection will 
+be with the triangle if the conditions $(\ref{eq:moller_cond1})$, 
+$(\ref{eq:moller_cond2})$ hold for a non-negative $t$. At the intersection 
+\begin {eqnarray}
+    \vc O + t\vc D = \vc v_1 + u\vc e_1 + v\vc e_2.
+\end {eqnarray}
+This can be reorganized into a linear system of equations 
+\begin {eqnarray}
+    \label{eq:moller_lin}
+    \vc O - \vc v_1 
+    =
+    \begin {bmatrix}
+        -\vc D & \vc e_1 & \vc e_2
+    \end {bmatrix}
+    \begin {bmatrix}
+        t \\ u \\ v
+    \end {bmatrix}.
+\end {eqnarray}
+The equation $(\ref{eq:moller_lin})$ can be easily solved with Cramer rule 
+$x_i = |A_i|/|A|$ for systems of linear equations $A\vc x=\vc b$, 
+where $A_i$ is formed from A by replacing column $i$ with $\vc b$.
+To apply the formula, we compute the determinants repeatedly using the 
+scalar triple product $|\vc a\:\:\vc b\:\:\vc c| = \vc a\cdot(\vc b\times\vc c)$
+\begin{eqnarray}
+    |A| 
+    &=& 
+    \begin {vmatrix}
+     -\vc D & \vc e_1 & \vc e_2
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+       \vc e_1 & \vc D &\vc e_2
+    \end {vmatrix}
+    = 
+    \vc e_1\cdot\vc D\times\vc e_2
+    \\
+    |A_1| 
+    &=& 
+    \begin {vmatrix}
+        \vc O - \vc v_1 & \vc e_1 & \vc e_2
+    \end {vmatrix}
+    \:\:\:=
+    \begin {vmatrix}
+       \vc e_2 & \vc O - \vc v_1 & \vc e_1
+    \end {vmatrix}
+    = 
+    \vc e_2 \cdot (\vc O - \vc v_1)\times \vc e_1
+    \\
+    |A_2| 
+    &=& 
+    \begin {vmatrix}
+        -\vc D & \vc O - \vc v_1 & \vc e_2
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+        \vc O - \vc v_1 & \vc D & \vc e_2
+    \end {vmatrix}
+    = 
+    (\vc O - \vc v_1)\cdot \vc D \times \vc e_2
+    \\
+    |A_3| 
+    &=& 
+    \begin {vmatrix}
+        -\vc D & \vc e_1 & \vc O - \vc v_1 
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+        \vc D & \vc O - \vc v_1 & \vc e_1
+    \end {vmatrix}
+    = 
+    \vc D\cdot (\vc O - \vc v_1) \times \vc e_1.
+\end {eqnarray}
+Thereafter, we can compute parameters for the intersection
+\begin {eqnarray}
+    t = |A_1|/|A|, \quad u = |A_2|/|A|, \quad v = |A_3|/|A|.
+\end {eqnarray}
+If $t<0$, the intersection is in the opposite direction to the ray.
+The conditions $(\ref{eq:moller_cond1})$ correspond to the following sufficient 
+conditions of the intersection being outside the triangle:
+\begin {eqnarray}
+    u+v > 1, \quad u < 0, \quad v < 0.
+\end {eqnarray}
+Similarly, the conditions $(\ref{eq:moller_cond2})$ correspond to 
+\begin {eqnarray}
+    u + v < 0 , \quad u > 1, \quad v > 1.
+\end {eqnarray}
+However, if $u, v\geq 0$ and $u+v \leq 1$, then also $u+v\geq 0$ and $u,v\leq 1$. Thus, 
+when using the conditions to dismiss intersections, checking the latter set after 
+the first is redundant.
+
+\subsubsection{Sphere-Ray Intersections}
+\subsubsection{Depth Buffer}
+\subsubsection{Reflections}
+
+
+
 \subsubsection{Observed Spectral Power Distribution}
 
 \newpage
 
 \section{Visual Effects at Relativistic Speeds}
-\subsection{Deformation}
-\subsubsection{Spherical Grid}
-Consider spherical grid with $10^\circ$ steps w.r.t. coordinates
-$\theta\in[-90^\circ, 90^\circ]$ and $\phi\in[-180^\circ, 180^\circ]$, 
-where the relationship to Cartesian coordinates can be expressed as
-\begin {eqnarray}
-    x &=& R\cos\theta\cos\phi, \\
-    y &=& R\cos\theta\sin\phi, \\
-    z &=& R\sin\theta.
-\end {eqnarray}
-The radius $R$ is assumed to be so large that the uncorrected directions 
-towards the grid do not change and discussion of acceleration in the following 
-makes sense.
 
-Application of the relativistic aberration correction $(\ref{eq:properdir2})$ 
-to the grid with movement in $+x$ and $+z$ directions is shown Figure 
-\ref{fig:sph_grid_deform_360_x}
-and Figure 
-\ref{fig:sph_grid_deform_360_z}, respectively.
-Figure \ref{fig:sph_grid_perspective_x} and Figure \ref{fig:sph_grid_perspective_z} 
-show the deformation for an observer with $90^\circ$ field-of-view. 
-The comparison of the figures for motion in +x and +z directions indicates how the 
-selection of the axis pointing to the north pole in spherical coordinates influences 
-the simplicity of effect: When the motion is towards a pole, the effect becomes 
-independent of $\phi$.
-
-These visualizations show how as the observer accelerates towards the speed of light,
-aberration corresponds to an increasing compression towards the direction of motion 
-and stretching in the opposite direction. That is, towards the direction 
-of motion, the angular size of light sources will decrease and create an impression
-that the light sources are moving away from the observer while light sources 
-in the opposite direction will appear to move towards the observer. 
-
-If an observer launched into a direction normal to the galactic plane and 
-accelerated towards the speed of light, they would observe the galaxy as a 
-shrinking ring in the direction of movement. Similarly, if an observer launched 
-from the pole of Saturn at near the speed of light, they would see Saturn's rings 
-in the forward direction (for a very brief moment). One could find an 
-time-dependent acceleration that ensures that rings of Saturn would be observed 
-within given angle w.r.t. forward-direction.
-
-\subsubsection{Rectangular Grid}
-For rectangular grid on a $z=$constant plane, the angular size of the plane can be 
-computed from $(\ref{eq:relativistic_aberration})$ by first rewriting 
-\begin {eqnarray}
-    \tan\theta' 
-    = 
-    \frac{\tan\theta}{\gamma(1 + \beta\sec\theta)}
-    =
-    \frac{\sin\theta/\cos\theta}{\gamma(1 + \beta/\cos\theta)}
-    =
-    \frac{\sin\theta}{\gamma(\cos\theta + \beta)}.
-\end {eqnarray}
-Substitution of $\theta=90^\circ$ then yields 
-\begin {eqnarray}
-    \label{eq:plane_aberration_limit}
-    \theta' = \arctan\frac{1}{\gamma\beta}
-\end {eqnarray}
-In Figures \ref{fig:rectangular_grid_z}, $z=$constant grid is drawn together with the limiting curve 
-$(\ref{eq:plane_aberration_limit})$ also shown in Figure \ref{fig:plane_aberration_limit}.
-Figures \ref{fig:rectangular_grid_y} shows $y=$constant grid.
-
-\newgeometry{left=1cm,bottom=0.1cm,top=0.1cm,right=1cm}
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_1.eps}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_2.eps}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_x_3.eps}
-     \caption{\label{fig:sph_grid_deform_360_x}Deformation of a spherical grid due to motion in $+x$ direction.}
-  \end {center}
-\end {figure} 
-
-\newpage
-
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_1.eps}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_2.eps}
-     \includegraphics [angle=0, width=0.8\columnwidth, clip=true, viewport=70 20 920 530] {fig/spherical_grid_360_z_3.eps}
-     \caption{\label{fig:sph_grid_deform_360_z}Deformation of a spherical grid due to motion in $+z$ direction.}
-  \end {center}
-\end {figure} 
-
-\newpage
-
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_x.eps}
-     \caption{\label{fig:sph_grid_perspective_x}Deformation of a spherical grid due to motion in $+x$ direction with perspective projection.}
-  \end {center}
-\end {figure} 
-
-\newpage
-
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=1.00\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/spherical_grid_perspective_z.eps}
-     \caption{\label{fig:sph_grid_perspective_z}Deformation of a spherical grid due to motion in $+z$ direction with perspective projection.}
-  \end {center}
-\end {figure} 
-
-\newpage
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_z.eps}
-     \caption{\label{fig:rectangular_grid_z}Deformation of a $z=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
-  \end {center}
-\end {figure} 
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.60\columnwidth, viewport=25 15 465 150] {fig/plane_aberration_limit.eps}
-     \caption{\label{fig:plane_aberration_limit}Angular radius of the circle into which 
-     the infinite plane with $z=$constant is aberrated into.}
-  \end {center}
-\end {figure} 
-
-
-\newpage
-
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 100 1100 1100] {fig/rectangular_grid_y.eps}
-     \caption{\label{fig:rectangular_grid_y}Deformation of a $y=$constant rectangular grid due to motion in $+z$ direction with perspective projection.}
-  \end {center}
-\end {figure} 
-
-
-\newpage
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=0.9\columnwidth, clip=true, viewport=70 160 1100 1600] {fig/aberration_cubes.eps}
-     \caption{\label{fig:aberration_cubes}Deformation of a set of cubes.}
-  \end {center}
-\end {figure} 
-\newpage
-
-\restoregeometry
 \subsubsection{Solid Objects}
 
 \begin {thebibliography}{1}
