@@ -198,10 +198,11 @@ and implementation of aberration correction algorithms.
 \end {figure}
 A powerful introductory insight into many theories of physics can be gained from simple 
 thought experiments involving everyday things and phenomena often in extreme circumstances:
-For example, standard introduction to the theory of special relativity often is via
-thought experiments involving trains moving at relativistic velocities and flashes of 
-lightning. In a similar vein, we introduce the phenomenon of aberration with a thought 
-experiment, where the effect of finite speed is very apparent and intuitive.
+For example, standard introduction to the theory of special relativity often is 
+presented using thought experiments involving trains moving at relativistic velocities 
+and flashes of lightning. In a similar vein, we introduce the phenomenon of aberration 
+with a thought experiment, where the effect of finite speed is very apparent and 
+intuitive.
 
 Consider a train cart fixed to the frame $S'$ moving in $+x$-direction with velocity 
 $v$ w.r.t. frame $S$ fixed to the ground. Passenger on the train observes the direction 
@@ -2947,6 +2948,12 @@ This suggests that power density w.r.t. solid angle satisfies
 
 
 \subsubsection{Black-Body Radiance and Stars}
+It is important to note that distant stars are not bright enough to directly 
+stimulate the cone cells on the retina of the human eye, which are responsible 
+for the perception of color. Instead, the perception of distant stars is based 
+on the stimulation of rod cells responsible for dark vision. Thus any realistic
+depiction how human vision perceives a star field will not likely involve color. 
+
 For an observer moving at relativistic speeds, the perceived color of black-body sources
 can be significantly influenced by the Doppler effect. However, since the black-body 
 radiation is not monochromatic but consists of a continuous spectrum, the computation
@@ -2990,7 +2997,7 @@ rest frame of the star.
 %Doppler effect using $(\ref{eq:effective_temperature_doppler})$.
 
 %\subsubsection{Observed Color}
-To compute the color of a distant star observed by an observer in relative motion, 
+To compute the color of a bright star observed by an observer in relative motion, 
 we simply compute the effective temperature $T_{eff}$ of the star in the frame 
 of the observer using $(\ref{eq:effective_temperature_doppler})$. When the observer 
 is travelling directly towards the star in longitudal motion, this corresponds to the 
@@ -3103,7 +3110,7 @@ Now the position of an arbitrary pixel
 \end {eqnarray}
 where the top-left corner pixel can be written 
 \begin {eqnarray}
-    \vc r_{11} &=& \vc E + D\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
+    \vc r_{11} &=& \vc E + d\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
 \end {eqnarray}
 Thus, the direction vector to pixel $(i, j)$ in the frame of the observer
 \begin {eqnarray}
@@ -3114,7 +3121,15 @@ in a frame approximately fixed to the scene with $(\ref{eq:properdir2})$ by
 replacing the vector beta factor of the observer $\vc\beta$ with $-\vc\beta$.
 
 \subsubsection{Ray-Triangle Intersections: M{\"o}ller-Trumbore Algorithm}
-Consider a ray 
+Once we have a direction vector for each pixel, we want to compute the closest 
+intersection of the corresponding rays with objects in the scene. In computer 
+graphics, material objects in the scene are typically represented with triangles.
+The most common algorithm for determination of ray-triangle intersections is 
+the \textbf{M{\"o}ller-Trumbore Algorithm} \cite{wiki_moller_trumbore}, which 
+involves solution of the intersection point of the ray with the plane containing 
+the triangle via application of the Cramer's rule in barycentric coordinates.
+
+Consider the ray 
 \begin {eqnarray}
     \vc r(t) = \vc O + t\vc D : t \geq 0
 \end {eqnarray}
@@ -3244,18 +3259,74 @@ when using the conditions to dismiss intersections, checking the latter set afte
 the first is redundant.
 
 \subsubsection{Sphere-Ray Intersections}
+The points of a sphere with center $\vc c$ and radius $r$ can be expressed 
+\begin {eqnarray}
+    \label{eq:sphereray_sphere}
+    | \vc x - \vc c |^2 = r^2.
+\end {eqnarray}
+Consider also ray 
+\begin {eqnarray}
+    \label{eq:sphereray_ray}
+    \vc x(d) = \vc o + d\vu u,
+\end {eqnarray}
+where $\vc o$ is the origin, $\vu u$ is the unit direction vector and $d>0$.
+Substitution of the equation for the ray $(\ref{eq:sphereray_ray})$ to 
+the equation for sphere $(\ref{eq:sphereray_sphere})$, yields
+\begin {eqnarray}
+    (\vc o + d\vu u - \vc c) \cdot (\vc o + d\vu u - \vc c) - r^2
+    =
+    |\vc o + d\vu u - \vc c|^2 - r^2 = 0.
+\end {eqnarray}
+To be able to apply the quadratic formula, we arrange the terms according powers 
+of $d$
+\begin {eqnarray}
+    d^2|\vu u|^2 + 2d\left[
+        \vu u\cdot (\vc o - \vc c)
+    \right]
+    + |\vc o - \vc c|^2 - r^2 = 0
+\end {eqnarray}
+That is, for a quadratic polynomial $ad^2 + bd + c = 0$, we obtain the expressions  
+\begin {eqnarray}
+    a &=& |\vu u|^2 = 1, \\
+    b &=& 2\vu u\cdot(\vc o - \vc c), \\
+    c &=& |\vc o - \vc c|^2 - r^2.
+\end {eqnarray}
+The solution can then be computed using the quadratic formula  
+\begin {eqnarray}
+    d 
+    &=& 
+    \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    \\
+    &=& 
+    \frac{-2\left[\vu u\cdot(\vc o - \vc c)\right] 
+    \pm 
+    \sqrt{[2\vu u\cdot(\vc o - \vc c)]^2 - 4|\vc o - \vc c|^2 + 4r^2)}}{2}
+    \\
+    &=& 
+    -\vu u\cdot(\vc o - \vc c)
+    \pm
+    \sqrt{|\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2}.
+\end {eqnarray}
+If we denote
+$\Delta = |\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2$,
+there are 0, 1 or 2 solutions depending on whether $\Delta<0$, $\Delta=0$ or 
+$\Delta>0$, respectively. 
+
+In practical computations, the condition $\Delta=0$ is not likely encountered.
+
 \subsubsection{Depth Buffer}
 \subsubsection{Reflections}
+\subsection{Visualizations}
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth] {fig/doppler_cubes.eps}
+     \caption{\label{fig:doppler_cubes}Observer accelerating towards a grid of 
+     cubes.}
+  \end {center}
+\end {figure} 
 
-
-
-\subsubsection{Observed Spectral Power Distribution}
 
 \newpage
-
-\section{Visual Effects at Relativistic Speeds}
-
-\subsubsection{Solid Objects}
 
 \begin {thebibliography}{1}
     \bibitem{relativity_problems}
@@ -3268,6 +3339,14 @@ the first is redundant.
     Wikipedia, Ray Tracing (graphics), Available at 
     \url{https://en.wikipedia.org/wiki/Ray_tracing_(graphics)},
     Retrieved 15.2.2026.
+    \bibitem{wiki_moller_trumbore}
+    Wikipedia, M{\"o}ller-Trumbore Algorithm, Available at 
+    \url{https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm},
+    Retrieved 2.3.2026.
+    \bibitem{wiki_linesphere}
+    Wikipedia, Line-Sphere Intersection, Available at 
+    \url{https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection},
+    Retrieved 21.2.2026.
     \bibitem{cie}
     CIE 1931 2-deg XYZ CMFs, Colour \& Vision Research Laboratory, 
     Institute of Opthalmology, University College London. Available at 
