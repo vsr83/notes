@@ -31,7 +31,10 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{hyperref}
+\usepackage{placeins}
 \usepackage[dvipsnames]{xcolor}
+
+
 
 \newcommand{\BackgroundPic}{
 %  \put(0,0){
@@ -2384,28 +2387,104 @@ will experience (Doppler) redshift (see Figure \ref{fig:doppler_transverse}).
   \end {center}
 \end {figure}
 
-%\subsubsection{Boundary Between Redshift and Blueshift}
+\subsubsection{The Redshift-Blueshift Boundary and Limits of Vision}
 As shown previously, maximum blueshift and redshift are obtained at angles 
 $\theta=0^\circ$ and $\theta=180^\circ$, respectively. The boundary w.r.t. 
 values $\theta$ between redshift and blueshift occurs when $\omega=\omega'$
 or equivalently 
 \begin {eqnarray}
-    \gamma(1 - \beta\cos\theta) = 1
+    \gamma(1 - \beta\cos\theta_{limit}) = 1
     &\Leftrightarrow&
-    \cos\theta = \frac{1}{\beta}\left(1 - \frac{1}{\gamma}\right).
+    \cos\theta_{limit} = \frac{1}{\beta}\left(1 - \frac{1}{\gamma}\right).
 \end {eqnarray}
 The limit is depicted in Figure \ref{fig:doppler_limits}. When $\beta$ 
 becomes larger, the region of blueshift gets smaller and converges to a 
-dot when $\beta\to 1$. 
+dot when $\beta\to 1$. The limit angle is also the only angle $\theta$ from 
+which observer can observe the rest frame spectrum.  
 \begin {figure}[h]
   \begin {center}
-     \includegraphics [angle=0, width=0.8\columnwidth] {fig/doppler_limits.eps}
+     \includegraphics [angle=0, width=1.0\columnwidth] {fig/doppler_limits.eps}
      \caption{\label{fig:doppler_limits} Limit angle between redshift and blueshift.
      For positive and negative $\beta$, the value is the lower and upper limit, respectively 
      of the blueshift for $\theta$.}
   \end {center}
 \end {figure} 
 
+An additional consequence of the dependence of the Doppler shift on the angle 
+$\theta$ is that a given wavelength $\lambda'$ in the source frame $S'$ is 
+shifted into visible wavelengths $\lambda$
+in $S$ for a limited range of angles $\theta$. Rearranging 
+$(\ref{eq:doppler_relativistic})$, yields 
+\begin {eqnarray}
+    \cos\theta
+    =
+    \frac{1}{\beta}\left(1 - \frac{\omega'}{\gamma\omega}\right)
+    =
+    \frac{1}{\beta}\left(1 - \frac{\lambda}{\gamma\lambda'}\right).
+\end {eqnarray}
+Thus, for a source wavelength $\lambda'$, an observer capable of perceiving 
+the wavelengths $\lambda\in[\lambda_{min}, \lambda_{max}]$ cannot observe
+$\lambda$ shifted from $\lambda'$ at angles $\theta$ outside the range 
+$[\theta_{min}, \theta_{max}]$, where 
+\begin {eqnarray}
+    \label{eq:visible_dopler_min}
+    \theta_{min} &=& \arccos\left[
+        \frac{1}{\beta}\left(1 - \frac{\lambda_{min}}{\gamma\lambda'}\right)
+    \right],
+    \\
+    \label{eq:visible_dopler_max}
+    \theta_{max} &=& \arccos\left[
+        \frac{1}{\beta}\left(1 - \frac{\lambda_{max}}{\gamma\lambda'}\right)
+    \right].
+\end {eqnarray}
+If we want to determine at what range of angles visible wavelengths in $S'$ 
+are visible in $S$, we obtain with simple substitutions $\lambda'=\lambda_{max}$
+and $\lambda'=\lambda_{min}$
+\begin {eqnarray}
+    \label{eq:visible_dopler_min2}
+    \theta_{min} &=& \arccos\left[
+        \frac{1}{\beta}\left(1 - \frac{\lambda_{min}}{\gamma\lambda_{max}}\right)
+    \right],
+    \\
+    \label{eq:visible_dopler_max2}
+    \theta_{max} &=& \arccos\left[
+        \frac{1}{\beta}\left(1 - \frac{\lambda_{max}}{\gamma\lambda_{min}}\right)
+    \right].
+\end {eqnarray}
+Figure \ref{fig:doppler_visibility} depicts angle ranges into which visible wavelengths 
+are shifted into as visible light. An observer accelerating towards $\beta=1$ will
+observe longer wavelengths $\lambda'$ (e.g. red) in $S'$ being visible longer at 
+angles $\theta<\theta_{limit}$ as they require more Doppler shift to be blueshifted 
+to $\lambda<\lambda_{min}$. Similarly shorter wavelengths $\lambda'$ (e.g. blue) 
+will be visible longer at angles $\theta>\theta_{limit}$ since they require more 
+Doppler shift to be redshifted to outside $\lambda>\lambda_{max}$.
+
+Wavelengths from outside the visual range in $S'$ can be also shifted to wavelengths 
+in the visual range in $S$ as shown in Figure \ref{fig:doppler_visibility2} for 
+$200$ nm ultraviolet radiation and $900$ nm infrared radiation. As the velocity 
+of the observer converges towards the speed of light, increasingly shorter/longer 
+wavelengths will be redshifted/blueshifted into the visible range in $S$.
+Around $\beta=0.999999$, even the cosmic microwave background will be blueshifted 
+to the visible range \cite{blackbody_doppler2}.
+\begin {figure}[h]
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=45 30 592 580, clip=true] {fig/doppler_visibility.eps}
+     \caption{\label{fig:doppler_visibility}Angles $\theta$ in $S$ into which the wavelengths 
+     $650$ nm, $525$ nm and $475$ nm from $S'$ are shifted into as visible light. The 
+     black curves depict the range of visible angles for all visible wavelengths in $S'$. 
+     The dotted black curve depicts the boundary between redshift and blueshift. }
+  \end {center}
+\end {figure} 
+\FloatBarrier
+\begin {figure}[h]
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=40 10 592 300, clip=true] {fig/doppler_visibility2.eps}
+     \caption{\label{fig:doppler_visibility2}Angles $\theta$ in $S$ into which the wavelengths 
+     $200$ nm and $900$ nm from $S'$ are shifted into as visible light. The 
+     black curves depict the range of visible angles for all visible wavelengths in $S'$. 
+     The dotted black curve depicts the boundary between redshift and blueshift. }
+  \end {center}
+\end {figure} 
 \subsection{Spectrum and Radiation}
 \textcolor{red}{It's somewhat likely that portion of details in this section are 
 wrong.}
@@ -2949,20 +3028,31 @@ This suggests that power density w.r.t. solid angle satisfies
 
 \subsubsection{Black-Body Radiance and Stars}
 It is important to note that distant stars are not bright enough to directly 
-stimulate the cone cells on the retina of the human eye, which are responsible 
-for the perception of color. Instead, the perception of distant stars is based 
-on the stimulation of rod cells responsible for dark vision. Thus any realistic
-depiction how human vision perceives a star field will not likely involve color. 
+stimulate the cone cells responsible for perception of color on the retina of 
+the human eye. Instead, the perception of distant stars is based 
+on the stimulation of rod cells responsible for dark vision. Thus, any realistic
+depiction how unaided human vision perceives a star field will not likely involve 
+color. 
 
-For an observer moving at relativistic speeds, the perceived color of black-body sources
-can be significantly influenced by the Doppler effect. However, since the black-body 
-radiation is not monochromatic but consists of a continuous spectrum, the computation
-of the Doppler effect is no longer trivial. In a continuous spectrum, we do not 
-expect a radiance that transforms proportionally to fourth power of the frequency:
-If the Doppler effect indicates a ratio $\omega/\omega'$ ratio of frequencies between 
-$S$ and $S'$ spectrum in the range $[\omega', \omega' + \Delta']$ in $S'$ will 
-correspond to spectrum in the range $[\omega, \omega + (\omega/\omega')\Delta']$ in $S$. 
-This suggests that radiance transforms instead to the third power.
+The electromagnetic spectrum of stars essentially follow the 
+blackbody spectrum complicated slightly by absorption and emission lines. 
+However, for visual effects discussed in this section, they can be approximated as ideal black-bodies.
+Spectral classification of the star essentially determines to the selection of an
+\textbf{effective temperature} $T_{eff}'$ used for the black-body spectrum in the 
+rest frame of the star. 
+%This effective temperature is further transformed based on the relativistic 
+%Doppler effect using $(\ref{eq:effective_temperature_doppler})$.
+
+For an observer moving at relativistic speeds, the perceived color of bright 
+black-body sources can be significantly influenced by the Doppler effect. However, 
+since the black-body radiation is not monochromatic but consists of a continuous 
+spectrum, the computation of the Doppler effect is no longer trivial. In a 
+continuous spectrum, we do not expect a radiance that transforms proportionally 
+to fourth power of the frequency: If the Doppler effect indicates a ratio 
+$\omega/\omega'$ ratio of frequencies between  $S$ and $S'$ spectrum in the range 
+$[\omega', \omega' + \Delta']$ in $S'$ will correspond to spectrum in the range 
+$[\omega, \omega + (\omega/\omega')\Delta']$ in $S$. This suggests that radiance 
+transforms instead to the third power.
 
 In $S'$, we have spectral radiance
 \begin {eqnarray}
@@ -2986,15 +3076,6 @@ The amplitude term is replaced with one with third power of the Doppler-transfor
 frequency.
 %\subsection{Stars}
 %\subsubsection{Spectrum of Stars}
-
-The electromagnetic spectrum of stars essentially follow the blackbody spectrum 
-complicated slightly by absorption and emission lines. However, for visual 
-effects discussed in this section, they can be approximated as ideal black-bodies.
-Spectral classification of the star essentially determines to the selection of an
-\textbf{effective temperature} $T_{eff}'$ used for the black-body spectrum in the 
-rest frame of the star. 
-%This effective temperature is further transformed based on the relativistic 
-%Doppler effect using $(\ref{eq:effective_temperature_doppler})$.
 
 %\subsubsection{Observed Color}
 To compute the color of a bright star observed by an observer in relative motion, 
@@ -3031,7 +3112,7 @@ with the effective temperature $T'=5778$ K of the Sun.
 In order to determine an SRGB value for each pixel in an image, we start 
 ray tracing by mapping each pixel to an aberrated direction vector. The 
 aberrated vector is then transformed to a non-aberrated vector using inverse 
-aberration formula. That is instead of using the combination of perspective 
+aberration formula. That is, instead of using the combination of perspective 
 projection and aberration correction, in ray tracing we apply inverse steps 
 in inverse order.
 
@@ -3314,8 +3395,8 @@ $\Delta>0$, respectively.
 
 In practical computations, the condition $\Delta=0$ is not likely encountered.
 
-\subsubsection{Depth Buffer}
-\subsubsection{Reflections}
+%\subsubsection{Depth Buffer}
+%\subsubsection{Reflections}
 \subsection{Visualizations}
 \begin {figure}
   \begin {center}
@@ -3336,15 +3417,15 @@ In practical computations, the condition $\Delta=0$ is not likely encountered.
     Urban, Seidelmann, Explanatory Supplement to the Astronomical Alamanac, 
     3rd Edition, University Science Books, 2012.
     \bibitem{wiki_viewport}
-    Wikipedia, Ray Tracing (graphics), Available at 
+    Wikipedia, Ray Tracing (graphics), Available at \\
     \url{https://en.wikipedia.org/wiki/Ray_tracing_(graphics)},
     Retrieved 15.2.2026.
     \bibitem{wiki_moller_trumbore}
-    Wikipedia, M{\"o}ller-Trumbore Algorithm, Available at 
+    Wikipedia, M{\"o}ller-Trumbore Algorithm, Available at \\
     \url{https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm},
     Retrieved 2.3.2026.
     \bibitem{wiki_linesphere}
-    Wikipedia, Line-Sphere Intersection, Available at 
+    Wikipedia, Line-Sphere Intersection, Available at \\
     \url{https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection},
     Retrieved 21.2.2026.
     \bibitem{cie}
@@ -3361,7 +3442,7 @@ In practical computations, the condition $\Delta=0$ is not likely encountered.
     Phys. Rev. E 88, 2013.
     \bibitem{blackbody_doppler2}
     Yurtsever, Wilkinson, Limits and Signatures of Relativistic Spaceflight,
-    Acta Astronautica, Vol. 142, 2018
+    Acta Astronautica, Vol. 142, 2018.
     \bibitem{griffiths}
     Griffiths, Introduction to Electrodynamics, 3rd Edition, Pearson, 2008.
     \bibitem{steane}
