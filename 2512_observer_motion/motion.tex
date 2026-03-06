@@ -65,9 +65,9 @@
 \addtolength{\columnsep}{0.5cm}
 
  
-\lhead {Optical Effects from Observer Motion\\Ville R{\"a}is{\"a}nen (\url{https://www.github.com/vsr83})}
-\rhead {\today}
-\thispagestyle{fancy}
+%\lhead {Optical Effects from Observer Motion\\Ville R{\"a}is{\"a}nen (\url{https://www.github.com/vsr83})}
+%\rhead {\today}
+%\thispagestyle{fancy}
 
 \newtheorem {problem} {Problem}
 \newtheorem {example} {Example}
@@ -130,18 +130,45 @@
   {\textbf{\textrm{Motivation:}}}
 }
 
+\title{Optical Effects from Observer Motion}
+\author{Ville R{\"a}is{\"a}nen\thanks{\url{https://www.github.com/vsr83}}}
+%\subtitle{Notes}
+
 \begin {document}
-
-\tableofcontents
-
-\newpage
-\section{Motivation}
+\maketitle
+\section*{Preface}
 This document contains my notes on optical and visual effects resulting from 
 observer motion when the speed of light is finite. The discussed effects are 
 related to the interplay of aberration, Doppler effect, special relativity
 and the human perception of color. My interest on the topic arose from 
 attempts to solve fascinating problems in the textbook \cite{relativity_problems}
-and implementation of aberration correction algorithms.
+and implementation of aberration correction algorithms in software.
+Significant emphasis is placed on how results are derived and on visualizations 
+that attempt help development of intuition. Since the document was mostly produced 
+by a personal attempt to (re)discover the relevant results, there will be very 
+few references to the existing literature on the topic. Experimental evidence 
+is not discussed at all. 
+
+This document is divided into three chapters:
+\begin {itemize}
+\item Chapter 1 discusses aberration, derivation of different useful formulas 
+and application of perspective projection to the visualization of distortion 
+resulting from relativistic aberration.
+\item Chapter 2 discusses the perception of color, the Doppler Effect and 
+basics of ray-tracing in the context of special relativity.
+\item Chapter 3 TBW. 
+\end {itemize}
+A word of caution: Since I'm not an expert on any of the topics discussed in 
+this document, it is very likely that there are serious technical errors. 
+Especially section \ref{sec:spectrum_and_radiation} is very likely to contain 
+errors. Also, I haven't compared the 3d visualization results to anything in
+the literature or online video platforms.
+
+\newpage
+
+\tableofcontents
+
+\newpage
 
 \section{Aberration}
 \begin {figure}[t]
@@ -260,8 +287,8 @@ cases.
      (bottom) aberration.}
   \end {center}
 \end {figure} 
-Consider now light in the context of Special Relativity. Then, simple 
-application of Lorentz transformation yields 
+Now consider the special case of light with $u=c$ in the context of Special Relativity. 
+Then, a simple application of Lorentz transformation yields 
 \begin {eqnarray}
     \begin {bmatrix}
         t' \\ x' \\ y' \\ z'
@@ -329,9 +356,15 @@ another line of latitude without changing longitude.
 
 
 \subsection {Aberration Formulas}
+Even though $(\ref{eq:relativistic_aberration2})$ describes the relativistic 
+aberration in all cases, for practical purposes it is often more convenient to 
+use vectors. Also for most real-world applications, $\beta$ is small enough so 
+that linear or quadratic approximations can be applied with sufficient accuracy. 
+In astronomy, expressions for aberration also in terms of spherical coordinates are 
+often used.
+
 \subsubsection{General Vector Expression for Aberration}
-For practical computations, it is often more convenient to use vectors. Any 
-vector expression for aberration will involve addition of velocity vectors,
+Any vector expression for aberration will involve addition of velocity vectors,
 which is non-trivial in relativistic case.
 %\subsubsection{Classical Aberration}
 In the classical case, the transformation of velocities is simply 
@@ -576,7 +609,6 @@ formula (with different notation) can be found from \cite{almanac}.
 %\subsubsection{Classical Aberration}
 In most practical applications, $\beta$ is small enough so we can approximate even the 
 classical correction with simpler formulas. 
-
 Cross product of $(\ref{eq:classical_properdir})$ with uncorrected 
 direction $\vc p$, yields
 \begin {eqnarray}
@@ -642,7 +674,7 @@ and if we ignore everything above fourth power of $\beta$, we can expand
     +
     \frac{1}{8}\beta^3(3\sin 3\theta - \sin\theta)
     + 
-    \frac{3}{4}\beta^4\sin 2\theta
+    \frac{3}{4}\beta^4\sin 2\theta.
 \end {eqnarray}
 Note that when such a series is expressed as a linear combination 
 of sinusoidal terms, it is obvious that $\Delta\theta$ antisymmetric w.r.t. 
@@ -1072,7 +1104,7 @@ it is a perfect circle.
   \end {center}
 \end {figure}
 %\subsubsection{Diurnal Aberration}
-
+Let's now consider diurnal aberration.
 The velocity of the observer on the surface of Earth can be written
 \begin {eqnarray}
     v = \omega(R + h)\cos\phi,
@@ -1714,6 +1746,14 @@ def aberrate_direction_cla(p, beta_vec):
     return s
 \end{lstlisting}
 \subsection{Deformation at Relativistic Speeds}
+In this section, the techniques discussed in the previous section are applied to the 
+visualization of deformation in the visual field resulting from relativistic 
+aberration. We will focus on the deformation of spherical and rectangular grids with 
+increasing $\beta$. The visualizations do not involve the perception of color or 
+brightness, which will be discussed in the next chapter.
+
+
+
 \subsubsection{Spherical Grid}
 Consider spherical grid with $10^\circ$ steps w.r.t. coordinates
 $\theta\in[-90^\circ, 90^\circ]$ and $\phi\in[-180^\circ, 180^\circ]$, 
@@ -1850,15 +1890,41 @@ Figures \ref{fig:rectangular_grid_y} shows $y=$constant grid.
 
 \newpage
 \restoregeometry
-\section{Spectrum, Color and Radiation}
+\section{Spectrum, Color and the Doppler Effect}
+The \textbf{Doppler effect} refers to how movement of an observer w.r.t. a light 
+source influences the observed spectral content of the light. A human observer 
+will typically perceive \textbf{Doppler shift} as a change in color and/or 
+change in brightness. The source above or below human visual range can also become 
+visible or a source inside human visual range can disappear from sight. We will
+start this chapter by a discussion of human perception of color to obtain a clear 
+understanding how perceived color relates to the spectral content of light and 
+digital images. Next, the classical and relativistic Doppler effects are discussed 
+in detail. Finally, we will discuss the basics of ray-tracing and apply very basic 
+ray-tracer to the visualization of the interplay of relativistic aberration and 
+the Doppler effect.
+This chapter generally ignores how the interplay of aberration and Doppler 
+effect influence brightness and focuses only on monochromatic sources of light when 
+discussing the Doppler effect.
+
 \subsection{Human Perception of Color}
+The human visual system is rather limited in the perception of color: Our color 
+vision cannot usually untangle the continuous spectrum of light responsible for 
+the perception of specific color into its constituent wavelengths. Rather, our 
+color vision is based on visual signals from three different types of cone cells 
+on the retina each with their associated wavelength-dependent sensitivities. Thus, 
+instead of reproducing entire continuous spectra, digital images, computer 
+displays and printed images only need to reproduce the same perception of color. 
+This can be achieved, for instance, with combinations of Red, Green and Blue (RGB).
+This section will discuss the relationship between spectral 
+content of light, human perception of color and SRGB values used in digital images.
+
 \subsubsection{Human Vision and LMS Color Space}
-Human vision is limited to the wavelength range between 380 and 700 nm. The 
-perception of color is based on three classes of cone cells on the retina.
-Each type of cone cell has different \textbf{spectral sensitivity}. That is,
-they are sensitive to different ranges of wavelengths. We can refer to the 
-three classes according to their peak wavelength as long (L), medium (M) and 
-short (S) with peaks at 560, 530 and 420 nm, respectively.
+Human vision is limited to the wavelength range between 380 and 700 nm and is 
+\textbf{trichromatic}. That is, the perception of color is based on three classes 
+of cone cells on the retina. Each type of cone cell has different \textbf{spectral 
+sensitivity}. That is, they are sensitive to different ranges of wavelengths. We 
+can refer to the three classes according to their peak wavelength as long (L), 
+medium (M) and short (S) with peaks at 560, 530 and 420 nm, respectively.
 
 Let $S(\lambda)$ be the \textbf{spectral power distribution} 
 ($\textrm{W}/\textrm{m}^2/\textrm{nm}$) of the light received by the eye.
@@ -1876,7 +1942,8 @@ they are called \textbf{Color Matching Functions (CMFs)} for the
 so that their maxima are equal to unity (see Figure \ref{fig:lms_colormatch}).
 The triplets $(L, M, S)$ obtained above are called the \textbf{tristimulus 
 values}. Two different spectra resulting in the same tristimulus values are 
-called \textbf{metamers}.
+called \textbf{metamers}. Human vision cannot differentiate between the color of 
+metamers.
 
 \begin {figure}
   \begin {center}
@@ -1923,7 +1990,7 @@ and the corresponding tristimulus values are obtained via the inner products
 %\end {eqnarray}
 %\subsubsection{RGB Values and 8-Bit Encoding}
 Then, linear sRGB values between in the interval $[0, 1]$ can be obtained via
-the matrix product
+the matrix product \cite{srgb}
 \begin {eqnarray}
     \label{eq:sRGB}
     \begin {bmatrix}
@@ -2038,6 +2105,8 @@ saturation in cases where the linear sRGB values become larger than 1. Then,
     \frac{1}{2}\overline Z(\lambda'),
 \end {eqnarray}
 and application of $(\ref{eq:sRGB})$ and $(\ref{eq:sRGB2})$ yield Figure \ref{fig:rgb}.
+Note that different wavelengths (e.g. in the range $[650, 700]$ nm) can be perceived 
+as the same color but with different brightness.
 \begin {figure}
   \begin {center}
      \includegraphics [angle=0, width=0.9\columnwidth] {fig/rgb.eps}
@@ -2485,11 +2554,316 @@ to the visible range \cite{blackbody_doppler2}.
      The dotted black curve depicts the boundary between redshift and blueshift. }
   \end {center}
 \end {figure} 
-\subsection{Spectrum and Radiation}
+
+\subsection{Ray Tracing}
+\subsubsection{Viewport and Rays}
+In order to determine an SRGB value for each pixel in an image, we start 
+ray tracing by mapping each pixel to an aberrated direction vector. The 
+aberrated vector is then transformed to a non-aberrated vector using inverse 
+aberration formula. That is, instead of using the combination of perspective 
+projection and aberration correction, in ray tracing we apply inverse steps 
+in inverse order.
+
+Consider the geometry of the viewport shown in Figure \ref{fig:viewport}.
+Let $\vc E$ be the camera location, $\vu t$ the target direction, 
+$\vc C = \vc E + d\:\vu t$ the center of the viewport and $\theta$ the 
+horizontal field-of-view.
+\begin {figure}[t]
+  \begin {center}
+    \begin{tikzpicture}
+        \draw[thick, ->] (0, 0) -- (-2,-2);
+        \draw[thick, ->] (0, 0) -- (0, 4);
+        %\draw[thick] (0, 0) -- (3.25, 0);
+        \draw[dashed] (0, 0) -- (4, 0);
+        \draw[thick, ->] (4, 0) -- (7, 0);
+        \draw[thick] (0,0) -- (4 - 1.0, -1.0);
+        \draw[thick] (0,0) -- (3, 0.6);
+        \draw[dashed] (3,0.6) -- (5, 1.0);
+
+        \draw (5.6, 2.25) node{$\vc P_{11}$};
+        \draw (5.6, -0.25) node{$\vc P_{1m}$};
+        \draw (2.35, -0.4) node{$\vc P_{k1}$};
+        \draw (2.35, -2.4) node{$\vc P_{km}$};
+        \draw (-0.5, 0) node{$\vc E$};
+        \draw (0, 0) node{$\bullet$};
+
+        \foreach \dy in {-1,...,1} {
+            \foreach \dx in {-2,...,2} {
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 - 0.25 + 0.5 * \dx, 0.25+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 + 0.25 + 0.5 * \dx, -0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx,-0.25+ 0.5 * \dx + \dy);
+                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, 0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
+                \draw (4.0 + 0.5 * \dx, 0.0+ 0.5 * \dx + \dy) node{$\bullet$};
+            }
+        }
+
+        \draw[dashed] (4 - 1, 0) -- (4 - 1,  1);
+        \draw[dashed] (4 + 1, 2) -- (4 + 1,  3);        
+        \draw[thick, <->] (4 - 1, 1) -- (4 + 1,  3);
+        \draw (4, 2.5) node{$h_x$};
+
+        \draw[dashed] (4 + 1, 2) -- (4 + 2,  2);
+        \draw[thick, <->] (4 + 2, 2) -- (4 + 2,  0);
+        \draw (6.5, 1) node{$h_y$};
+
+
+        \draw (4.0, 0.0) node{$\bullet$};
+        \draw[thick] (0.8,-0.25) arc (-55:15:0.4);
+        \draw (1.2, 0.0) node{$\theta$};
+        \draw (3.95, -0.25) node{$\vc C$};
+
+        \draw (-0.4,3.75) node{$\vu u$};
+        \draw (-2.2,-1.8) node{$\vu r$};
+        \draw (6.75,0.4) node{$\vu t$};
+    \end {tikzpicture}
+    \caption{\label{fig:viewport}Geometry of the viewport. Adapted from \cite{wiki_viewport}.}
+  \end {center}
+\end {figure}
+
+The width $h_x$ and height $h_y$ of the viewport can be related to the 
+distance $d$, field-of-view $\theta$ and the inverse aspect ratio 
+$(m-1)/(k-1)$ by 
+\begin {eqnarray}
+    h_x &=& 2d\tan\frac{\theta}{2}, \\
+    h_y &=& h_x\frac{m-1}{k-1},
+\end {eqnarray}
+where we have assumed square pixels. Neighboring pixels can be related by 
+shifting vectors 
+\begin {eqnarray}
+    \Delta\vc x &=& \frac{h_x}{k - 1}\vu r, \\
+    \Delta\vc y &=& \frac{h_y}{m - 1}\vu u.
+\end {eqnarray}
+Now the position of an arbitrary pixel 
+\begin {eqnarray}
+    \vc r_{ij} &=& \vc r_{11} + (i - 1)\Delta\vc x - (j - 1)\Delta\vc y,
+\end {eqnarray}
+where the top-left corner pixel can be written 
+\begin {eqnarray}
+    \vc r_{11} &=& \vc E + d\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
+\end {eqnarray}
+Thus, the direction vector to pixel $(i, j)$ in the frame of the observer
+\begin {eqnarray}
+    \vu R_{ij}' &=& \frac{\vc r_{ij} - \vc E}{||\vc r_{ij} - \vc E||}.
+\end {eqnarray}
+The direction vector can be then transformed to a direction vector $\vc R_{ij}$
+in a frame approximately fixed to the scene with $(\ref{eq:properdir2})$ by 
+replacing the vector beta factor of the observer $\vc\beta$ with $-\vc\beta$.
+
+\subsubsection{Ray-Triangle Intersections: M{\"o}ller-Trumbore Algorithm}
+Once we have a direction vector for each pixel, we want to compute the closest 
+intersection of the corresponding rays with objects in the scene. In computer 
+graphics, material objects in the scene are typically represented with triangles.
+The most common algorithm for determination of ray-triangle intersections is 
+the \textbf{M{\"o}ller-Trumbore Algorithm} \cite{wiki_moller_trumbore}, which 
+involves solution of the intersection point of the ray with the plane containing 
+the triangle via application of the Cramer's rule in barycentric coordinates.
+
+Consider the ray 
+\begin {eqnarray}
+    \vc r(t) = \vc O + t\vc D : t \geq 0
+\end {eqnarray}
+possibly intersecting the plane $P$ containing the triangle defined by the vertices 
+$\vc v_1, \vc v_2, \vc v_3\in\mathbb{R}^3$. Then, a normal vector for the plane can be 
+written 
+\begin {eqnarray}
+    \vc n = (\vc v_2 - \vc v_1)\times (\vc v_3 - \vc v_1)
+    = \vc e_1 \times \vc e_2,
+\end {eqnarray}
+where we denote the two edges connected to $\vc v_1$ with 
+$\vc e_1 = \vc v_2 - \vc v_1$ and 
+$\vc e_2 = \vc v_3 - \vc v_1$.
+The ray will not intersect the plane if $\vc v\cdot\vc n  = 0$ unless $\vc O\in P$.
+When $\vc v\cdot\vc n\neq 0$, we wish to find the intersection of the ray with the 
+plane and determine whether the intersection is with the triangle. The 
+M{\"o}ller-Trumbore Algorithm uses barycentric coordinates $(w, u, v)$ so that 
+all points $\vc P\in P$ can be expressed
+\begin {eqnarray}
+    \vc P(w, u, v) = w\vc v_1 + u\vc v_2 + v\vc v_3.
+\end {eqnarray}
+For the points of the triangle, the conditions 
+\begin {eqnarray}
+    \label{eq:moller_cond1}
+    w, u, v &\geq& 0, \\
+    \label{eq:moller_cond2}
+    w + u + v &=& 1
+\end {eqnarray}
+hold and we can expand
+\begin {eqnarray}
+    \vc P(u, v) &=& (1 - u - v)\vc v_1 + u\vc v_2 + v\vc v_3
+    \\
+    &=& \vc v_1 + u(\vc v_2 - \vc v_1) + v(\vc v_3 - \vc v_1).
+    \\
+    \label{eq:barytri}
+    &=& \vc v_1 + u\vc e_1 + v\vc e_2
+\end {eqnarray}
+Now unless the triangle is degenerate, every intersection between the ray and 
+the plane can be expressed using $(\ref{eq:barytri})$. The intersection will 
+be with the triangle if the conditions $(\ref{eq:moller_cond1})$, 
+$(\ref{eq:moller_cond2})$ hold for a non-negative $t$. At the intersection 
+\begin {eqnarray}
+    \vc O + t\vc D = \vc v_1 + u\vc e_1 + v\vc e_2.
+\end {eqnarray}
+This can be reorganized into a linear system of equations 
+\begin {eqnarray}
+    \label{eq:moller_lin}
+    \vc O - \vc v_1 
+    =
+    \begin {bmatrix}
+        -\vc D & \vc e_1 & \vc e_2
+    \end {bmatrix}
+    \begin {bmatrix}
+        t \\ u \\ v
+    \end {bmatrix}.
+\end {eqnarray}
+The equation $(\ref{eq:moller_lin})$ can be easily solved with Cramer rule 
+$x_i = |A_i|/|A|$ for systems of linear equations $A\vc x=\vc b$, 
+where $A_i$ is formed from A by replacing column $i$ with $\vc b$.
+To apply the formula, we compute the determinants repeatedly using the 
+scalar triple product $|\vc a\:\:\vc b\:\:\vc c| = \vc a\cdot(\vc b\times\vc c)$
+\begin{eqnarray}
+    |A| 
+    &=& 
+    \begin {vmatrix}
+     -\vc D & \vc e_1 & \vc e_2
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+       \vc e_1 & \vc D &\vc e_2
+    \end {vmatrix}
+    = 
+    \vc e_1\cdot\vc D\times\vc e_2
+    \\
+    |A_1| 
+    &=& 
+    \begin {vmatrix}
+        \vc O - \vc v_1 & \vc e_1 & \vc e_2
+    \end {vmatrix}
+    \:\:\:=
+    \begin {vmatrix}
+       \vc e_2 & \vc O - \vc v_1 & \vc e_1
+    \end {vmatrix}
+    = 
+    \vc e_2 \cdot (\vc O - \vc v_1)\times \vc e_1
+    \\
+    |A_2| 
+    &=& 
+    \begin {vmatrix}
+        -\vc D & \vc O - \vc v_1 & \vc e_2
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+        \vc O - \vc v_1 & \vc D & \vc e_2
+    \end {vmatrix}
+    = 
+    (\vc O - \vc v_1)\cdot \vc D \times \vc e_2
+    \\
+    |A_3| 
+    &=& 
+    \begin {vmatrix}
+        -\vc D & \vc e_1 & \vc O - \vc v_1 
+    \end {vmatrix}
+    =
+    \begin {vmatrix}
+        \vc D & \vc O - \vc v_1 & \vc e_1
+    \end {vmatrix}
+    = 
+    \vc D\cdot (\vc O - \vc v_1) \times \vc e_1.
+\end {eqnarray}
+Thereafter, we can compute parameters for the intersection
+\begin {eqnarray}
+    t = |A_1|/|A|, \quad u = |A_2|/|A|, \quad v = |A_3|/|A|.
+\end {eqnarray}
+If $t<0$, the intersection is in the opposite direction to the ray.
+The conditions $(\ref{eq:moller_cond1})$ correspond to the following sufficient 
+conditions of the intersection being outside the triangle:
+\begin {eqnarray}
+    u+v > 1, \quad u < 0, \quad v < 0.
+\end {eqnarray}
+Similarly, the conditions $(\ref{eq:moller_cond2})$ correspond to 
+\begin {eqnarray}
+    u + v < 0 , \quad u > 1, \quad v > 1.
+\end {eqnarray}
+However, if $u, v\geq 0$ and $u+v \leq 1$, then also $u+v\geq 0$ and $u,v\leq 1$. Thus, 
+when using the conditions to dismiss intersections, checking the latter set after 
+the first is redundant.
+
+\subsubsection{Sphere-Ray Intersections}
+The points of a sphere with center $\vc c$ and radius $r$ can be expressed 
+\begin {eqnarray}
+    \label{eq:sphereray_sphere}
+    | \vc x - \vc c |^2 = r^2.
+\end {eqnarray}
+Consider also ray 
+\begin {eqnarray}
+    \label{eq:sphereray_ray}
+    \vc x(d) = \vc o + d\vu u,
+\end {eqnarray}
+where $\vc o$ is the origin, $\vu u$ is the unit direction vector and $d>0$.
+Substitution of the equation for the ray $(\ref{eq:sphereray_ray})$ to 
+the equation for sphere $(\ref{eq:sphereray_sphere})$, yields
+\begin {eqnarray}
+    (\vc o + d\vu u - \vc c) \cdot (\vc o + d\vu u - \vc c) - r^2
+    =
+    |\vc o + d\vu u - \vc c|^2 - r^2 = 0.
+\end {eqnarray}
+To be able to apply the quadratic formula, we arrange the terms according powers 
+of $d$
+\begin {eqnarray}
+    d^2|\vu u|^2 + 2d\left[
+        \vu u\cdot (\vc o - \vc c)
+    \right]
+    + |\vc o - \vc c|^2 - r^2 = 0
+\end {eqnarray}
+That is, for a quadratic polynomial $ad^2 + bd + c = 0$, we obtain the expressions  
+\begin {eqnarray}
+    a &=& |\vu u|^2 = 1, \\
+    b &=& 2\vu u\cdot(\vc o - \vc c), \\
+    c &=& |\vc o - \vc c|^2 - r^2.
+\end {eqnarray}
+The solution can then be computed using the quadratic formula  
+\begin {eqnarray}
+    d 
+    &=& 
+    \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    \\
+    &=& 
+    \frac{-2\left[\vu u\cdot(\vc o - \vc c)\right] 
+    \pm 
+    \sqrt{[2\vu u\cdot(\vc o - \vc c)]^2 - 4|\vc o - \vc c|^2 + 4r^2)}}{2}
+    \\
+    &=& 
+    -\vu u\cdot(\vc o - \vc c)
+    \pm
+    \sqrt{|\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2}.
+\end {eqnarray}
+If we denote
+$\Delta = |\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2$,
+there are 0, 1 or 2 solutions depending on whether $\Delta<0$, $\Delta=0$ or 
+$\Delta>0$, respectively. 
+
+In practical computations, the condition $\Delta=0$ is not likely encountered.
+
+\subsubsection{Depth Buffer}
+For each pixel, we wish to draw the triangle corresponding to the closest 
+intersection with the ray. Simplest way to do this is to brute force compute 
+the intersection with each triangle and select the triangle corresponding to 
+the closest one. This leads computational effort $O(n)$, where $n$ is the 
+number of triangles.
+
+%\subsubsection{Reflections}
+\subsection{Visualizations}
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth] {fig/doppler_cubes.eps}
+     \caption{\label{fig:doppler_cubes}Observer accelerating towards a grid of 
+     cubes.}
+  \end {center}
+\end {figure} 
+\newpage
+\section{Continuous Spectrum, Brightness and Black-Bodies\label{sec:spectrum_and_radiation}}
 \textcolor{red}{It's somewhat likely that portion of details in this section are 
 wrong.}
-
-\subsubsection{Basic Radiometry}
+\subsection{Basic Radiometry}
 %\subsubsection{Black-Body Radiance}
 \begin {figure}
   \begin {center}
@@ -3026,7 +3400,7 @@ This suggests that power density w.r.t. solid angle satisfies
 \end {eqnarray}
 
 
-\subsubsection{Black-Body Radiance and Stars}
+\subsection{Black-Body Radiance and Stars}
 It is important to note that distant stars are not bright enough to directly 
 stimulate the cone cells responsible for perception of color on the retina of 
 the human eye. Instead, the perception of distant stars is based 
@@ -3106,308 +3480,6 @@ with the effective temperature $T'=5778$ K of the Sun.
 
 
 \newpage
-\section{Ray Tracing and Special Relativity}
-\subsection{Ray Tracing}
-\subsubsection{Viewport and Rays}
-In order to determine an SRGB value for each pixel in an image, we start 
-ray tracing by mapping each pixel to an aberrated direction vector. The 
-aberrated vector is then transformed to a non-aberrated vector using inverse 
-aberration formula. That is, instead of using the combination of perspective 
-projection and aberration correction, in ray tracing we apply inverse steps 
-in inverse order.
-
-Consider the geometry of the viewport shown in Figure \ref{fig:viewport}.
-Let $\vc E$ be the camera location, $\vu t$ the target direction, 
-$\vc C = \vc E + d\:\vu t$ the center of the viewport and $\theta$ the 
-horizontal field-of-view.
-\begin {figure}[t]
-  \begin {center}
-    \begin{tikzpicture}
-        \draw[thick, ->] (0, 0) -- (-2,-2);
-        \draw[thick, ->] (0, 0) -- (0, 4);
-        %\draw[thick] (0, 0) -- (3.25, 0);
-        \draw[dashed] (0, 0) -- (4, 0);
-        \draw[thick, ->] (4, 0) -- (7, 0);
-        \draw[thick] (0,0) -- (4 - 1.0, -1.0);
-        \draw[thick] (0,0) -- (3, 0.6);
-        \draw[dashed] (3,0.6) -- (5, 1.0);
-
-        \draw (5.6, 2.25) node{$\vc P_{11}$};
-        \draw (5.6, -0.25) node{$\vc P_{1m}$};
-        \draw (2.35, -0.4) node{$\vc P_{k1}$};
-        \draw (2.35, -2.4) node{$\vc P_{km}$};
-        \draw (-0.5, 0) node{$\vc E$};
-        \draw (0, 0) node{$\bullet$};
-
-        \foreach \dy in {-1,...,1} {
-            \foreach \dx in {-2,...,2} {
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 - 0.25 + 0.5 * \dx, 0.25+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 + 0.25 + 0.5 * \dx, -0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, -0.75 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx,-0.25+ 0.5 * \dx + \dy);
-                \draw[thick] (4.0 - 0.25 + 0.5 * \dx, 0.25 + 0.5 * \dx + \dy) -- (4.0 + 0.25 + 0.5 * \dx, 0.75+ 0.5 * \dx + \dy);
-                \draw (4.0 + 0.5 * \dx, 0.0+ 0.5 * \dx + \dy) node{$\bullet$};
-            }
-        }
-
-        \draw[dashed] (4 - 1, 0) -- (4 - 1,  1);
-        \draw[dashed] (4 + 1, 2) -- (4 + 1,  3);        
-        \draw[thick, <->] (4 - 1, 1) -- (4 + 1,  3);
-        \draw (4, 2.5) node{$h_x$};
-
-        \draw[dashed] (4 + 1, 2) -- (4 + 2,  2);
-        \draw[thick, <->] (4 + 2, 2) -- (4 + 2,  0);
-        \draw (6.5, 1) node{$h_y$};
-
-
-        \draw (4.0, 0.0) node{$\bullet$};
-        \draw[thick] (0.8,-0.25) arc (-55:15:0.4);
-        \draw (1.2, 0.0) node{$\theta$};
-        \draw (3.95, -0.25) node{$\vc C$};
-
-        \draw (-0.4,3.75) node{$\vu u$};
-        \draw (-2.2,-1.8) node{$\vu r$};
-        \draw (6.75,0.4) node{$\vu t$};
-    \end {tikzpicture}
-    \caption{\label{fig:viewport}Geometry of the viewport. Adapted from \cite{wiki_viewport}.}
-  \end {center}
-\end {figure}
-
-The width $h_x$ and height $h_y$ of the viewport can be related to the 
-distance $d$, field-of-view $\theta$ and the inverse aspect ratio 
-$(m-1)/(k-1)$ by 
-\begin {eqnarray}
-    h_x &=& 2d\tan\frac{\theta}{2}, \\
-    h_y &=& h_x\frac{m-1}{k-1},
-\end {eqnarray}
-where we have assumed square pixels. Neighboring pixels can be related by 
-shifting vectors 
-\begin {eqnarray}
-    \Delta\vc x &=& \frac{h_x}{k - 1}\vu r, \\
-    \Delta\vc y &=& \frac{h_y}{m - 1}\vu u.
-\end {eqnarray}
-Now the position of an arbitrary pixel 
-\begin {eqnarray}
-    \vc r_{ij} &=& \vc r_{11} + (i - 1)\Delta\vc x - (j - 1)\Delta\vc y,
-\end {eqnarray}
-where the top-left corner pixel can be written 
-\begin {eqnarray}
-    \vc r_{11} &=& \vc E + d\:\vu t - \frac{h_x}{2}\vu r + \frac{h_y}{2}\vu u.
-\end {eqnarray}
-Thus, the direction vector to pixel $(i, j)$ in the frame of the observer
-\begin {eqnarray}
-    \vu R_{ij}' &=& \frac{\vc r_{ij} - \vc E}{||\vc r_{ij} - \vc E||}.
-\end {eqnarray}
-The direction vector can be then transformed to a direction vector $\vc R_{ij}$
-in a frame approximately fixed to the scene with $(\ref{eq:properdir2})$ by 
-replacing the vector beta factor of the observer $\vc\beta$ with $-\vc\beta$.
-
-\subsubsection{Ray-Triangle Intersections: M{\"o}ller-Trumbore Algorithm}
-Once we have a direction vector for each pixel, we want to compute the closest 
-intersection of the corresponding rays with objects in the scene. In computer 
-graphics, material objects in the scene are typically represented with triangles.
-The most common algorithm for determination of ray-triangle intersections is 
-the \textbf{M{\"o}ller-Trumbore Algorithm} \cite{wiki_moller_trumbore}, which 
-involves solution of the intersection point of the ray with the plane containing 
-the triangle via application of the Cramer's rule in barycentric coordinates.
-
-Consider the ray 
-\begin {eqnarray}
-    \vc r(t) = \vc O + t\vc D : t \geq 0
-\end {eqnarray}
-possibly intersecting the plane $P$ containing the triangle defined by the vertices 
-$\vc v_1, \vc v_2, \vc v_3\in\mathbb{R}^3$. Then, a normal vector for the plane can be 
-written 
-\begin {eqnarray}
-    \vc n = (\vc v_2 - \vc v_1)\times (\vc v_3 - \vc v_1)
-    = \vc e_1 \times \vc e_2,
-\end {eqnarray}
-where we denote the two edges connected to $\vc v_1$ with 
-$\vc e_1 = \vc v_2 - \vc v_1$ and 
-$\vc e_2 = \vc v_3 - \vc v_1$.
-The ray will not intersect the plane if $\vc v\cdot\vc n  = 0$ unless $\vc O\in P$.
-When $\vc v\cdot\vc n\neq 0$, we wish to find the intersection of the ray with the 
-plane and determine whether the intersection is with the triangle. The 
-M{\"o}ller-Trumbore Algorithm uses barycentric coordinates $(w, u, v)$ so that 
-all points $\vc P\in P$ can be expressed
-\begin {eqnarray}
-    \vc P(w, u, v) = w\vc v_1 + u\vc v_2 + v\vc v_3.
-\end {eqnarray}
-For the points of the triangle, the conditions 
-\begin {eqnarray}
-    \label{eq:moller_cond1}
-    w, u, v &\geq& 0, \\
-    \label{eq:moller_cond2}
-    w + u + v &=& 1
-\end {eqnarray}
-hold and we can expand
-\begin {eqnarray}
-    \vc P(u, v) &=& (1 - u - v)\vc v_1 + u\vc v_2 + v\vc v_3
-    \\
-    &=& \vc v_1 + u(\vc v_2 - \vc v_1) + v(\vc v_3 - \vc v_1).
-    \\
-    \label{eq:barytri}
-    &=& \vc v_1 + u\vc e_1 + v\vc e_2
-\end {eqnarray}
-Now unless the triangle is degenerate, every intersection between the ray and 
-the plane can be expressed using $(\ref{eq:barytri})$. The intersection will 
-be with the triangle if the conditions $(\ref{eq:moller_cond1})$, 
-$(\ref{eq:moller_cond2})$ hold for a non-negative $t$. At the intersection 
-\begin {eqnarray}
-    \vc O + t\vc D = \vc v_1 + u\vc e_1 + v\vc e_2.
-\end {eqnarray}
-This can be reorganized into a linear system of equations 
-\begin {eqnarray}
-    \label{eq:moller_lin}
-    \vc O - \vc v_1 
-    =
-    \begin {bmatrix}
-        -\vc D & \vc e_1 & \vc e_2
-    \end {bmatrix}
-    \begin {bmatrix}
-        t \\ u \\ v
-    \end {bmatrix}.
-\end {eqnarray}
-The equation $(\ref{eq:moller_lin})$ can be easily solved with Cramer rule 
-$x_i = |A_i|/|A|$ for systems of linear equations $A\vc x=\vc b$, 
-where $A_i$ is formed from A by replacing column $i$ with $\vc b$.
-To apply the formula, we compute the determinants repeatedly using the 
-scalar triple product $|\vc a\:\:\vc b\:\:\vc c| = \vc a\cdot(\vc b\times\vc c)$
-\begin{eqnarray}
-    |A| 
-    &=& 
-    \begin {vmatrix}
-     -\vc D & \vc e_1 & \vc e_2
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-       \vc e_1 & \vc D &\vc e_2
-    \end {vmatrix}
-    = 
-    \vc e_1\cdot\vc D\times\vc e_2
-    \\
-    |A_1| 
-    &=& 
-    \begin {vmatrix}
-        \vc O - \vc v_1 & \vc e_1 & \vc e_2
-    \end {vmatrix}
-    \:\:\:=
-    \begin {vmatrix}
-       \vc e_2 & \vc O - \vc v_1 & \vc e_1
-    \end {vmatrix}
-    = 
-    \vc e_2 \cdot (\vc O - \vc v_1)\times \vc e_1
-    \\
-    |A_2| 
-    &=& 
-    \begin {vmatrix}
-        -\vc D & \vc O - \vc v_1 & \vc e_2
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-        \vc O - \vc v_1 & \vc D & \vc e_2
-    \end {vmatrix}
-    = 
-    (\vc O - \vc v_1)\cdot \vc D \times \vc e_2
-    \\
-    |A_3| 
-    &=& 
-    \begin {vmatrix}
-        -\vc D & \vc e_1 & \vc O - \vc v_1 
-    \end {vmatrix}
-    =
-    \begin {vmatrix}
-        \vc D & \vc O - \vc v_1 & \vc e_1
-    \end {vmatrix}
-    = 
-    \vc D\cdot (\vc O - \vc v_1) \times \vc e_1.
-\end {eqnarray}
-Thereafter, we can compute parameters for the intersection
-\begin {eqnarray}
-    t = |A_1|/|A|, \quad u = |A_2|/|A|, \quad v = |A_3|/|A|.
-\end {eqnarray}
-If $t<0$, the intersection is in the opposite direction to the ray.
-The conditions $(\ref{eq:moller_cond1})$ correspond to the following sufficient 
-conditions of the intersection being outside the triangle:
-\begin {eqnarray}
-    u+v > 1, \quad u < 0, \quad v < 0.
-\end {eqnarray}
-Similarly, the conditions $(\ref{eq:moller_cond2})$ correspond to 
-\begin {eqnarray}
-    u + v < 0 , \quad u > 1, \quad v > 1.
-\end {eqnarray}
-However, if $u, v\geq 0$ and $u+v \leq 1$, then also $u+v\geq 0$ and $u,v\leq 1$. Thus, 
-when using the conditions to dismiss intersections, checking the latter set after 
-the first is redundant.
-
-\subsubsection{Sphere-Ray Intersections}
-The points of a sphere with center $\vc c$ and radius $r$ can be expressed 
-\begin {eqnarray}
-    \label{eq:sphereray_sphere}
-    | \vc x - \vc c |^2 = r^2.
-\end {eqnarray}
-Consider also ray 
-\begin {eqnarray}
-    \label{eq:sphereray_ray}
-    \vc x(d) = \vc o + d\vu u,
-\end {eqnarray}
-where $\vc o$ is the origin, $\vu u$ is the unit direction vector and $d>0$.
-Substitution of the equation for the ray $(\ref{eq:sphereray_ray})$ to 
-the equation for sphere $(\ref{eq:sphereray_sphere})$, yields
-\begin {eqnarray}
-    (\vc o + d\vu u - \vc c) \cdot (\vc o + d\vu u - \vc c) - r^2
-    =
-    |\vc o + d\vu u - \vc c|^2 - r^2 = 0.
-\end {eqnarray}
-To be able to apply the quadratic formula, we arrange the terms according powers 
-of $d$
-\begin {eqnarray}
-    d^2|\vu u|^2 + 2d\left[
-        \vu u\cdot (\vc o - \vc c)
-    \right]
-    + |\vc o - \vc c|^2 - r^2 = 0
-\end {eqnarray}
-That is, for a quadratic polynomial $ad^2 + bd + c = 0$, we obtain the expressions  
-\begin {eqnarray}
-    a &=& |\vu u|^2 = 1, \\
-    b &=& 2\vu u\cdot(\vc o - \vc c), \\
-    c &=& |\vc o - \vc c|^2 - r^2.
-\end {eqnarray}
-The solution can then be computed using the quadratic formula  
-\begin {eqnarray}
-    d 
-    &=& 
-    \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-    \\
-    &=& 
-    \frac{-2\left[\vu u\cdot(\vc o - \vc c)\right] 
-    \pm 
-    \sqrt{[2\vu u\cdot(\vc o - \vc c)]^2 - 4|\vc o - \vc c|^2 + 4r^2)}}{2}
-    \\
-    &=& 
-    -\vu u\cdot(\vc o - \vc c)
-    \pm
-    \sqrt{|\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2}.
-\end {eqnarray}
-If we denote
-$\Delta = |\vu u\cdot(\vc o - \vc c)|^2 - |\vc o - \vc c|^2 + r^2$,
-there are 0, 1 or 2 solutions depending on whether $\Delta<0$, $\Delta=0$ or 
-$\Delta>0$, respectively. 
-
-In practical computations, the condition $\Delta=0$ is not likely encountered.
-
-%\subsubsection{Depth Buffer}
-%\subsubsection{Reflections}
-\subsection{Visualizations}
-\begin {figure}
-  \begin {center}
-     \includegraphics [angle=0, width=1.0\columnwidth] {fig/doppler_cubes.eps}
-     \caption{\label{fig:doppler_cubes}Observer accelerating towards a grid of 
-     cubes.}
-  \end {center}
-\end {figure} 
-
-
-\newpage
 
 \begin {thebibliography}{1}
     \bibitem{relativity_problems}
@@ -3432,6 +3504,8 @@ In practical computations, the condition $\Delta=0$ is not likely encountered.
     CIE 1931 2-deg XYZ CMFs, Colour \& Vision Research Laboratory, 
     Institute of Opthalmology, University College London. Available at 
     \url{http://cvrl.ioo.ucl.ac.uk/cie.htm}.
+    \bibitem{srgb}
+    IEC, International Standard, IEC 61966 2-1 Amendment 1, 2003.
     \bibitem{meeus}
     Meeus, Astronomical Algorithms, Willmann-Bell, 2nd edition, 1998.
     \bibitem{radiance}
