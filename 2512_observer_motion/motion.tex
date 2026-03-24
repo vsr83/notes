@@ -156,12 +156,13 @@ and application of perspective projection to the visualization of distortion
 resulting from relativistic aberration.
 \item Chapter 2 discusses the perception of color, the Doppler Effect and 
 basics of ray-tracing in the context of special relativity.
-\item Chapter 3 TBW. 
+\item Chapter 3 uses basic concepts of radiometry and Lorentz transformations of 
+electromagnetic fields to discuss brightness and transformation of 
+continuous spectra. 
 \end {itemize}
 A word of caution: Since I'm not an expert on any of the topics discussed in 
 this document, it is very likely that there are serious technical errors. 
-Especially section \ref{sec:spectrum_and_radiation} is very likely to contain 
-errors. Also, I haven't compared the 3d visualization results to anything in
+Also, I haven't compared the 3d visualization results to anything in
 the literature or online video platforms.
 
 \newpage
@@ -373,12 +374,11 @@ In the classical case, the transformation of velocities is simply
     \vc u' = \vc u - \vc v.
 \end {eqnarray}
 The direction to target $\vu s = -\vc u'/|\vu u'|$ corrected for aberration is 
-called the \textbf{proper direction}. Unlike the relativistic expression
-$\vu s = -\vc u'/c$ , the 
-classical expression for the proper direction needs to take into account that 
-classical addition of velocities can lead to velocity of light greater than 
-$c$. The \textbf{uncorrected direction} in both cases can be written 
-$\vu p = -\vu u/c$. 
+called the \textbf{proper direction}. In special relativity, the speed of light 
+is equal to $c$ in both frames. However, classical expression for the proper 
+direction needs to take into account that classical addition of velocities can 
+lead to velocity of light greater than $c$. 
+The \textbf{uncorrected direction} in both cases can be written $\vu p = -\vu u/c$. 
 
 Direct substitution to $(\ref{eq:classicaladd})$, yields
 \begin {eqnarray}
@@ -798,7 +798,7 @@ $\beta\approx 10^{-4}$, the maximum relative error from linear and quadratic
 approximations are on the scale of $10^{-4}$ and $10^{-8}$, respectively. If the 
 maximum aberration is around $20$", this corresponds to absolute errors 
 around $2$ mas and $0.2$ $\mu$as, respectively. This error is so small, that 
-it can be only detected using Very Long Baseline Interferometry (VLBI).
+it could be only detected using Very Long Baseline Interferometry (VLBI).
 
 \begin {figure}
   \begin {center}
@@ -977,8 +977,9 @@ to the surface of a rotating planet, the stellar aberration may involve:
     \item \textbf{Secular aberration} resulting from the approximately uniform 
     motion of the solar system around the center of the galaxy. For our 
     solar system, this velocity. is about $220$ km/s and amounts to a 
-    maximum correction of 150". However, since the velocity changes very slowly, 
-    the effect is included in the catalogued positions and is not corrected.
+    maximum correction of 150". However, since the velocity changes very slowly
+    due to 225-million year orbit, the effect is included in the catalogued 
+    positions and is not corrected.
     \item \textbf{Planetary aberration} resulting from both the motion 
     of the observer and the movement of the observed body. 
 \end {itemize}
@@ -988,14 +989,16 @@ can travel at speeds higher than the rotation speed of Earth. However,
 this effect is likely always small enough to be neglected in technical 
 applications.
 For a satellite on LEO moving at $8$ km/s w.r.t. inertial frame centered 
-on Earth, the maximum aberration is around $5.5$ arcseconds. 
+on Earth, the maximum aberration is around $5.5$ arcseconds. Not correcting 
+for this together with annual aberration can deteriorate the accuracy of 
+star trackers responsible for providing inputs to satellite attitude control.
 
 The expressions developed in the previous section apply to all types of 
 aberration. 
 
 \subsubsection{Stellar and Diurnal Aberration in Spherical Coordinates}
 %\subsubsection{Annual Aberration}
-For elliptic orbits, the velocity and distance from the center can be 
+For elliptic orbits, the velocity and distance from the focus can be 
 expressed 
 \begin {eqnarray}
     v 
@@ -2418,9 +2421,12 @@ an expression for transverse motion in $S'$
 \end {eqnarray}
 That is, transverse motion from the viewpoint of the observer leads to a 
 redshift and transverse motion from the viewpoint of the source leads to 
-a blueshift. A planet orbiting a star on a circular orbit will experience 
-Doppler blueshift of the starlight and a imaging satellite orbiting a planet 
-will experience (Doppler) redshift (see Figure \ref{fig:doppler_transverse}).
+a blueshift. In principle, a planet orbiting a star on a pecfectly circular 
+orbit will experience Doppler blueshift of the starlight and a imaging 
+satellite orbiting a planet will experience (Doppler) redshift (see 
+Figure \ref{fig:doppler_transverse}). In practice, planetary orbits are 
+typically elliptic enough so that the radial component of velocity 
+will introduce a larger redshift.
 
 \begin {figure}[t]
   \begin {center}
@@ -2472,7 +2478,7 @@ dot when $\beta\to 1$. The limit angle is also the only angle $\theta$ from
 which observer can observe the rest frame spectrum.  
 \begin {figure}[h]
   \begin {center}
-     \includegraphics [angle=0, width=1.0\columnwidth] {fig/doppler_limits.eps}
+     \includegraphics [angle=0, width=0.8\columnwidth] {fig/doppler_limits.eps}
      \caption{\label{fig:doppler_limits} Limit angle between redshift and blueshift.
      For positive and negative $\beta$, the value is the lower and upper limit, respectively 
      of the blueshift for $\theta$.}
@@ -2860,9 +2866,17 @@ number of triangles.
   \end {center}
 \end {figure} 
 \newpage
+
+
 \section{Continuous Spectrum, Brightness and Black-Bodies\label{sec:spectrum_and_radiation}}
-\textcolor{red}{It's somewhat likely that portion of details in this section are 
-wrong.}
+The previous two chapters have focused on the special case of monochromatic sources 
+and have ignored brightness in the visualizations. Transformation of continuous 
+spectrum will lead to frequency-dependent change in brightness, which significantly 
+complicates the analysis. We will start by introduction of basic radiometric concepts, 
+which will be used in the discussion of transformations of continuous spectrum between 
+frames. The most important special case of a continuous spectrum is the black-body 
+spectrum, which will be discussed in detail.
+
 \subsection{Basic Radiometry}
 %\subsubsection{Black-Body Radiance}
 \begin {figure}
@@ -2871,37 +2885,89 @@ wrong.}
      \caption{\label{fig:radiance} Geometry associated to the definition of radiance.}
   \end {center}
 \end {figure}
-\textbf{Luminosity} (also called \textbf{radiant flux}) $L$ $(W)$ for a 
-closed surface is an absolute measure of radiated electromagnetic energy 
-per unit time. The luminosity of Sun is denoted $L_{\odot}$. 
-\textbf{Radiance} for a source $L_e$ is the radiant flux from a given surface 
-per unit projected area per unit solid angle. That is, 
-\begin {eqnarray}
-    L_e 
-    &=&
-    \pdiff{}{\Omega}\pdiff{L}{A\cos\theta}
-\end {eqnarray}
-where $\Omega$ is the solid angle around the surface element $dA$, $A$ is 
-the area on the source and $\theta\in[0, \pi/2]$ is the angle between the 
-surface normal and the point on the unit sphere (see Figure \ref{fig:radiance}). 
-Projection of an area element $dA$ to the direction $\theta$ w.r.t. surface 
-normal is equal to $\cos\theta\:dA$.
 
-\textbf{Spectral radiance} in frequency or wavelength are defined 
+\textbf{Radiometry} refers to techniques used for the detection and measurement
+of electromagnetic radiation and usually focuses on the \textbf{optical range} 
+in the electromagnetic spectrum covering wavelengths between $1$ mm infrared 
+and $100$ nm ultraviolet. Radiometric quantities describe the distribution of 
+energy associated to electromagnetic radiation in space, direction and time.
+\subsubsection{Basic Radiometric Quantities}
+The energy of the electromagnetic radiation with frequency in the range 
+$[\nu, \nu + d\nu]$ crossing a surface element $dA$ in time $dt$ to solid 
+angle $d\Omega$ around a direction making angle $\theta$ with the surface normal 
+of $dA$ can be written (see Figure \ref{fig:radiance})
 \begin {eqnarray}
-    L_{e,\nu} := \pdiff{L_e}{\nu} 
-    &\Leftrightarrow&
-    L_e = \int_0^\infty L_{r,\nu}(\nu)\:d\nu
-    \\
-    L_{e,\lambda} := \pdiff{L_e}{\lambda} 
-    &\Leftrightarrow&
-    L_e = \int_0^\infty L_{r,\lambda}(\lambda)\:d\lambda,
+    dE = I_\nu(r, \theta, \phi)\cos\theta\:dA\:d\nu\:\Omega\:dt,
 \end {eqnarray}
-respectively. 
+where $I_\nu$ is called the \textbf{spectral radiance} or \textbf{specific intensity}.
+Note that $I_\nu$ is always non-negative and positive value in one direction 
+$(\theta, \phi)$ does not imply a negative value in the opposite direction.
+
+\textbf{Spectral irradiance} or \textbf{spectral flux density} is obtained 
+by integrating 
+\begin {eqnarray}
+    F_{\nu} 
+    =
+    \oint I_\nu\cos\theta\:d\Omega 
+    =
+    \int_0^\pi\int_0^{2\pi}I_\nu\cos\theta\sin\theta d\phi d\theta.
+\end {eqnarray}
+\textbf{Radiance} and \textbf{irradiance} are obtained via integration of 
+spectral radiance and spectral irradiance over all frequencies 
+\begin {eqnarray}
+    I &=& \int_0^\infty I_\nu\:d\nu \\
+    F &=& \int_0^\infty F_\nu\:d\nu.
+\end {eqnarray}
+Irradiance can be related to time-averaged Poynting vector 
+\begin {eqnarray}
+    F = \langle|\vc S|\rangle \cos\alpha,
+\end {eqnarray}
+where $\alpha$ is the angle between the Poynting vector $\vc S = \vc E\times\vc H$ 
+and the unit normal vector of the surface element.
+
+\textbf{Luminosity} or \textbf{radiant flux} of a closed surface is an absolute 
+measure of radiated electromagnetic energy per unit time. Luminosity can be 
+obtained by integrating irradiance over the surface 
+\begin {eqnarray}
+    L = \oint_{\partial V} F\:dA,
+\end {eqnarray}
+where $\partial V$ is the boundary surface of volume $V$.
+
+
+%\textbf{Luminosity} (also called \textbf{radiant flux}) $L$ $(W)$ for a 
+%closed surface is an absolute measure of radiated electromagnetic energy 
+%per unit time. The luminosity of Sun is denoted $L_{\odot}$. 
+%\textbf{Radiance} for a source $L_e$ is the radiant flux from a given surface 
+%per unit projected area per unit solid angle. That is, 
+%\begin {eqnarray}
+%    L_e 
+%    &=&
+%    \pdiff{}{\Omega}\pdiff{L}{A\cos\theta}
+%\end {eqnarray}
+%where $\Omega$ is the solid angle around the surface element $dA$, $A$ is 
+%the area on the source and $\theta\in[0, \pi/2]$ is the angle between the 
+%surface normal and the point on the unit sphere (see Figure \ref{fig:radiance}). 
+%Projection of an area element $dA$ to the direction $\theta$ w.r.t. surface 
+%normal is equal to $\cos\theta\:dA$.
+
+%\textbf{Spectral radiance} in frequency or wavelength are defined 
+%\begin {eqnarray}
+%    L_{e,\nu} := \pdiff{L_e}{\nu} 
+%    &\Leftrightarrow&
+%    L_e = \int_0^\infty L_{r,\nu}(\nu)\:d\nu
+%    \\
+%    L_{e,\lambda} := \pdiff{L_e}{\lambda} 
+%    &\Leftrightarrow&
+%    L_e = \int_0^\infty L_{r,\lambda}(\lambda)\:d\lambda,
+%\end {eqnarray}
+%respectively. 
+
+\subsubsection{Black-Body Radiation}
 Spectral radiance of a \textbf{black-body} can be written 
 \begin{eqnarray}
     \label{eq:blackbody_specfreq}
-    L_{e,\nu}(\nu) 
+    %L_{e,\nu}(\nu) 
+    I_\nu
     &=&
     \frac{2h\nu^3}{c^2}
     \left[
@@ -2909,7 +2975,7 @@ Spectral radiance of a \textbf{black-body} can be written
     \right]^{-1}
     \\
     \label{eq:blackbody_specwave}
-    L_{e,\lambda}(\lambda) 
+    I_\lambda
     &=&
     \frac{2hc^2}{\lambda^5}
     \left[
@@ -2923,7 +2989,7 @@ $k=1.380649\cdot{10}^{-23}\:\textrm{J}\cdot\textrm{K}^{-1}$ is the
 \textbf{Bolzmann constant}.
 To obtain radiance, we integrate over all frequencies
 \begin {eqnarray}
-    L_e 
+    I 
     &=&
     \frac{2h}{c^2}\int_0^\infty
     \frac{\nu^3\:d\nu}{\exp\left(\frac{h\nu}{kT}\right) - 1}
@@ -2931,7 +2997,7 @@ To obtain radiance, we integrate over all frequencies
 using the substitution $x=h\nu/kT$. Substituting correspondingly 
 $\nu=kT/h\:x$ and $d\nu=kT/h\:dx$, we obtain 
 \begin {eqnarray}
-    L_e 
+    I 
     =
     \frac{2h}{c^2}\left(\frac{kT}{h}\right)^4
     \int_0^\infty\frac{x^3\:dx}{e^x - 1}
@@ -2942,7 +3008,7 @@ where $\Gamma$ and $\zeta$ are the Gamma and Riemann zeta functions.
 Substitution of $\Gamma(4) = 6$ and $\zeta(4) = \pi^4/15$ yields 
 \begin {eqnarray}
     \label{eq:blackbody_radiance}
-    L_e 
+    I
     =
     \frac{2\:k^4\pi^4}{15\:h^3c^2}\:T^4.
 \end {eqnarray}
@@ -2951,7 +3017,7 @@ of solid angles and the entire surface
 \begin {eqnarray}
     L 
     &=&
-    \oint_A\int_\Omega L_e(\vc r, \theta, \phi)\cos\theta\:d\Omega\:dA
+    \oint_A\int_\Omega I(\vc r, \theta, \phi)\cos\theta\:d\Omega\:dA
 \end {eqnarray}
 where $\vc r$ is a point on the surface element $dA$. The computation of the 
 integral is simplified by the intependence of radiance 
@@ -2960,22 +3026,22 @@ we can expand $d\Omega = \sin\theta\:d\theta d\phi$. Thus,
 \begin {eqnarray}
     L 
     = 
-    \oint_A L_e 
+    \oint_A I 
     \int_0^{2\pi}\int_0^{\pi/2}\sin\theta\cos\theta\:d\theta\:d\phi\:dA
     =
-    \pi\oint_A L_e\:dA.
+    \pi\oint_A I\:dA.
 \end {eqnarray}
-If $L_e$ is independent of position on the surface (e.g. due to equal 
+If $I$ is independent of position on the surface (e.g. due to equal 
 temperature), we obtain 
 \begin {eqnarray}
-    L = \pi AL_e.
+    L = \pi AI.
 \end {eqnarray}
 For a black-body, this yields the \textbf{Stefan-Boltzmann law}
 \begin {eqnarray}
     \label{eq:boltzmann}
     L 
     =
-    \pi A L_e
+    \pi A I
     =
     \frac{2}{15}\frac{k^4\pi^5}{h^3c^2}AT^4 
     =
@@ -2991,7 +3057,7 @@ where the \textbf{Stefan-Boltzmann constant}
 To obtain peak frequency of the black body radiance as a function of temperature,
 we derivate $(\ref{eq:blackbody_specfreq})$ w.r.t. frequency
 \begin{eqnarray}
-    \pdiff{L_{e,\nu}}{\nu}
+    \pdiff{I_\nu}{\nu}
     =
     \frac{6h\nu^2}{c^2}
     \left[\exp\left(\frac{h\nu}{kT}\right) - 1\right]^{-1}
@@ -3017,7 +3083,7 @@ Thus, the black-body radiance obtains it's peak at the frequency
 To obtain peak wavelength of the black body radiance as a function of temperature,
 we derivate $(\ref{eq:blackbody_specwave})$ w.r.t. wavelength
 \begin {eqnarray}
-    \pdiff{L_{e,\lambda}}{\lambda}
+    \pdiff{I_\lambda}{\lambda}
     =
     - \frac{10hc^2}{\lambda^6}
     \left[
@@ -3080,8 +3146,8 @@ with $\max\{X, Y, Z\}$.
   \end {center}
 \end {figure}
 
-\subsubsection{Lorentz Transformations}
-%\subsubsection{Plane Waves and Intensity}
+\subsection{Brightness and Monochromatic Sources}
+\subsubsection{Plane Waves and Intensity}
 \textbf{Intensity} $I$ associated to electromagnetic wave is the time-average of the 
 \textbf{Poynting vector} $\vc S$. That is,
 \begin {eqnarray}
@@ -3168,7 +3234,7 @@ Now the Poynting vector can be computed
     \left[
         -\sin\theta\:\vu y 
         + 
-        \gamma(\cos\theta - \beta)\:\vu z
+        \gamma(\cos\theta - \beta)\:\vu x
     \right].
     \label{eq:poynting_plane}
 \end {eqnarray}
@@ -3389,6 +3455,7 @@ each plane wave.
 
 This suggests that power density w.r.t. solid angle satisfies 
 \begin {eqnarray}
+    \label{eq:power_density_mono_transform}
     \boxed{
         \quad
         \diff{L}{\Omega} = \left(
@@ -3399,8 +3466,75 @@ This suggests that power density w.r.t. solid angle satisfies
     }
 \end {eqnarray}
 
+\subsection{Transformation of Continuous Spectra}
 
-\subsection{Black-Body Radiance and Stars}
+
+\subsubsection{Specific Intensity}
+The relativistic aberration transform $(\ref{eq:relativistic_aberration2})$ is 
+independent of frequency. Thus, the specific intensity 
+$I_\nu'(\vc r', \theta', \phi')$ is transformed into $I_\nu(\vc r, \theta, \phi)$,
+where the transformation of the spectrum does not depend explicitly on $\theta$
+or $\phi$ but only on power of the factor $(\omega/\omega')$. The factor follows 
+from the relativistic Doppler shift formula $(\ref{eq:doppler_relativistic})$ as a 
+function of velocity and $\theta$ and is thus constant for all frequencies: 
+Any signal limited to the frequency range $[\nu_1', \nu_2']$ is transformed into 
+a signal limited to the frequency range 
+$[(\omega/\omega')\nu_1', (\omega/\omega')\nu_2']$.
+
+For simplicity and emphasis, we will thus denote
+\begin {eqnarray}
+    I(\nu) := I_\nu(\vc r, \theta, \phi)
+    \quad\sim\quad
+    I'(\nu') := I'_\nu(\vc r', \theta', \phi')
+\end {eqnarray}
+Then, from 
+$(\ref{eq:power_density_mono_transform})$, we get the correspondence 
+\begin {eqnarray}
+    I'(\hat\nu') = \delta(\hat\nu' - \nu')
+    \quad\sim\quad
+    I(\hat\nu) = \left(\frac{\omega}{\omega'}\right)^4\delta(\hat\nu - \nu),
+\end {eqnarray}
+where $\delta$ is the Dirac delta distribution and $\nu$ is related to $\nu'$
+by the relativistic Doppler transformation $(\ref{eq:doppler_relativistic})$.
+This however doesn't imply that a continuous spectrum transforms with the 
+factor $(\omega/\omega')^4$. To see this, suppose that 
+\begin {eqnarray}
+    I'(\hat \nu') = 
+    \left\{
+        \begin {array}{ll}
+            1, & \hat\nu'\in[\nu', \nu' + \Delta'], \\
+            0, & \textrm{elsewhere}.
+        \end {array}
+    \right.
+\end {eqnarray}
+Then for a small $\Delta'$, we expect 
+\begin {eqnarray}
+    I(\nu)\Delta 
+    = 
+    I(\nu)\left(\frac{\omega}{\omega'}\right)\Delta'
+    =
+    \left(\frac{\omega}{\omega'}\right)^4 I'(\nu')\Delta'.
+\end {eqnarray}
+This yields the transformation rule 
+\begin {eqnarray}
+    \label{eq:radiance_continuous_transform}
+    \boxed{
+        \quad 
+        I_\nu(\vc r, \theta, \phi) 
+        = 
+        \left(\frac{\omega}{\omega'}\right)^3I'_{\nu'}(\vc r', \theta', \phi').
+        \quad
+    }
+\end {eqnarray}
+That is, continuous spectrum transforms proportionally to the third power of 
+frequency ratio from the relativistic Doppler shift $(\ref{eq:doppler_relativistic})$.
+The relations between $(\vc r', \vc r)$, $(\theta', \theta)$ and $(\nu', \nu)$ follow
+from the Lorentz transformations, the relativistic aberration formula 
+$(\ref{eq:relativistic_aberration2})$ and the relativistic Doppler shift formula 
+$(\ref{eq:doppler_relativistic})$, respectively.
+
+
+\subsubsection{Black-Body Radiance and Stars}
 It is important to note that distant stars are not bright enough to directly 
 stimulate the cone cells responsible for perception of color on the retina of 
 the human eye. Instead, the perception of distant stars is based 
@@ -3420,34 +3554,69 @@ rest frame of the star.
 For an observer moving at relativistic speeds, the perceived color of bright 
 black-body sources can be significantly influenced by the Doppler effect. However, 
 since the black-body radiation is not monochromatic but consists of a continuous 
-spectrum, the computation of the Doppler effect is no longer trivial. In a 
-continuous spectrum, we do not expect a radiance that transforms proportionally 
-to fourth power of the frequency: If the Doppler effect indicates a ratio 
-$\omega/\omega'$ ratio of frequencies between  $S$ and $S'$ spectrum in the range 
-$[\omega', \omega' + \Delta']$ in $S'$ will correspond to spectrum in the range 
-$[\omega, \omega + (\omega/\omega')\Delta']$ in $S$. This suggests that radiance 
-transforms instead to the third power.
+spectrum, the computation of the Doppler effect is no longer trivial. 
 
 In $S'$, we have spectral radiance
 \begin {eqnarray}
-    L_{e, \nu'}(\nu') 
+    I'(\nu') 
     = 
     \frac{2h{\nu'}^3}{c^2}
     \left[
-        \exp\left(\frac{h\nu'}{kT'}\right) - 1
+        \exp\left(\frac{h\nu'}{kT'_{eff}}\right) - 1
     \right]^{-1}.
 \end {eqnarray}
-From superficial interpration of \cite{blackbody_doppler}, \cite{blackbody_doppler2},
-it seems that the argument to the exponential term transforms according to an 
-\textbf{effective temperature} so that 
+With $(\ref{eq:radiance_continuous_transform})$, this can be easily transformed 
+into $S$ by expanding
+\begin {eqnarray}
+    I(\nu) 
+    &=& 
+    \left(\frac{\omega}{\omega'}\right)^3
+    \frac{h\nu'^3}{c^2}
+    \left[
+        \exp\left(
+            \frac{h\nu'}{kT_{eff}'}
+        \right)
+        - 1
+    \right]
+    \\
+    &=& 
+    \frac{h\nu^3}{c^2}
+    \left[
+        \exp\left(
+            \frac{h\nu'}{kT_{eff}}
+        \right)
+        - 1
+    \right],
+\end {eqnarray}
+where we have defined the \textbf{effective temperature} in $S$
 \begin {eqnarray}
     \label{eq:effective_temperature_doppler}
-    T = \frac{T'}{\gamma(1 - \beta\cos\theta)} 
-    = 
-    \left(\frac{\omega}{\omega'}\right)T'.
+    \boxed{
+        \quad
+        T_{eff} 
+        =
+        \left(\frac{\omega}{\omega'}\right)
+        T_{eff}'.
+        \quad
+    }
 \end {eqnarray}
-The amplitude term is replaced with one with third power of the Doppler-transformed 
-frequency.
+Thus, we have shown that any black-body spectrum in $S'$ transforms into a 
+black-body spectrum in $S$ with an effective temperature 
+$(\ref{eq:effective_temperature_doppler})$. The ratio $(\omega/\omega')$ again 
+is the one obtained from the relativistic Doppler shift 
+$(\ref{eq:doppler_relativistic})$.
+
+%From superficial interpration of \cite{blackbody_doppler}, \cite{blackbody_doppler2},
+%it seems that the argument to the exponential term transforms according to an 
+%\textbf{effective temperature} so that 
+%\begin {eqnarray}
+%    \label{eq:effective_temperature_doppler}
+%    T = \frac{T'}{\gamma(1 - \beta\cos\theta)} 
+%    = 
+%    \left(\frac{\omega}{\omega'}\right)T'.
+%\end {eqnarray}
+%The amplitude term is replaced with one with third power of the Doppler-transformed 
+%frequency.
 %\subsection{Stars}
 %\subsubsection{Spectrum of Stars}
 
