@@ -580,6 +580,7 @@ Thereafter, $(\ref{eq:S_D_approx_2})$ can be expanded
     \label{eq:S_D_approx_3}
     \mathcal{S}_D 
     &\approx& 
+    \frac{1}{2}
     \sum_{j=-\infty}^\infty
     \left\{
     \left[
@@ -1056,7 +1057,7 @@ The expressions $X/r, Y/r, Z/r$ now follow
     -
     \sin(\Omega + \omega + M)
     -
-    \sin(\Omega + \omega - M),
+    \frac{1}{8}\sin(\Omega + \omega - M),
     \\
     (Z/r)_{e^2} &=& \sin(\omega + f)_{e^2}(\sin I)_1
     \\
@@ -1067,6 +1068,240 @@ Now
     (\cos\psi)_1 
     &=& 
     (X/r)_1(X'/r')_1 + (Y/r)_1(Y'/r')_1 + (Z/r)_1(Z'/r')_1
+    \\
+    &=& 
+    \cos(\Omega + \omega + M)\cos(\Omega' + \omega' + M')
+    +
+    \sin(\Omega + \omega + M)\sin(\Omega' + \omega' + M')
+    \\
+    &=& 
+    \cos(\Omega + \omega + M - \Omega' - \omega' - M')
+    \\
+    &=& 
+    \cos(\lambda - \lambda')
+    \\
+    (\cos\psi)_s
+    &=&
+    (Z/r)_s(Z'/r')_1 = 0
+    \\
+    (\cos\psi)_{s'}
+    &=&
+    (Z/r)_1(Z'/r')_{s'} = 0
+    \\
+    (\cos\psi)_{ss'}
+    &=&
+    (Z/r)_s(Z'/r')_{s'}
+    \\
+    &=& 4\sin(\omega + M)\sin(\omega' + M')
+    \\
+    &=& 
+    2\cos(\lambda - \lambda' - \Omega + \Omega') 
+    -
+    2\cos(\lambda + \lambda' - \Omega - \Omega')
+    \\
+    (\cos\psi)_{s^2}
+    &=&
+    (X/r)_{s^2}(X'/r')_1 + (Y/r)_{s^2}(Y'/r')_1
+    \\
+    &=&
+    [\cos(\Omega - \omega - M) - \cos(\Omega + \omega + M)]\cos(\Omega' + \omega' + M')
+    \\\nonumber 
+    &+&
+    [\sin(\Omega - \omega - M) - \sin(\Omega + \omega + M)]\sin(\Omega' + \omega' + M')
+    \\
+    &=& 
+    \cos(\Omega - \omega - M - \Omega' - \omega' - M)
+    -
+    \cos(\Omega + \omega + M - \Omega' - \omega' - M)
+    \\
+    &=& 
+    \cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda')
+    \\
+    (\cos\psi)_{s'^2} &=& \cos(\lambda + \lambda' - \Omega') - \cos(\lambda - \lambda')
+    \\
+    (\cos\psi)_e &=& (X/r)_{e}(X'/r')_1 + (Y/r)_{e}(Y'/r')_1
+    \\
+    &=& 
+    [\cos(\lambda + M) - \cos(\lambda - M)]\cos\lambda'
+    +
+    [\sin(\lambda + M) - \sin(\lambda - M)]\sin\lambda'
+    \\
+    &=& 
+    \cos(\lambda - \lambda' + M) - \cos(\lambda - \lambda' - M)
+    \\
+    &=&
+    \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi),
+    \\
+    (\cos\psi)_{e'}
+    &=&
+    \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi') 
+    \\
+    &=&
+    \cos(\lambda - 2\lambda' + \varpi') - \cos(\lambda - \varpi'),
+\end {eqnarray}
+\begin {eqnarray}
+    (\cos\psi)_{es}
+    &=&
+    (Z/r)_{es}(Z'/r')_1 = 0,
+    \\
+    (\cos\psi)_{e's'}
+    &=&
+    (Z/r)_{1}(Z'/r')_{e's'} = 0,
+    \\
+    (\cos\psi)_{ee'} 
+    &=& 
+    (X/r)_{e}(X'/r')_{e'} + (Y/r)_{e}(Y'/r')_{e'}
+    \\
+    &=&
+    \left[\cos(\lambda + M) - \cos(\lambda - M)\right]
+    \left[\cos(\lambda' + M') - \cos(\lambda' - M')\right]
+    \\\nonumber 
+    &+&
+    \left[\sin(\lambda + M) - \sin(\lambda - M)\right]
+    \left[\sin(\lambda' + M') - \sin(\lambda' - M')\right]
+    \\
+    &=& 
+    \cos(\lambda + M - \lambda' - M')
+    -
+    \cos(\lambda + M - \lambda' + M')
+    \\\nonumber
+    &-&
+    \cos(\lambda - M - \lambda' - M')
+    +
+    \cos(\lambda - M - \lambda' + M')
+    \\
+    &=&
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    -
+    \cos(2\lambda - \varpi - \varpi')
+    \\\nonumber
+    &-&
+    \cos(2\lambda' - \varpi' - \varpi)
+    +
+    \cos(\varpi - \varpi')
+    \\
+    (\cos\psi)_{e^2} 
+    &=& 
+    (X/r)_{e^2}(X'/r')_1 + (Y/r)_{e^2}(Y'/r')_1
+    \\
+    &=&
+    \left[
+        \frac{9}{8}\cos(\Omega + \omega + 3M)
+        -
+        \cos(\Omega + \omega + M)
+        - 
+        \frac{1}{8}\cos(\Omega + \omega - M)
+    \right]\cos \lambda' 
+    \\\nonumber 
+    &+&
+    \left[
+        \frac{9}{8}\sin(\Omega + \omega + 3M)
+        -
+        \sin(\Omega + \omega + M)
+        -
+        \frac{1}{8}\sin(\Omega + \omega - M)
+    \right]\sin\lambda'
+    \\
+    &=& 
+    \frac{9}{8}\cos(\lambda + 2M - \lambda')
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda - 2M - \lambda')
+    \\
+    &=&
+    \frac{9}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    (\cos\psi)_{e'^2} 
+    &=&
+    \frac{9}{8}\cos(3\lambda' - \lambda - 2\varpi')
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi'),
+\end {eqnarray}
+Collecting the terms yields
+\begin {eqnarray}
+    \cos \psi 
+    &=&
+    \cos(\lambda - \lambda')
+    \\\nonumber
+    &+& 
+    e[\cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi)]
+    \\\nonumber
+    &+& 
+    e'[\cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi')]
+    \\\nonumber
+    &+& 
+    ee'
+    [\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    -
+    \cos(2\lambda - \varpi - \varpi')
+    -
+    \cos(2\lambda' - \varpi' - \varpi)
+    +
+    \cos(\varpi - \varpi')]
+    \\\nonumber 
+    &+&
+    e^2\left[
+        \frac{9}{8}\cos(3\lambda - \lambda' - 2\varpi)
+        -
+        \cos(\lambda - \lambda')
+        -
+        \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi)        
+    \right]
+    \\\nonumber 
+    &+&
+    e'^2\left[
+        \frac{9}{8}\cos(3\lambda' - \lambda - 2\varpi')
+        -
+        \cos(\lambda - \lambda')
+        -
+        \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi')
+    \right]
+    \\\nonumber 
+    &+&
+    2ss\left[
+        2\cos(\lambda - \lambda' - \Omega + \Omega') 
+        -
+        2\cos(\lambda + \lambda' - \Omega - \Omega')
+    \right]
+    \\\nonumber 
+    &+&
+    s^2\left[
+        \cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda')
+    \right]
+    \\\nonumber 
+    &+&
+    s'^2\left[
+        \cos(\lambda' + \lambda - 2\Omega') - \cos(\lambda - \lambda')
+    \right].
+\end {eqnarray}
+When inclination for both planets is equal to $0$, we get $s=s'=0$ and 
+$\cos\psi = \cos(\theta - \theta')$. Moreover inclination doesn't influence 
+the true anomaly. Thus, 
+\begin {eqnarray}
+    \label{eq:delta}
+    \delta &=& 
+        2ss'\left[
+        \cos(\lambda - \lambda' - \Omega + \Omega') 
+        -
+        \cos(\lambda + \lambda' - \Omega - \Omega')
+    \right]
+    \\\nonumber 
+    &+&
+    s^2\left[
+        \cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda')
+    \right]
+    \\\nonumber 
+    &+&
+    s'^2\left[
+        \cos(\lambda' + \lambda - 2\Omega') - \cos(\lambda - \lambda')
+    \right].
 \end {eqnarray}
 
 \subsubsection{Expansion of $\cos[j(\theta - \theta')]$}
@@ -2317,6 +2552,217 @@ For order $1$, the computation is trivial:
     \right)
     \cos[(2+j)\lambda' - j\lambda - 2\varpi']
 \end {eqnarray}
+\newpage
+\textbf{Order $ss'$:}
+\begin {eqnarray}
+    \left\{\delta\alpha\cos[j(\theta - \theta')]\right\}_{ss'}
+    &=&
+    \delta_{ss'}\alpha\cos[j(\theta - \theta')]_1
+    \\
+    &=&
+    2\alpha\left[
+        \cos(\lambda - \lambda' - \Omega + \Omega') 
+        -
+        \cos(\lambda + \lambda' - \Omega - \Omega')
+    \right]
+    \cos[j(\lambda - \lambda')]
+    \\
+    &=&
+    \alpha\cos[(1-j)\lambda - (1-j)\lambda' - \Omega + \Omega']
+    \\\nonumber
+    &+&
+    \alpha\cos[(1+j)\lambda - (1+j)\lambda' - \Omega + \Omega']
+    \\\nonumber
+    &-&
+    \alpha\cos[(1-j)\lambda + (1+j)\lambda' - \Omega - \Omega']
+    \\\nonumber
+    &-&
+    \alpha\cos[(1+j)\lambda + (1-j)\lambda' - \Omega - \Omega']
+\end {eqnarray}
+\textbf{Order $s^2$:}
+\begin {eqnarray}
+    \left\{\delta\alpha\cos[j(\theta - \theta')]\right\}_{s^2}
+    &=&
+    \delta_{s^2}\alpha\cos[j(\theta - \theta')]_1
+    \\
+    &=&
+    \alpha[\cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda')]
+    \cos[j(\lambda - \lambda')]
+    \\
+    &=&
+    \frac{\alpha}{2}\cos[(1+j)\lambda + (1-j)\lambda' - 2\Omega] 
+    \\\nonumber 
+    &+&
+    \frac{\alpha}{2}\cos[(1-j)\lambda + (1+j)\lambda' - 2\Omega] 
+    \\\nonumber 
+    &-&
+    \frac{\alpha}{2}\cos[(1+j)\lambda - (1+j)\lambda'] 
+    \\\nonumber 
+    &-&
+    \frac{\alpha}{2}\cos[(1-j)\lambda + (1-j)\lambda']. 
+    \\\nonumber 
+\end {eqnarray}
+\textbf{Order $s'^2$:}
+\begin {eqnarray}
+    \left\{\delta\alpha\cos[j(\theta - \theta')]\right\}_{s'^2}
+    &=&
+    \delta_{s'^2}\alpha\cos[j(\theta - \theta')]_1
+    \\
+    &=&
+    \alpha[\cos(\lambda' + \lambda - 2\Omega') - \cos(\lambda - \lambda')]
+    \cos[j(\lambda - \lambda')]
+    \\
+    &=&
+    \frac{\alpha}{2}\cos[(1+j)\lambda' + (1-j)\lambda - 2\Omega'] 
+    \\\nonumber 
+    &+&
+    \frac{\alpha}{2}\cos[(1-j)\lambda' + (1+j)\lambda - 2\Omega'] 
+    \\\nonumber 
+    &-&
+    \frac{\alpha}{2}\cos[(1+j)\lambda - (1+j)\lambda'] 
+    \\\nonumber 
+    &-&
+    \frac{\alpha}{2}\cos[(1-j)\lambda + (1-j)\lambda']. 
+    \\\nonumber 
+\end {eqnarray}
+\newpage
+If we now expand $(\ref{eq:S_D_approx_3})$
+\begin {eqnarray}
+    \mathcal{S}_D = \sum_{j=-\infty}^\infty \mathcal{S}_D^{(j)},
+\end {eqnarray}
+we can express the components of individual terms:
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_1 &=& \frac{1}{2}\cos[j(\lambda - \lambda')], 
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_e &=& 
+    (1/8)\left(4j-2\alpha D\right)\cos((1+j)\lambda - j\lambda' - \varpi)
+    \\\nonumber
+    &+& 
+    (1/8)\left(-4j-2\alpha D\right)\cos((1-j)\lambda + j\lambda' - \varpi) 
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
+    (1/8)
+    \left(
+        2 + 4j + 2\alpha D
+    \right)
+    \cos[(1 + j)\lambda' - j\lambda - \varpi']
+    \\\nonumber 
+    &+&
+    (1/8)
+    \left(
+        2 - 4j + 2\alpha D
+    \right)
+    \cos[(1 - j)\lambda' + j\lambda - \varpi']
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{ee'} &=& 
+    (1/8)
+    \left(
+        2j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1+j)\lambda - (1+j)\lambda' - \varpi + \varpi']
+    \quad\quad
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        -2j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1-j)\lambda - (1-j)\lambda' - \varpi + \varpi']
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        2j - 4j^2 - 2\alpha D + 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1+j)\lambda + (1-j)\lambda' - \varpi - \varpi']
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        -2j -4j^2 - 2\alpha D - 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1-j)\lambda + (1+j)\lambda' - \varpi - \varpi'],
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e^2} &=& 
+    (1/8)\left(2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    \\\nonumber
+    &+& 
+    (1/16)\left(5j + 4j^2 - 2\alpha D - 4j\alpha D + \alpha^2D^2\right)
+    \cos[(2 + j)\lambda - j\lambda' - 2\varpi]
+    \\\nonumber
+    &+& 
+    (1/16)\left(-5j + 4j^2 -2\alpha D + 4j\alpha D + \alpha^2D^2\right)
+    \cos[(2 - j)\lambda + j\lambda' - 2\varpi]
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e'^2} &=& 
+    (1/8)
+    \left(
+        -4j^2 + 2\alpha D + \alpha^2D^2
+    \right)
+    \cos[j(\lambda - \lambda')]
+    \\\nonumber
+    &+&
+    (1/16)
+    \left(
+        4 - 9j + 4j^2 + 6\alpha D - 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[(2-j)\lambda' + j\lambda - 2\varpi']
+    \\\nonumber
+    &+&
+    (1/16)
+    \left(
+        4 + 9j + 4j^2 + 6\alpha D + 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[(2+j)\lambda' - j\lambda - 2\varpi']
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{ss'} &=& 
+    (1/2)\alpha\cos[(1-j)\lambda - (1-j)\lambda' - \Omega + \Omega']
+    \\\nonumber
+    &+&
+    (1/2)\alpha\cos[(1+j)\lambda - (1+j)\lambda' - \Omega + \Omega']
+    \\\nonumber
+    &-&
+    (1/2)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - \Omega - \Omega']
+    \\\nonumber
+    &-&
+    (1/2)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - \Omega - \Omega']
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s^2} &=& 
+    (1/4)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - 2\Omega] 
+    \\\nonumber 
+    &+&
+    (1/4)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - 2\Omega] 
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda'],
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s'^2} &=& 
+    (1/4)\alpha\cos[(1+j)\lambda' + (1-j)\lambda - 2\Omega'] 
+    \\\nonumber 
+    &+&
+    (1/4)\alpha\cos[(1-j)\lambda' + (1+j)\lambda - 2\Omega'] 
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']. 
+\end {eqnarray}
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \appendix
 \section{Series Expansions}
