@@ -148,8 +148,8 @@
 
 \section{Planetary Disturbing Function}
 \subsection{Two-Planet Solar System}
-Consider a solar system with two planets orbiting a Sun. 
-The position vectors and masses of the two planets and the Sun are denoted with 
+Consider a solar system with two planets orbiting a star. 
+The position vectors and masses of the two planets and the star are denoted with 
 $\vc R, \vc R', \vc R_s$ and $m, m', M$, respectively. 
 Then, from Newton's laws of motion, we obtain 
 \begin {eqnarray}
@@ -173,7 +173,7 @@ Then, from Newton's laws of motion, we obtain
 \end {eqnarray}
 where $G$ is the gravitational constant.
 Definition of position vectors $\vc r := \vc R - \vc R_s$ and $\vc r':= \vc R' - \vc R_s$
-relative to the position vector of the Sun, yields 
+relative to the position vector of the star, yields 
 \begin {eqnarray}
     \ddvc r 
     &=& 
@@ -691,7 +691,7 @@ Thus, we can expand
     + 
     \frac{1}{4}e'^2\cos(2\lambda' - 2\varpi')
 \end {eqnarray}
-Again, we can expand the components
+We can collect the components
 \begin {eqnarray}
     G_1
     &=& 
@@ -738,9 +738,9 @@ Again, we can expand the components
    \alpha D 
    +
    \frac{1}{4}[1 + \cos(2\lambda' - 2\varpi')]
-   \alpha^2 D^2.
+   \alpha^2 D^2
 \end {eqnarray}
-Thus, we can expand 
+and obtain the following expansion for the operator
 \begin {eqnarray}
     \label{eq:G}
     G 
@@ -830,7 +830,7 @@ Then,
     \frac{XX' + YY' + ZZ'}{rr'}.
 \end {eqnarray}
 To compute this expression, we need second order expansions for $\cos(\omega + f)$ and 
-$\sin(\omega + f)$ in terms of $M$ and $e$. We will use the expansions $(TODO)$
+$\sin(\omega + f)$ in terms of $M$ and $e$. We will start from the expansions
 \begin {eqnarray}
     \sin f 
     &=& 
@@ -1117,7 +1117,7 @@ Now
     &=& 
     \cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda')
     \\
-    (\cos\psi)_{s'^2} &=& \cos(\lambda + \lambda' - \Omega') - \cos(\lambda - \lambda')
+    (\cos\psi)_{s'^2} &=& \cos(\lambda + \lambda' - 2\Omega') - \cos(\lambda - \lambda')
     \\
     (\cos\psi)_e &=& (X/r)_{e}(X'/r')_1 + (Y/r)_{e}(Y'/r')_1
     \\
@@ -1265,7 +1265,7 @@ Collecting the terms yields
     \right]
     \\\nonumber 
     &+&
-    2ss\left[
+    2ss'\left[
         2\cos(\lambda - \lambda' - \Omega + \Omega') 
         -
         2\cos(\lambda + \lambda' - \Omega - \Omega')
@@ -2350,6 +2350,9 @@ For order $1$, the computation is trivial:
 \begin {eqnarray}
     G_1\cos[j(\theta - \theta')]_{e^2}
     &=& 
+    \frac{1}{8}(-8j^2)\cos[j(\lambda - \lambda')]
+    \\\nonumber 
+    &+&
     \frac{1}{8}
     \left(4j^2 - 5j\right)\cos[(2-j)\lambda + j\lambda' - 2\varpi]
     \\\nonumber 
@@ -2409,7 +2412,7 @@ For order $1$, the computation is trivial:
     \therefore
     \left\{G\cos[j(\theta - \theta')]\right\}_{e^2} 
     &=& 
-    \frac{1}{8}\left(4\alpha D + 2\alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    \frac{1}{8}\left(-8j^2 + 4\alpha D + 2\alpha^2D^2\right)\cos[j(\lambda - \lambda')]
     \\\nonumber
     &+& 
     \frac{1}{8}\left(5j + 4j^2 - 2\alpha D - 4j\alpha D + \alpha^2D^2\right)
@@ -2625,34 +2628,39 @@ For order $1$, the computation is trivial:
     \frac{\alpha}{2}\cos[(1-j)\lambda + (1-j)\lambda']. 
     \\\nonumber 
 \end {eqnarray}
-\newpage
 If we now expand $(\ref{eq:S_D_approx_3})$
 \begin {eqnarray}
     \mathcal{S}_D = \sum_{j=-\infty}^\infty \mathcal{S}_D^{(j)},
 \end {eqnarray}
 we can express the components of individual terms:
+\newpage
 \begin {eqnarray}
-    \left(\mathcal{S}_D^{(j)}\right)_1 &=& \frac{1}{2}\cos[j(\lambda - \lambda')], 
+    \left(\mathcal{S}_D^{(j)}\right)_1 &=& \frac{1}{2}\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}, 
     \\
     \left(\mathcal{S}_D^{(j)}\right)_e &=& 
-    (1/8)\left(4j-2\alpha D\right)\cos((1+j)\lambda - j\lambda' - \varpi)
+    (1/4)\left(2j-1\alpha D\right)\cos((1+j)\lambda - j\lambda' - \varpi)
+    b_{1/2}^{(j)}
     \\\nonumber
     &+& 
-    (1/8)\left(-4j-2\alpha D\right)\cos((1-j)\lambda + j\lambda' - \varpi) 
+    (1/4)\left(-2j-1\alpha D\right)\cos((1-j)\lambda + j\lambda' - \varpi) 
+    b_{1/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
-    (1/8)
+    (1/4)
     \left(
-        2 + 4j + 2\alpha D
+        1 + 2j + 2\alpha D
     \right)
     \cos[(1 + j)\lambda' - j\lambda - \varpi']
+    b_{1/2}^{(j)}
     \\\nonumber 
     &+&
-    (1/8)
+    (1/4)
     \left(
-        2 - 4j + 2\alpha D
+        1 - 2j + 1\alpha D
     \right)
     \cos[(1 - j)\lambda' + j\lambda - \varpi']
+    b_{1/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{ee'} &=& 
     (1/8)
@@ -2660,6 +2668,7 @@ we can express the components of individual terms:
         2j + 4j^2 - 2\alpha D - \alpha^2D^2
     \right)
     \cos[(1+j)\lambda - (1+j)\lambda' - \varpi + \varpi']
+    b_{1/2}^{(j)}
     \quad\quad
     \\\nonumber
     &+&
@@ -2668,6 +2677,7 @@ we can express the components of individual terms:
         -2j + 4j^2 - 2\alpha D - \alpha^2D^2
     \right)
     \cos[(1-j)\lambda - (1-j)\lambda' - \varpi + \varpi']
+    b_{1/2}^{(j)}
     \\\nonumber
     &+&
     (1/8)
@@ -2675,24 +2685,29 @@ we can express the components of individual terms:
         2j - 4j^2 - 2\alpha D + 4j\alpha D - \alpha^2D^2
     \right)
     \cos[(1+j)\lambda + (1-j)\lambda' - \varpi - \varpi']
+    b_{1/2}^{(j)}
     \\\nonumber
     &+&
     (1/8)
     \left(
         -2j -4j^2 - 2\alpha D - 4j\alpha D - \alpha^2D^2
     \right)
-    \cos[(1-j)\lambda + (1+j)\lambda' - \varpi - \varpi'],
+    \cos[(1-j)\lambda + (1+j)\lambda' - \varpi - \varpi']
+    b_{1/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{e^2} &=& 
-    (1/8)\left(2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    (1/8)\left(-4j^2 + 2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
     \\\nonumber
     &+& 
     (1/16)\left(5j + 4j^2 - 2\alpha D - 4j\alpha D + \alpha^2D^2\right)
     \cos[(2 + j)\lambda - j\lambda' - 2\varpi]
+    b_{1/2}^{(j)}
     \\\nonumber
     &+& 
     (1/16)\left(-5j + 4j^2 -2\alpha D + 4j\alpha D + \alpha^2D^2\right)
     \cos[(2 - j)\lambda + j\lambda' - 2\varpi]
+    b_{1/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{e'^2} &=& 
     (1/8)
@@ -2700,6 +2715,7 @@ we can express the components of individual terms:
         -4j^2 + 2\alpha D + \alpha^2D^2
     \right)
     \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
     \\\nonumber
     &+&
     (1/16)
@@ -2707,6 +2723,7 @@ we can express the components of individual terms:
         4 - 9j + 4j^2 + 6\alpha D - 4j\alpha D + \alpha^2 D^2
     \right)
     \cos[(2-j)\lambda' + j\lambda - 2\varpi']
+    b_{1/2}^{(j)}
     \\\nonumber
     &+&
     (1/16)
@@ -2714,54 +2731,983 @@ we can express the components of individual terms:
         4 + 9j + 4j^2 + 6\alpha D + 4j\alpha D + \alpha^2 D^2
     \right)
     \cos[(2+j)\lambda' - j\lambda - 2\varpi']
+    b_{1/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{ss'} &=& 
     (1/2)\alpha\cos[(1-j)\lambda - (1-j)\lambda' - \Omega + \Omega']
+    b_{3/2}^{(j)}
     \\\nonumber
     &+&
     (1/2)\alpha\cos[(1+j)\lambda - (1+j)\lambda' - \Omega + \Omega']
+    b_{3/2}^{(j)}
     \\\nonumber
     &-&
     (1/2)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - \Omega - \Omega']
+    b_{3/2}^{(j)}
     \\\nonumber
     &-&
     (1/2)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - \Omega - \Omega']
+    b_{3/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{s^2} &=& 
     (1/4)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - 2\Omega] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &+&
     (1/4)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - 2\Omega] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &-&
     (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &-&
-    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda'],
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']
+    b_{3/2}^{(j)},
     \\
     \left(\mathcal{S}_D^{(j)}\right)_{s'^2} &=& 
     (1/4)\alpha\cos[(1+j)\lambda' + (1-j)\lambda - 2\Omega'] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &+&
     (1/4)\alpha\cos[(1-j)\lambda' + (1+j)\lambda - 2\Omega'] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &-&
     (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    b_{3/2}^{(j)}
     \\\nonumber 
     &-&
-    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']. 
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']
+    b_{3/2}^{(j)}. 
 \end {eqnarray}
 
-
-
-
-
-
-
-
-
-
-
+\subsubsection{Expansion of $\mathcal{S}_E$ and $\mathcal{S}_I$}
+We will expand the expression $(\ref{eq:S_E})$
+\begin {eqnarray}
+    \label{eq:S_E_repeat}
+    \mathcal{S}_E 
+    &=& 
+    \left[
+        -
+        \left(
+            \frac{r}{a}
+        \right)
+        \left(
+            \frac{a'}{r'}
+        \right)^2
+    \right]\cos\psi
+\end {eqnarray}
+where
+\begin {eqnarray}
+    (\cos\psi)_1 
+    &=&
+    \cos(\lambda - \lambda'),
+    \\
+    (\cos\psi)_e
+    &=& 
+    \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi),
+    \\
+    (\cos\psi)_{e'}
+    &=& 
+    \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi'),
+    \\
+    (\cos\psi)_{ee'}
+    &=& 
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    -
+    \cos(2\lambda - \varpi - \varpi'),
+    \\\nonumber
+    &-&
+    \cos(2\lambda' - \varpi' - \varpi)
+    +
+    \cos(\varpi - \varpi'),
+    \\
+    (\cos\psi)_{e^2}
+    &=&
+    \frac{9}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    (\cos\psi)_{e'^2}
+    &=&
+    \frac{9}{8}\cos(3\lambda' - \lambda - 2\varpi')
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi'),
+    \\
+    (\cos\psi)_{ss'}
+    &=&
+    2\cos(\lambda - \lambda' - \Omega + \Omega') 
+    -
+    2\cos(\lambda + \lambda' - \Omega - \Omega'),
+    \\
+    (\cos\psi)_{s^2}
+    &=&
+    \cos(\lambda + \lambda' - 2\Omega) - \cos(\lambda - \lambda'),
+    \\
+    (\cos\psi)_{s'^2}
+    &=&
+    \cos(\lambda' + \lambda - 2\Omega') - \cos(\lambda - \lambda').
+\end {eqnarray}
+We also use 
+\begin {eqnarray}
+    \frac{r}{a}
+    &=& 
+    1 + \zeta
+    =
+    1 - e\cos(\lambda - \varpi) + \frac{1}{2}e^2[1 - \cos(2\lambda - 2\varpi)]
+    +
+    \mathcal{O}(e^3),
+    \\
+    \left(
+        \frac{a'}{r'}
+    \right)^2
+    &=&
+    1 - 2\zeta' + 3\zeta'^2 + \mathcal{O}(\zeta'^3)
+    \\
+    &=&
+    1 + 2e'\cos(\lambda' - \varpi') + \frac{1}{2}e'^2
+    + \frac{5}{2}e'^2\cos(2\lambda' - 2\varpi')
+    + \mathcal{O}(e'^3)
+\end {eqnarray}
+to obtain for the bracket part of $(\ref{eq:S_E_repeat})$
+\begin {eqnarray}
+    \left[\:\right]_1 &=& -1, 
+    \\
+    \left[\:\right]_{e} &=& \cos(\lambda - \varpi),
+    \\
+    \left[\:\right]_{e'} &=& -2\cos(\lambda' - \varpi'),
+    \\
+    \left[\:\right]_{ee'} &=& 2\cos(\lambda - \varpi)\cos(\lambda' - \varpi') 
+    \\\nonumber 
+    &=& 
+    \cos(\lambda + \lambda' - \varpi - \varpi') 
+    + 
+    \cos(\lambda - \lambda' - \varpi + \varpi'),
+    \\
+    \left[\:\right]_{e^2} &=& - \frac{1}{2}[1 - \cos(2\lambda - 2\varpi)],
+    \\
+    \left[\:\right]_{e'^2} &=& - \frac{1}{2}[1 + 5\cos(2\lambda' - 2\varpi')].
+\end {eqnarray}
+Thus, we can compute the different components of $\mathcal{S}_E$ by straight-forward 
+multiplication
+\begin {eqnarray}
+    (\mathcal{S}_E)_1 
+    &=& 
+    \left[\:\right]_1
+    \left(\cos\psi\right)_1
+    \\
+    &=& -\cos(\lambda - \lambda')
+    \\
+    (\mathcal{S}_E)_e
+    &=& 
+    \left[\:\right]_e
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_e
+    \\
+    &=&
+    \cos(\lambda - \varpi)\cos(\lambda - \lambda')
+    - 
+    \cos(2\lambda - \lambda' - \varpi) 
+    +
+    \cos(\lambda' - \varpi),
+    \\
+    &=&
+    \frac{1}{2}\cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{1}{2}\cos(\lambda' - \varpi)
+    -
+    \cos(2\lambda - \lambda' - \varpi)
+    +
+    \cos(\lambda - \varpi)
+    \\
+    &=&
+    -\frac{1}{2}\cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{3}{2}\cos(\lambda' - \varpi),
+    \\
+    (\mathcal{S}_E)_{e'}
+    &=& 
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e'}
+    \\
+    &=&
+    -2\cos(\lambda' - \varpi')\cos(\lambda - \lambda')
+    - 
+    \cos(2\lambda' - \lambda - \varpi')
+    +
+    \cos(\lambda - \varpi')
+    \\
+    &=&
+    -\cos(\lambda - \varpi')
+    -
+    \cos(2\lambda' - \lambda - \varpi')
+    - 
+    \cos(2\lambda' - \lambda - \varpi')
+    +
+    \cos(\lambda - \varpi')
+    \\
+    &=&
+    - 
+    2\cos(2\lambda' - \lambda - \varpi')
+    \\
+    &=&
+    -2\cos(\lambda - 2\lambda' + \varpi'),
+    \\
+    (\mathcal{S}_E)_{ss'}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{ss'}
+    \\
+    &=&
+    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
+    + 2\cos(\lambda' + \lambda - \Omega' - \Omega)
+    \\
+    (\mathcal{S}_E)_{s^2}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{s^2}
+    \\
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega)
+    + \cos(\lambda - \lambda')
+    \\
+    (\mathcal{S}_E)_{s'^2}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{s'^2}
+    \\
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega')
+    + \cos(\lambda - \lambda')
+\end {eqnarray}
+For the more complex components, it makes sense to compute the terms separately. 
+For
+\begin {eqnarray}
+    (\mathcal{S}_E)_{e^2}
+    &=& 
+    \left[\:\right]_{e^2}
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e^2}
+    +
+    \left[\:\right]_e
+    \left(\cos\psi\right)_{e},
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_{e^2}
+    \left(\cos\psi\right)_1
+    &=&
+    - 
+    \frac{1}{2}[1 - \cos(2\lambda - 2\varpi)]
+    \cos(\lambda - \lambda')
+    \\
+    &=& 
+    -
+    \frac{1}{2}\cos(\lambda - \lambda')
+    +
+    \frac{1}{4}\cos(3\lambda - \lambda' - 2\varpi)
+    +
+    \frac{1}{4}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e^2}
+    &=&
+    -
+    \frac{9}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    +
+    \cos(\lambda - \lambda')
+    +
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi), 
+    \\
+    \left[\:\right]_e
+    \left(\cos\psi\right)_{e}
+    &=&
+    \cos(\lambda - \varpi)
+    \left[
+        \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi)
+    \right]
+    \\
+    &=&
+    \frac{1}{2}
+    \cos(3\lambda - \lambda' - 2\varpi)
+    +    
+    \frac{1}{2}
+    \cos(\lambda - \lambda')
+    - 
+    \frac{1}{2}
+    \cos(\lambda + \lambda' - 2\varpi)
+    - 
+    \frac{1}{2}
+    \cos(\lambda - \lambda')
+    \\
+    &=&
+    \frac{1}{2}
+    \cos(3\lambda - \lambda' - 2\varpi)
+    - 
+    \frac{1}{2}
+    \cos(\lambda + \lambda' - 2\varpi)
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    (\mathcal{S}_E)_{e^2}
+    &=&
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{3}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi).
+\end {eqnarray}
+For
+\begin {eqnarray}
+    (\mathcal{S}_E)_{e'^2}
+    &=& 
+    \left[\:\right]_{e'^2}
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e'^2}
+    +
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_{e'},
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_{e'^2}
+    \left(\cos\psi\right)_1
+    &=&
+    - \frac{1}{2}[1 + 5\cos(2\lambda' - 2\varpi')]\cos(\lambda - \lambda')
+    \\
+    &=&
+    -
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{5}{4}\cos(3\lambda' - \lambda - 2\varpi')
+    -
+    \frac{5}{4}\cos(\lambda' + \lambda - 2\varpi'),
+    \\
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e'^2}
+    &=&
+    -
+    \frac{9}{8}\cos(3\lambda' - \lambda - 2\varpi')
+    +
+    \cos(\lambda - \lambda')
+    +
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi'),
+    \\
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_{e'}
+    &=&
+    -2\cos(\lambda' - \varpi')
+    \left[
+        \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi')
+    \right]
+    \\
+    &=&
+    -
+    \cos(3\lambda' - \lambda - 2\varpi')
+    -
+    \cos(\lambda' - \lambda)
+    +
+    \cos(\lambda' + \lambda - 2\varpi')
+    +
+    \cos(\lambda' - \lambda)
+    \\
+    &=&
+    -
+    \cos(3\lambda' - \lambda - 2\varpi')
+    +
+    \cos(\lambda' + \lambda - 2\varpi')
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    (\mathcal{S}_E)_{e'^2}
+    &=& 
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi')
+    -
+    \frac{27}{8}\cos(3\lambda' - \lambda - 2\varpi').
+\end {eqnarray}
+For 
+\begin {eqnarray}
+    (\mathcal{S}_E)_{ee'}
+    &=& 
+    \left[\:\right]_{e}
+    \left(\cos\psi\right)_{e'}
+    +
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_{e}
+    +
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{ee'}
+    +
+    \left[\:\right]_{ee'}
+    \left(\cos\psi\right)_{1}
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_{e}
+    \left(\cos\psi\right)_{e'}
+    &=& 
+    \cos(\lambda - \varpi)
+    \left[
+        \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi')
+    \right]
+    \\
+    &=& 
+    \frac{1}{2}\cos(2\lambda' - \varpi - \varpi')
+    +
+    \frac{1}{2}\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    \\\nonumber
+    &-&
+    \frac{1}{2}\cos(2\lambda - \varpi - \varpi')
+    -
+    \frac{1}{2}\cos(\varpi - \varpi'),
+    \\
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_{e}
+    &=&
+    -2\cos(\lambda' - \varpi')
+    \left[
+        \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi)
+    \right]
+    \\
+    &=& 
+    -
+    \cos(2\lambda - \varpi - \varpi')
+    -
+    \cos(2\lambda' - 2\lambda + \varpi - \varpi')
+    \\\nonumber
+    &+&
+    \cos(2\lambda' - \varpi - \varpi')
+    +
+    \cos(\varpi - \varpi'),
+    \\
+    \left[\:\right]_{ee'}
+    \left(\cos\psi\right)_{1}
+    &=& 
+    \left[
+        \cos(\lambda + \lambda' - \varpi - \varpi') 
+        + 
+        \cos(\lambda - \lambda' - \varpi + \varpi')
+    \right]
+    \cos(\lambda - \lambda')
+    \\
+    &=&
+    \frac{1}{2}
+    \cos(2\lambda - \varpi - \varpi')
+    +
+    \frac{1}{2}
+    \cos(2\lambda' - \varpi - \varpi')
+    \\\nonumber
+    &+&
+    \frac{1}{2}
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    +
+    \frac{1}{2}
+    \cos(\varpi - \varpi'),
+    \\
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{ee'}
+    &=& 
+    -
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    +
+    \cos(2\lambda - \varpi - \varpi'),
+    \\\nonumber
+    &+&
+    \cos(2\lambda' - \varpi' - \varpi)
+    -
+    \cos(\varpi - \varpi').
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    (\mathcal{S}_E)_{ee'}
+    &=& 
+    3\cos(2\lambda' - \varpi - \varpi')
+    -
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi').
+\end {eqnarray}
+Thus, collecting the terms, we obtain 
+\begin {eqnarray}
+    (\mathcal{S}_E)_1 
+    &=& 
+    -\cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_e
+    &=& 
+    -\frac{1}{2}\cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{3}{2}\cos(\lambda' - \varpi),
+    \\
+    (\mathcal{S}_E)_{e'}
+    &=&
+    -2\cos(\lambda - 2\lambda' + \varpi'),
+    \\
+    (\mathcal{S}_E)_{ss'}
+    &=&
+    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
+    + 2\cos(\lambda' + \lambda - \Omega' - \Omega),
+    \\
+    (\mathcal{S}_E)_{s^2}
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega)
+    + \cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_{s'^2}
+    &=& 
+    -\cos(\lambda + \lambda' - 2\Omega')
+    + \cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_{e^2}
+    &=&
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{3}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    (\mathcal{S}_E)_{e'^2}
+    &=& 
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi')
+    -
+    \frac{27}{8}\cos(3\lambda' - \lambda - 2\varpi'),
+    \\
+    (\mathcal{S}_E)_{ee'}
+    &=& 
+    3\cos(2\lambda' - \varpi - \varpi')
+    -
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi').
+\end {eqnarray}
+We will expand the expression $(\ref{eq:S_I})$
+\begin {eqnarray}
+    \label{eq:S_I_repeat}
+    \mathcal{S}_I 
+    &=& 
+    \left[
+        -
+        \left(
+            \frac{r'}{a'}
+        \right)
+        \left(
+            \frac{a}{r}
+        \right)^2
+    \right]\cos\psi.
+\end {eqnarray}
+We again use 
+\begin {eqnarray}
+    \frac{r'}{a'}
+    &=& 
+    1 + \zeta'
+    =
+    1 - e'\cos(\lambda' - \varpi') + \frac{1}{2}e'^2[1 - \cos(2\lambda' - 2\varpi')]
+    +
+    \mathcal{O}(e'^3),
+    \\
+    \left(
+        \frac{a}{r}
+    \right)^2
+    &=&
+    1 - 2\zeta + 3\zeta^2 + \mathcal{O}(\zeta^3)
+    \\
+    &=&
+    1 + 2e\cos(\lambda - \varpi) + \frac{1}{2}e^2
+    + \frac{5}{2}e^2\cos(2\lambda - 2\varpi)
+    + \mathcal{O}(e^3)
+\end {eqnarray}
+to obtain for the bracket part of $(\ref{eq:S_I_repeat})$
+\begin {eqnarray}
+    \left[\:\right]_1 &=& -1, 
+    \\
+    \left[\:\right]_{e'} &=& \cos(\lambda' - \varpi'),
+    \\
+    \left[\:\right]_{e} &=& -2\cos(\lambda - \varpi),
+    \\
+    \left[\:\right]_{ee'} &=& 
+    \cos(\lambda' + \lambda - \varpi' - \varpi) 
+    + 
+    \cos(\lambda' - \lambda - \varpi' + \varpi),
+    \\
+    \left[\:\right]_{e'^2} &=& - \frac{1}{2}[1 - \cos(2\lambda' - 2\varpi')],
+    \\
+    \left[\:\right]_{e^2} &=& - \frac{1}{2}[1 + 5\cos(2\lambda - 2\varpi)].
+\end {eqnarray}
+It's important not to confuse the brackets for $\mathcal{S}_I$ with brackets for 
+$\mathcal{S}_E$. Again by straight-forward multiplication 
+\begin {eqnarray}
+    (\mathcal{S}_I)_1 
+    &=& 
+    \left[\:\right]_1
+    \left(\cos\psi\right)_1
+    \\
+    &=& -\cos(\lambda - \lambda')
+    \\
+    (\mathcal{S}_I)_e
+    &=& 
+    \left[\:\right]_e
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_e
+    \\
+    &=&
+    -2\cos(\lambda - \varpi)\cos(\lambda - \lambda')
+    -\cos(2\lambda - \lambda' - \varpi)
+    +\cos(\lambda' - \varpi)
+    \\
+    &=&
+    -\cos(2\lambda - \lambda' - \varpi) 
+    -\cos(\lambda' - \varpi)
+    -\cos(2\lambda - \lambda' - \varpi)
+    +\cos(\lambda' - \varpi)
+    \\
+    &=&
+    -2\cos(2\lambda - \lambda' - \varpi)
+    \\
+    &=&
+    -2\cos(\lambda' - 2\lambda + \varpi)
+    \\
+    (\mathcal{S}_I)_{e'}
+    &=& 
+    \left[\:\right]_{e'}
+    \left(\cos\psi\right)_1
+    +
+    \left[\:\right]_1
+    \left(\cos\psi\right)_{e'}
+    \\
+    &=&
+    \cos(\lambda' - \varpi')\cos(\lambda' - \lambda)
+    -
+    \cos(2\lambda' - \lambda - \varpi')
+    +
+    \cos(\lambda - \varpi')
+    \\
+    &=&
+    \frac{1}{2}\cos(2\lambda' - \lambda - \varpi')
+    +
+    \frac{1}{2}\cos(\lambda - \varpi')
+    -
+    \cos(2\lambda' - \lambda - \varpi')
+    +
+    \cos(\lambda - \varpi')
+    \\
+    &=&
+    -\frac{1}{2}\cos(2\lambda' - \lambda - \varpi')
+    +
+    \frac{3}{2}\cos(\lambda - \varpi')
+    \\
+    (\mathcal{S}_E)_{ss'}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{ss'}
+    \\
+    &=&
+    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
+    + 2\cos(\lambda' + \lambda - \Omega' - \Omega)
+    \\
+    (\mathcal{S}_E)_{s^2}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{s^2}
+    \\
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega)
+    + \cos(\lambda - \lambda')
+    \\
+    (\mathcal{S}_E)_{s'^2}
+    &=& 
+    \left[\:\right]_{1}
+    \left(\cos\psi\right)_{s'^2}
+    \\
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega')
+    + \cos(\lambda - \lambda')
+\end {eqnarray}
+For 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{e^2}
+    &=&
+    \left[\:\right]_1\left(\cos\psi\right)_{e^2}
+    +
+    \left[\:\right]_{e^2}\left(\cos\psi\right)_{1}
+    +
+    \left[\:\right]_e\left(\cos\psi\right)_{e}.
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_1\left(\cos\psi\right)_{e^2}
+    &=& 
+    -
+    \frac{9}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    +
+    \cos(\lambda - \lambda')
+    +
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    \left[\:\right]_{e^2}\left(\cos\psi\right)_{1}
+    &=&
+    - \frac{1}{2}[1 + 5\cos(2\lambda - 2\varpi)]
+    \cos(\lambda - \lambda')
+    \\
+    &=&
+    -\frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{5}{4}\cos(3\lambda - \lambda' - 2\varpi)
+    +
+    \frac{5}{4}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    \left[\:\right]_e\left(\cos\psi\right)_{e}
+    &=&
+    -2\cos(\lambda - \varpi)
+    \left[
+        \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi)
+    \right]
+    \\
+    &=&
+    -\cos(3\lambda - \lambda' - 2\varpi)
+    -\cos(\lambda - \lambda')
+    +\cos(\lambda' + \lambda - 2\varpi)
+    +\cos(\lambda' - \lambda)
+    \\
+    &=&
+    -\cos(3\lambda - \lambda' - 2\varpi)
+    +\cos(\lambda' + \lambda - 2\varpi).
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{e^2}
+    &=& 
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{27}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi).
+\end {eqnarray}
+For 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{e'^2}
+    &=&
+    \left[\:\right]_1\left(\cos\psi\right)_{e'^2}
+    +
+    \left[\:\right]_{e'^2}\left(\cos\psi\right)_{1}
+    +
+    \left[\:\right]_{e'}\left(\cos\psi\right)_{e'}.
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_1\left(\cos\psi\right)_{e'^2}
+    &=&
+    - 
+    \frac{9}{8}\cos(3\lambda' - \lambda - 2\varpi')
+    +
+    \cos(\lambda - \lambda')
+    +
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi'),
+    \\
+    \left[\:\right]_{e'^2}\left(\cos\psi\right)_{1}
+    &=&
+    - \frac{1}{2}[1 - \cos(2\lambda' - 2\varpi')]\cos(\lambda - \lambda')
+    \\
+    &=&
+    -\frac{1}{2}\cos(\lambda - \lambda')
+    +\frac{1}{4}\cos(\lambda' - \lambda - 2\varpi')
+    +\frac{1}{4}\cos(3\lambda' + \lambda - 2\varpi')
+    \\
+    \left[\:\right]_{e'}\left(\cos\psi\right)_{e'}
+    &=&
+    \cos(\lambda' - \varpi')
+    \left[
+        \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi')        
+    \right]
+    \\
+    &=&
+    \frac{1}{2}\cos(3\lambda' - \lambda - 2\varpi')
+    +
+    \frac{1}{2}\cos(\lambda' - \lambda)
+    - 
+    \frac{1}{2}\cos(\lambda' + \lambda - 2\varpi')
+    - 
+    \frac{1}{2}\cos(\lambda' - \lambda)
+    \\
+    &=&
+    \frac{1}{2}\cos(3\lambda' - \lambda - 2\varpi')
+    - 
+    \frac{1}{2}\cos(\lambda' + \lambda - 2\varpi')
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{e'^2}
+    &=&
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi')
+    -
+    \frac{3}{8}\cos(3\lambda' - \lambda' - 2\varpi').
+\end {eqnarray}
+For 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{ee'}
+    &=&
+    \left[\:\right]_1\left(\cos\psi\right)_{ee'}
+    +
+    \left[\:\right]_{ee'}\left(\cos\psi\right)_{1}
+    +
+    \left[\:\right]_{e}\left(\cos\psi\right)_{e'}.
+    +
+    \left[\:\right]_{e'}\left(\cos\psi\right)_{e}
+\end {eqnarray}
+we compute 
+\begin {eqnarray}
+    \left[\:\right]_1\left(\cos\psi\right)_{ee'}
+    &=&
+    -
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    +
+    \cos(2\lambda - \varpi - \varpi'),
+    \\
+    \left[\:\right]_{ee'}\left(\cos\psi\right)_{1}
+    &=&
+    \left[
+        \cos(\lambda' + \lambda - \varpi' - \varpi) 
+        + 
+        \cos(\lambda' - \lambda - \varpi' + \varpi)
+    \right]
+    \cos(\lambda - \lambda')
+    \\
+    &=&
+    \frac{1}{2}\cos(2\lambda - \varpi' - \varpi)
+    +
+    \frac{1}{2}\cos(2\lambda' - \varpi' - \varpi)
+    \\\nonumber
+    &+&
+    \frac{1}{2}\cos(\varpi' - \varpi)
+    +
+    \frac{1}{2}\cos(2\lambda' - 2\lambda  - \varpi' + \varpi)
+    \\
+    \left[\:\right]_{e}\left(\cos\psi\right)_{e'} 
+    &=&
+    -2\cos(\lambda - \varpi)
+    \left[
+        \cos(2\lambda' - \lambda - \varpi') - \cos(\lambda - \varpi')        
+    \right]
+    \\
+    &=&
+    -\cos(2\lambda' - \varpi - \varpi')
+    -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    \\\nonumber
+    &+&
+    \cos(2\lambda - \varpi - \varpi')
+    +\cos(\varpi - \varpi')
+    \\
+    \left[\:\right]_{e'}\left(\cos\psi\right)_{e} 
+    &=&
+    \cos(\lambda' - \varpi')
+    \left[
+        \cos(2\lambda - \lambda' - \varpi) - \cos(\lambda' - \varpi)        
+    \right]
+    \\
+    &=&
+    \frac{1}{2}\cos(2\lambda - \varpi - \varpi')
+    +
+    \frac{1}{2}\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    \\\nonumber 
+    &-&
+    \frac{1}{2}\cos(2\lambda' - \varpi - \varpi')
+    -
+    \frac{1}{2}\cos(\varpi - \varpi')
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    \left(
+        \mathcal{S}_I
+    \right)_{ee'}
+    &=&
+    -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    +3\cos(2\lambda - \varpi - \varpi').
+\end {eqnarray}
+Thus, again collecting the terms, we obtain 
+\begin {eqnarray}
+    (\mathcal{S}_I)_1 
+    &=& 
+    -\cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_I)_e
+    &=&
+    -2\cos(\lambda' - 2\lambda + \varpi),
+    \\
+    (\mathcal{S}_I)_{e'}
+    &=&
+    -\frac{1}{2}\cos(2\lambda' - \lambda - \varpi')
+    +
+    \frac{3}{2}\cos(\lambda - \varpi'),
+    \\
+    (\mathcal{S}_I)_{ss'}
+    &=&
+    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
+    + 2\cos(\lambda' + \lambda - \Omega' - \Omega),
+    \\
+    (\mathcal{S}_I)_{s^2}
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega)
+    + \cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_I)_{s'^2}
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega')
+    + \cos(\lambda - \lambda'),
+    \\
+    \left(
+        \mathcal{S}_I
+    \right)_{e^2}
+    &=& 
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{27}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    \left(
+        \mathcal{S}_I
+    \right)_{e'^2}
+    &=&
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi')
+    -
+    \frac{3}{8}\cos(3\lambda' - \lambda' - 2\varpi'),
+    \\
+    \left(
+        \mathcal{S}_I
+    \right)_{ee'}
+    &=&
+    -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
+    +3\cos(2\lambda - \varpi - \varpi').
+\end {eqnarray}
 
 \newpage
 \appendix
