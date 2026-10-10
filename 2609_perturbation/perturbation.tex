@@ -2649,7 +2649,7 @@ we can express the components of individual terms:
     \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
     (1/4)
     \left(
-        1 + 2j + 2\alpha D
+        1 + 2j + \alpha D
     \right)
     \cos[(1 + j)\lambda' - j\lambda - \varpi']
     b_{1/2}^{(j)}
@@ -2657,7 +2657,7 @@ we can express the components of individual terms:
     &+&
     (1/4)
     \left(
-        1 - 2j + 1\alpha D
+        1 - 2j + \alpha D
     \right)
     \cos[(1 - j)\lambda' + j\lambda - \varpi']
     b_{1/2}^{(j)},
@@ -2781,6 +2781,473 @@ we can express the components of individual terms:
     (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']
     b_{3/2}^{(j)}. 
 \end {eqnarray}
+\subsubsection{Simplification of $\mathcal{S}_D$}
+The above terms can be simplified by taking into account that the index 
+$j$ goes from $-\infty$ to $\infty$. In general, we want to do variable 
+change so that the multiplier for $\lambda'$ is $j$.
+Since $b_{1/2}^{(-j)} = b_{1/2}^{(j)}$, we can replace
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_e &=& 
+    (1/4)\left(2j-\alpha D\right)\cos((1+j)\lambda - j\lambda' - \varpi)
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+& 
+    (1/4)\left(-2j-\alpha D\right)\cos((1-j)\lambda + j\lambda' - \varpi) 
+    b_{1/2}^{(j)}
+    \\
+    &\mapsto& 
+    (1/2)\left(-2j-\alpha D\right)\cos((1-j)\lambda + j\lambda' - \varpi)
+    b_{1/2}^{(j)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e^2} &=& 
+    (1/8)\left(-4j^2 + 2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+& 
+    (1/16)\left(5j + 4j^2 - 2\alpha D - 4j\alpha D + \alpha^2D^2\right)
+    \cos[(2 + j)\lambda - j\lambda' - 2\varpi]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+& 
+    (1/16)\left(-5j + 4j^2 -2\alpha D + 4j\alpha D + \alpha^2D^2\right)
+    \cos[(2 - j)\lambda + j\lambda' - 2\varpi]
+    b_{1/2}^{(j)}
+    \\
+    &\mapsto&
+    (1/8)\left(-4j^2 + 2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+& 
+    (1/8)\left(-5j + 4j^2 - 2\alpha D + 4j\alpha D + \alpha^2D^2\right)
+    \cos[(2 + j)\lambda - j\lambda' - 2\varpi]
+    b_{1/2}^{(j)}
+\end {eqnarray}
+Consider now the component
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
+    (1/4)
+    \left(
+        1 + 2j + \alpha D
+    \right)
+    \cos[(1 + j)\lambda' - j\lambda - \varpi']
+    b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    (1/4)
+    \left(
+        1 - 2j + \alpha D
+    \right)
+    \cos[(1 - j)\lambda' + j\lambda - \varpi']
+    b_{1/2}^{(j)}.
+\end {eqnarray}
+For the first and second rows, substitute $j' = 1+j$ and $j''=1-j$, respectively,
+which implies $j = j' - 1 = 1 - j''$.
+Then, 
+\begin {eqnarray}
+    (1 + j)\lambda' - j\lambda &=& j'\lambda' - (j' - 1)\lambda,
+    \\
+    (1 - j)\lambda' + j\lambda &=& j''\lambda' - (j'' - 1)\lambda,
+    \\
+    1 + 2j + \alpha D &=& -1 + 2j' + \alpha D,
+    \\
+    1 - 2j + \alpha D &=& -1 + 2j'' + \alpha D,
+\end {eqnarray}
+and we can write 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
+    (1/2)
+    \left(
+        -1 + 2j + \alpha D
+    \right)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
+    b_{1/2}^{(j - 1)}
+\end {eqnarray}
+Consider now the component
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{e'^2} &=& 
+    (1/8)
+    \left(
+        -4j^2 + 2\alpha D + \alpha^2D^2
+    \right)
+    \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/16)
+    \left(
+        4 - 9j + 4j^2 + 6\alpha D - 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[(2-j)\lambda' + j\lambda - 2\varpi']
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/16)
+    \left(
+        4 + 9j + 4j^2 + 6\alpha D + 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[(2+j)\lambda' - j\lambda - 2\varpi']
+    b_{1/2}^{(j)}.
+\end {eqnarray}
+For the second row, substitute $j'= 2 - j$, which implies 
+$j= 2 - j'$ and $j^2 = j'^2 - 4j' + 4$. Then, 
+\begin {eqnarray}
+    (2-j)\lambda' + j\lambda - 2\varpi' 
+    &=& 
+    j'\lambda' + (2-j')\lambda - 2\varpi'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    &\:&
+    4 - 9j + 4j^2 + 6\alpha D - 4j\alpha D + \alpha^2 D^2
+    \\\nonumber
+    &=& 
+    4 - 9(2 - j') + 4(j'^2 - 4j' + 4) + 6\alpha D - 4(2 - j')\alpha D + \alpha^2 D^2
+    \\
+    &=& 
+    (4 - 18 + 16) + (9 - 16)j' + 4j'^2 + (6 - 8)\alpha D - 4j'\alpha D + \alpha^2 D^2
+    \\
+    &=&
+    2 - 7j' + 4j'^2 - 2\alpha D - 4j'\alpha D + \alpha^2 D^2
+\end {eqnarray}
+For the third row, substitute $j'= 2+ j$, which implies $j= j' - 2$ and 
+$j^2 = j'^2 - 4j' + 4$. Then, 
+\begin {eqnarray}
+    (2+j)\lambda' - j\lambda - 2\varpi 
+    = 
+    j'\lambda' + (2 - j')\lambda - 2\varpi'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    &\:&
+    4 + 9j + 4j^2 + 6\alpha D + 4j\alpha D + \alpha^2 D^2
+    \\\nonumber
+    &=& 
+    4 + 9(j' - 2) + 4(j'^2 - 4j' + 4) + 6\alpha D + 4(j' - 2)\alpha D + \alpha^2 D^2
+    \\
+    &=&
+    (4 - 18 + 16) + (9 - 16)j' + 4j'^2 + (6-8)\alpha D + 4j'\alpha D +  \alpha^2D^2
+    \\
+    &=&
+    2 - 7j' + 4j'^2 - 2\alpha D + 4j'\alpha D+ \alpha^2D^2.
+\end {eqnarray}
+Thus, we can write 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{e'^2} &=& 
+    (1/8)
+    \left(
+        -4j^2 + 2\alpha D + \alpha^2D^2
+    \right)
+    \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        2 - 7j + 4j^2 - 2\alpha D + 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[j\lambda' + (2 - j)\lambda - 2\varpi']
+    b_{1/2}^{(j-2)}.
+\end {eqnarray}
+Now consider the component 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{ee'} &=& 
+    (1/8)
+    \left(
+        2j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1+j)\lambda - (1+j)\lambda' - \varpi + \varpi']
+    b_{1/2}^{(j)}
+    \quad\quad
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        -2j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1-j)\lambda - (1-j)\lambda' - \varpi + \varpi']
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        2j - 4j^2 - 2\alpha D + 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1+j)\lambda + (1-j)\lambda' - \varpi - \varpi']
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        -2j -4j^2 - 2\alpha D - 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[(1-j)\lambda + (1+j)\lambda' - \varpi - \varpi']
+    b_{1/2}^{(j)},
+\end {eqnarray}
+For the first term, substitute $j'= -(1+j)$, which implies 
+$j = - (1+j')$ and $j^2 = 1 + 2j' + j'^2$. Then,
+\begin {eqnarray}
+    (1 + j)\lambda - (1+ j)\lambda' 
+    &=& 
+    - j'\lambda + j'\lambda'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    2j + 4j^2 - 2\alpha D - \alpha^2D^2 
+    &=&
+    2(-1 - j') + 4(1 + 2j' + j'^2) - 2\alpha D - \alpha^2D^2
+    \\
+    &=& 
+    2 + 6j' + 4j'^2 - 2\alpha D - \alpha^2D^2.
+\end {eqnarray}
+For the second term, substitute $j'= -(1-j)$, which implies 
+$j = j' + 1$ and $j^2 = 1 + 2j' + j'^2$. Then,
+\begin {eqnarray}
+    (1 - j)\lambda - (1- j)\lambda' 
+    &=& 
+    - j'\lambda + j'\lambda'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    -2j + 4j^2 - 2\alpha D - \alpha^2D^2 
+    &=&
+    -2(1 + j') + 4(1 + 2j' + j'^2) - 2\alpha D - \alpha^2D^2
+    \\
+    &=& 
+    2 + 6j' + 4j'^2 - 2\alpha D - \alpha^2D^2.
+\end {eqnarray}
+For the third term, substitute $j'= 1-j$, which implies 
+$j = 1 - j'$ and $j^2 = 1 - 2j' + j'^2$. Then,
+\begin {eqnarray}
+    (1 + j)\lambda - (1- j)\lambda' 
+    &=& 
+    (2 - j')\lambda + j'\lambda'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    2j - 4j^2 - 2\alpha D + 4j\alpha D - \alpha^2D^2 
+    &=&
+    2(1 - j') - 4(1 - 2j' + j'^2) - 2\alpha D  + 4(1 - j')\alpha D - \alpha^2D^2
+    \\
+    &=& 
+    (2 - 4) + (-2 + 8)j' -4j'^2  + (-2 + 4)\alpha D - 4j'\alpha D - \alpha^2D^2
+    \quad\quad
+    \\
+    &=&
+    -2 + 6j' - 4j'^2 + 2\alpha D - 4j'\alpha D - \alpha^2D^2.
+\end {eqnarray}
+For the fourth term, substitute $j'= 1+j$, which implies 
+$j = j' - 1$ and $j^2 = 1 - 2j' + j'^2$. Then,
+\begin {eqnarray}
+    (1 - j)\lambda + (1 + j)\lambda' 
+    &=& 
+    (2 - j')\lambda + j'\lambda'
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    -2j - 4j^2 - 2\alpha D - 4j\alpha D - \alpha^2D^2 
+    &=&
+    -2(j' - 1) - 4(1 - 2j' + j'^2) - 2\alpha D  - 4(j' - 1)\alpha D - \alpha^2D^2
+    \\
+    &=& 
+    (2 - 4) + (-2 + 8)j' -4j'^2  + (-2 + 4)\alpha D - 4j'\alpha D - \alpha^2D^2
+    \quad\quad
+    \\
+    &=&
+    -2 + 6j' - 4j'^2 + 2\alpha D - 4j'\alpha D - \alpha^2D^2.
+\end {eqnarray}
+Thus, we can write 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{ee'} 
+    &=& 
+    (1/4)
+    \left(
+        2 + 6j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[j\lambda' - j\lambda - \varpi + \varpi']b_{1/2}^{j + 1}
+    \\\nonumber
+    &+&
+    (1/4)
+    \left(
+        -2 + 6j - 4j^2 + 2\alpha D - 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[j\lambda' + (2-j) \lambda - \varpi - \varpi']b_{1/2}^{(j - 1)}.
+\end {eqnarray}
+Now consider the remaining terms 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_{ss'} &=& 
+    (1/2)\alpha\cos[(1-j)\lambda - (1-j)\lambda' - \Omega + \Omega']
+    b_{3/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/2)\alpha\cos[(1+j)\lambda - (1+j)\lambda' - \Omega + \Omega']
+    b_{3/2}^{(j)}
+    \\\nonumber
+    &-&
+    (1/2)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - \Omega - \Omega']
+    b_{3/2}^{(j)}
+    \\\nonumber
+    &-&
+    (1/2)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - \Omega - \Omega']
+    b_{3/2}^{(j)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s^2} &=& 
+    (1/4)\alpha\cos[(1+j)\lambda + (1-j)\lambda' - 2\Omega] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &+&
+    (1/4)\alpha\cos[(1-j)\lambda + (1+j)\lambda' - 2\Omega] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']
+    b_{3/2}^{(j)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s'^2} &=& 
+    (1/4)\alpha\cos[(1+j)\lambda' + (1-j)\lambda - 2\Omega'] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &+&
+    (1/4)\alpha\cos[(1-j)\lambda' + (1+j)\lambda - 2\Omega'] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1+j)\lambda - (1+j)\lambda'] 
+    b_{3/2}^{(j)}
+    \\\nonumber 
+    &-&
+    (1/4)\alpha\cos[(1-j)\lambda + (1-j)\lambda']
+    b_{3/2}^{(j)}.
+\end {eqnarray}
+First, let's investigate an expression of the form 
+\begin {eqnarray}
+    \cos[(1+j)\lambda - (1+j)\lambda' + \delta]
+    b_{3/2}^{(j)}
+    +
+    \cos[(1-j)\lambda - (1-j)\lambda' + \delta]
+    b_{3/2}^{(j)}
+\end {eqnarray}
+and make substitutions $j'=-(1+j)$ and $j''=-(1-j)$, which imply 
+$j= - (1 + j') = j'' + 1$ to get
+\begin {eqnarray}
+    \cos[j'\lambda' - j'\lambda + \delta]
+    b_{3/2}^{(1 + j')}
+    +
+    \cos[j''\lambda - j''\lambda' + \delta]
+    b_{3/2}^{(1 + j'')}.
+\end {eqnarray}
+Similarly, for expressions of the form 
+\begin {eqnarray}
+    \cos[(1-j)\lambda + (1+j)\lambda' + \delta]
+    b_{3/2}^{(j)}
+    +
+    \cos[(1+j)\lambda + (1-j)\lambda' + \delta]
+    b_{3/2}^{(j)}
+\end {eqnarray}
+and make substitutions $j'=1+j$ and $j''=1-j$, which imply 
+$j= j' - 1 = 1 - j''$ to get
+\begin {eqnarray}
+    \cos[(2 - j')\lambda + j'\lambda' + \delta]
+    b_{3/2}^{(j' - 1)}
+    +
+    \cos[(2 - j'')\lambda + j''\lambda' + \delta]
+    b_{3/2}^{(j'' - 1)}.
+\end {eqnarray}
+Collecting the terms, we finally get 
+\begin {eqnarray}
+    \left(\mathcal{S}_D^{(j)}\right)_1 &=& \frac{1}{2}\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}, 
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_e 
+    &=& 
+    (1/2)\left(-2j-\alpha D\right)
+    \cos(j\lambda' + (1-j)\lambda - \varpi)
+    b_{1/2}^{(j)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e'} &=& 
+    (1/2)
+    \left(
+        -1 + 2j + \alpha D
+    \right)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
+    b_{1/2}^{(j - 1)}
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e^2} 
+    &=& 
+    (1/8)\left(-4j^2 + 2\alpha D + \alpha^2D^2\right)\cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+& 
+    (1/8)\left(-5j + 4j^2 - 2\alpha D + 4j\alpha D + \alpha^2D^2\right)
+    \cos[j\lambda' + (2 - j)\lambda - 2\varpi]
+    b_{1/2}^{(j)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{e'^2} &=& 
+    (1/8)
+    \left(
+        -4j^2 + 2\alpha D + \alpha^2D^2
+    \right)
+    \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber
+    &+&
+    (1/8)
+    \left(
+        2 - 7j + 4j^2 - 2\alpha D + 4j\alpha D + \alpha^2 D^2
+    \right)
+    \cos[j\lambda' + (2 - j)\lambda - 2\varpi']
+    b_{1/2}^{(j-2)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{ee'} 
+    &=& 
+    (1/4)
+    \left(
+        2 + 6j + 4j^2 - 2\alpha D - \alpha^2D^2
+    \right)
+    \cos[j\lambda' - j\lambda - \varpi + \varpi']b_{1/2}^{j + 1}
+    \\\nonumber
+    &+&
+    (1/4)
+    \left(
+        -2 + 6j - 4j^2 + 2\alpha D - 4j\alpha D - \alpha^2D^2
+    \right)
+    \cos[j\lambda' + (2-j) \lambda - \varpi - \varpi']b_{1/2}^{(j - 1)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{ss'} &=& 
+    \alpha\cos[j\lambda' - j\lambda - \Omega + \Omega']
+    b_{3/2}^{(j+1)}
+    \\\nonumber
+    &-&
+    \alpha\cos[j\lambda' + (2-j)\lambda - \Omega - \Omega']
+    b_{3/2}^{(j-1)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s^2} 
+    &=& 
+    -(1/2)\alpha
+    \cos[j(\lambda - \lambda')]b_{3/2}^{(j + 1)}
+    \\\nonumber
+    &+&
+    (1/2)\alpha
+    \cos[j\lambda' + (2-j)\lambda - 2\Omega]b_{3/2}^{(j - 1)},
+    \\
+    \left(\mathcal{S}_D^{(j)}\right)_{s'^2} 
+    &=& 
+    -(1/2)\alpha
+    \cos[j(\lambda - \lambda')]b_{3/2}^{(j + 1)}
+    \\\nonumber
+    &+&
+    (1/2)\alpha
+    \cos[j\lambda' + (2-j)\lambda - 2\Omega']b_{3/2}^{(j - 1)}.
+\end {eqnarray}
+
+
+
+
+
+
 
 \subsubsection{Expansion of $\mathcal{S}_E$ and $\mathcal{S}_I$}
 We will expand the expression $(\ref{eq:S_E})$
@@ -3241,59 +3708,6 @@ to obtain
     -
     \cos(2\lambda - 2\lambda' - \varpi + \varpi').
 \end {eqnarray}
-Thus, collecting the terms, we obtain 
-\begin {eqnarray}
-    (\mathcal{S}_E)_1 
-    &=& 
-    -\cos(\lambda - \lambda'),
-    \\
-    (\mathcal{S}_E)_e
-    &=& 
-    -\frac{1}{2}\cos(2\lambda - \lambda' - \varpi)
-    +
-    \frac{3}{2}\cos(\lambda' - \varpi),
-    \\
-    (\mathcal{S}_E)_{e'}
-    &=&
-    -2\cos(\lambda - 2\lambda' + \varpi'),
-    \\
-    (\mathcal{S}_E)_{ss'}
-    &=&
-    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
-    + 2\cos(\lambda' + \lambda - \Omega' - \Omega),
-    \\
-    (\mathcal{S}_E)_{s^2}
-    &=&
-    -\cos(\lambda + \lambda' - 2\Omega)
-    + \cos(\lambda - \lambda'),
-    \\
-    (\mathcal{S}_E)_{s'^2}
-    &=& 
-    -\cos(\lambda + \lambda' - 2\Omega')
-    + \cos(\lambda - \lambda'),
-    \\
-    (\mathcal{S}_E)_{e^2}
-    &=&
-    \frac{1}{2}\cos(\lambda - \lambda')
-    -
-    \frac{3}{8}\cos(3\lambda - \lambda' - 2\varpi)
-    -
-    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
-    \\
-    (\mathcal{S}_E)_{e'^2}
-    &=& 
-    \frac{1}{2}\cos(\lambda - \lambda')
-    -
-    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi')
-    -
-    \frac{27}{8}\cos(3\lambda' - \lambda - 2\varpi'),
-    \\
-    (\mathcal{S}_E)_{ee'}
-    &=& 
-    3\cos(2\lambda' - \varpi - \varpi')
-    -
-    \cos(2\lambda - 2\lambda' - \varpi + \varpi').
-\end {eqnarray}
 We will expand the expression $(\ref{eq:S_I})$
 \begin {eqnarray}
     \label{eq:S_I_repeat}
@@ -3411,7 +3825,7 @@ $\mathcal{S}_E$. Again by straight-forward multiplication
     +
     \frac{3}{2}\cos(\lambda - \varpi')
     \\
-    (\mathcal{S}_E)_{ss'}
+    (\mathcal{S}_I)_{ss'}
     &=& 
     \left[\:\right]_{1}
     \left(\cos\psi\right)_{ss'}
@@ -3420,7 +3834,7 @@ $\mathcal{S}_E$. Again by straight-forward multiplication
     -2\cos(\lambda' - \lambda - \Omega' + \Omega)
     + 2\cos(\lambda' + \lambda - \Omega' - \Omega)
     \\
-    (\mathcal{S}_E)_{s^2}
+    (\mathcal{S}_I)_{s^2}
     &=& 
     \left[\:\right]_{1}
     \left(\cos\psi\right)_{s^2}
@@ -3429,7 +3843,7 @@ $\mathcal{S}_E$. Again by straight-forward multiplication
     -\cos(\lambda + \lambda' - 2\Omega)
     + \cos(\lambda - \lambda')
     \\
-    (\mathcal{S}_E)_{s'^2}
+    (\mathcal{S}_I)_{s'^2}
     &=& 
     \left[\:\right]_{1}
     \left(\cos\psi\right)_{s'^2}
@@ -3650,7 +4064,60 @@ to obtain
     -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
     +3\cos(2\lambda - \varpi - \varpi').
 \end {eqnarray}
-Thus, again collecting the terms, we obtain 
+Thus, collecting the terms, we obtain 
+\begin {eqnarray}
+    (\mathcal{S}_E)_1 
+    &=& 
+    -\cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_e
+    &=& 
+    -\frac{1}{2}\cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{3}{2}\cos(\lambda' - \varpi),
+    \\
+    (\mathcal{S}_E)_{e'}
+    &=&
+    -2\cos(\lambda - 2\lambda' + \varpi'),
+    \\
+    (\mathcal{S}_E)_{ss'}
+    &=&
+    -2\cos(\lambda' - \lambda - \Omega' + \Omega)
+    + 2\cos(\lambda' + \lambda - \Omega' - \Omega),
+    \\
+    (\mathcal{S}_E)_{s^2}
+    &=&
+    -\cos(\lambda + \lambda' - 2\Omega)
+    + \cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_{s'^2}
+    &=& 
+    -\cos(\lambda + \lambda' - 2\Omega')
+    + \cos(\lambda - \lambda'),
+    \\
+    (\mathcal{S}_E)_{e^2}
+    &=&
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{3}{8}\cos(3\lambda - \lambda' - 2\varpi)
+    -
+    \frac{1}{8}\cos(\lambda + \lambda' - 2\varpi),
+    \\
+    (\mathcal{S}_E)_{e'^2}
+    &=& 
+    \frac{1}{2}\cos(\lambda - \lambda')
+    -
+    \frac{1}{8}\cos(\lambda' + \lambda - 2\varpi')
+    -
+    \frac{27}{8}\cos(3\lambda' - \lambda - 2\varpi'),
+    \\
+    (\mathcal{S}_E)_{ee'}
+    &=& 
+    3\cos(2\lambda' - \varpi - \varpi')
+    -
+    \cos(2\lambda - 2\lambda' - \varpi + \varpi').
+\end {eqnarray}
+and
 \begin {eqnarray}
     (\mathcal{S}_I)_1 
     &=& 
@@ -3708,6 +4175,230 @@ Thus, again collecting the terms, we obtain
     -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
     +3\cos(2\lambda - \varpi - \varpi').
 \end {eqnarray}
+\subsubsection{Approximation of Periodic Perturbations}
+\textbf{Periodic terms} in the disturbing function are the terms depending on mean 
+longitude while terms independent of mean longitude are called \textbf{secular terms}.
+Periodic terms are approximated $\mathcal{O}(e)$ while secular terms are approximated 
+$\mathcal{O}(e^2)$.
+Consequently, the following terms of $\mathcal{S}_D$ are included without simplification
+\begin {eqnarray}
+    \left(\mathcal S_D\right)_{1}
+    &=& 
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)},
+    \\
+    \left(\mathcal S_D\right)_{e}
+    &=& 
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j)},
+    \\
+    \left(\mathcal S_D\right)_{e'}
+    &=& 
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    (-1 +2j + \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j-1)},
+\end {eqnarray}
+On the other hand, the second-order terms are simplified significantly 
+\begin {eqnarray}
+    \left(\mathcal S_D\right)_{e^2}
+    &\approx& 
+    \frac{1}{8}(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)},
+    \\
+    \left(\mathcal S_D\right)_{e'^2}
+    &\approx& 
+    \frac{1}{8}(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)},
+    \\
+    \left(\mathcal S_D\right)_{ee'}
+    &\approx& 
+    \frac{1}{4}(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi'),
+    \\
+    \left(\mathcal S_D\right)_{ss'}
+    &\approx& 
+    \alpha b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    \\
+    \left(\mathcal S_D\right)_{s^2}
+    &\approx& 
+    -\frac{1}{2}\alpha b_{3/2}^{(j + 1)},
+    \\
+    \left(\mathcal S_D\right)_{s'^2}
+    &\approx& 
+    -\frac{1}{2}\alpha b_{3/2}^{(j + 1)}.
+\end {eqnarray}
+Thus, we obtain the approximation
+\begin {eqnarray}
+    \mathcal{S}_D
+    &\approx&
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    \cos[j(\lambda - \lambda')]
+    b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{e}{2}\sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{e'}{2}\sum_{j=-\infty}^\infty 
+    (-1 +2j + \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j-1)}
+    \\\nonumber
+    &+&
+    \frac{1}{8}(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{ee'}{4}(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi')
+    \\\nonumber 
+    &+&
+    ss'\alpha b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    \\\nonumber 
+    &-&
+    \frac{1}{2}\alpha(s^2 + s'^2)b_{3/2}^{(j+1)}.
+\end {eqnarray}
+The expressions for $\mathcal{S}_E$ and $\mathcal{S}_I$ simplify even more 
+\begin {eqnarray}
+    \mathcal{S}_E 
+    &=& 
+    -
+    \cos(\lambda - \lambda')
+    -
+    \frac{1}{2}e\cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{3}{2}e\cos(\lambda' - \varpi)
+    -
+    2e'\cos(\lambda - 2\lambda' + \varpi'),
+    \\
+    \mathcal{S}_I
+    &=&
+    -
+    \cos(\lambda - \lambda')
+    -
+    2e\cos(\lambda' - 2\lambda + \varpi)
+    -
+    \frac{1}{2}e'\cos(2\lambda' - \lambda - \varpi')
+    +
+    \frac{3}{2}e'\cos(\lambda - \varpi').
+\end {eqnarray}
+Now we can finally write approximations for the disturbing function of the first body
+\begin {eqnarray}
+    \mathcal{S}
+    &:=& 
+    \mathcal{S}_0
+    +
+    \mathcal{S}_1
+    +
+    \mathcal{S}_2
+    =
+    \mathcal{S}_D
+    +
+    \alpha \mathcal{S_E},
+\end {eqnarray}
+where we expand by order
+\begin {eqnarray}
+    \mathcal{S}_0
+    &=&
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    b_{1/2}^{(j)}
+    \cos[j(\lambda - \lambda')]
+    - 
+    \alpha \cos(\lambda - \lambda'),
+    \\
+    \mathcal{S}_1
+    &=&
+    \frac{e}{2}\sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{e'}{2}\sum_{j=-\infty}^\infty 
+    (-1 +2j + \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j-1)}
+    \\\nonumber
+    &-&
+    \frac{1}{2}e\alpha \cos(2\lambda - \lambda' - \varpi)
+    +
+    \frac{3}{2}e\alpha \cos(\lambda' - \varpi)
+    -
+    2e'\alpha \cos(\lambda - 2\lambda' + \varpi'),
+    \\
+    \mathcal{S}_2
+    &=&
+    \frac{1}{8}(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{ee'}{4}(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi')
+    \\\nonumber 
+    &+&
+    ss'\alpha b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    \\\nonumber 
+    &-&
+    \frac{1}{2}\alpha(s^2 + s'^2)b_{3/2}^{(j+1)}.
+\end {eqnarray}
+Approximations for the disturbing function of the second body
+\begin {eqnarray}
+    \mathcal{S'}
+    &:=& 
+    \mathcal{S}_0'
+    +
+    \mathcal{S}_1'
+    +
+    \mathcal{S}_2'
+    =
+    \alpha \mathcal{S}_D
+    +
+    \alpha^{-1}\mathcal{S_I},
+\end {eqnarray}
+where we expand by order
+\begin {eqnarray}
+    \mathcal{S}_0'
+    &=&
+    \frac{1}{2}\alpha\sum_{j=-\infty}^\infty 
+    b_{1/2}^{(j)}
+    \cos[j(\lambda - \lambda')]
+    - 
+    \alpha^{-1}\cos(\lambda - \lambda'),
+    \\
+    \mathcal{S}_1'
+    &=&
+    \frac{e}{2}\alpha\sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{e'}{2}\alpha\sum_{j=-\infty}^\infty 
+    (-1 +2j + \alpha D)
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    b_{1/2}^{(j-1)}
+    \\\nonumber
+    &-&
+    2e\alpha^{-1} \cos(\lambda' - 2\lambda + \varpi),
+    -
+    \frac{1}{2}e'\alpha^{-1} \cos(2\lambda' - \lambda - \varpi')
+    +
+    \frac{3}{2}e'\alpha^{-1} \cos(\lambda - \varpi')
+    \\
+    \mathcal{S}_2'
+    &=&
+    \frac{1}{8}\alpha(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)}
+    \\\nonumber 
+    &+&
+    \frac{ee'}{4}\alpha(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi')
+    \\\nonumber 
+    &+&
+    ss'\alpha^2 b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    \\\nonumber 
+    &-&
+    \frac{1}{2}\alpha^2(s^2 + s'^2)b_{3/2}^{(j+1)}.
+\end {eqnarray}
+\subsubsection{Change of Variables}
 
 \newpage
 \appendix
