@@ -4199,7 +4199,7 @@ Consequently, the following terms of $\mathcal{S}_D$ are included without simpli
     &=& 
     \frac{1}{2}\sum_{j=-\infty}^\infty 
     (-1 +2j + \alpha D)
-    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
     b_{1/2}^{(j-1)},
 \end {eqnarray}
 On the other hand, the second-order terms are simplified significantly 
@@ -4245,7 +4245,7 @@ Thus, we obtain the approximation
     &+&
     \frac{e'}{2}\sum_{j=-\infty}^\infty 
     (-1 +2j + \alpha D)
-    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
     b_{1/2}^{(j-1)}
     \\\nonumber
     &+&
@@ -4318,7 +4318,7 @@ where we expand by order
     &+&
     \frac{e'}{2}\sum_{j=-\infty}^\infty 
     (-1 +2j + \alpha D)
-    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
     b_{1/2}^{(j-1)}
     \\\nonumber
     &-&
@@ -4330,16 +4330,16 @@ where we expand by order
     \\
     \mathcal{S}_2
     &=&
-    \frac{1}{8}(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)}
+    \frac{1}{8}(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(0)}
     \\\nonumber 
     &+&
-    \frac{ee'}{4}(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi')
+    \frac{ee'}{4}(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)}\cos(\varpi - \varpi')
     \\\nonumber 
     &+&
-    ss'\alpha b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    ss'\alpha b_{3/2}^{(1)}\cos(\Omega - \Omega'),
     \\\nonumber 
     &-&
-    \frac{1}{2}\alpha(s^2 + s'^2)b_{3/2}^{(j+1)}.
+    \frac{1}{2}\alpha(s^2 + s'^2)b_{3/2}^{(1)}.
 \end {eqnarray}
 Approximations for the disturbing function of the second body
 \begin {eqnarray}
@@ -4375,7 +4375,7 @@ where we expand by order
     &+&
     \frac{e'}{2}\alpha\sum_{j=-\infty}^\infty 
     (-1 +2j + \alpha D)
-    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    \cos[j\lambda' + (1 - j)\lambda - \varpi']
     b_{1/2}^{(j-1)}
     \\\nonumber
     &-&
@@ -4387,19 +4387,204 @@ where we expand by order
     \\
     \mathcal{S}_2'
     &=&
-    \frac{1}{8}\alpha(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(j)}
+    \frac{1}{8}\alpha(e^2 + e'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(0)}
     \\\nonumber 
     &+&
-    \frac{ee'}{4}\alpha(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(j + 1)}\cos(\varpi - \varpi')
+    \frac{ee'}{4}\alpha(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)}\cos(\varpi - \varpi')
     \\\nonumber 
     &+&
-    ss'\alpha^2 b_{3/2}^{(j + 1)}\cos(\Omega - \Omega'),
+    ss'\alpha^2 b_{3/2}^{(1)}\cos(\Omega - \Omega'),
     \\\nonumber 
     &-&
-    \frac{1}{2}\alpha^2(s^2 + s'^2)b_{3/2}^{(j+1)}.
+    \frac{1}{2}\alpha^2(s^2 + s'^2)b_{3/2}^{(1)}.
 \end {eqnarray}
 \subsubsection{Change of Variables}
-
+We do substitutions
+\begin {eqnarray}
+    h &:=& e\sin\varpi, 
+    \\
+    k &:=& e\cos\varpi, 
+    \\
+    p &:=& \sin I\sin\Omega, 
+    \\
+    q &:=& \sin I\cos\Omega.
+\end {eqnarray}
+This allows us to make arguments of the trigonometric functions in $\mathcal S$ and 
+$\mathcal S'$ dependent only on $\lambda$ and $\lambda'$. For $\mathcal S_1$,
+we obtain 
+\begin {eqnarray}
+    \cos[j\lambda' + (1 - j)\lambda - \varpi]
+    &=& 
+    \cos\varpi\cos[j\lambda' + (1-j)\lambda]
+    +
+    \sin\varpi\sin[j\lambda' + (1-j)\lambda]
+    \\
+    &=& 
+    k\cos[j\lambda' + (1-j)\lambda]
+    +
+    h\sin[j\lambda' + (1-j)\lambda],
+    \\
+    e' \cos(\lambda - 2\lambda' + \varpi')
+    &=& 
+    e' \cos\varpi\cos(\lambda - 2\lambda')
+    -
+    e' \sin\varpi\sin(\lambda - 2\lambda')
+    \\
+    &=& 
+    k' \cos(\lambda - 2\lambda')
+    -
+    h' \sin(\lambda - 2\lambda'),
+    \\
+    e\cos(2\lambda - \lambda' - \varpi)
+    &=& 
+    e\cos(\varpi)\cos(2\lambda - \lambda')
+    + 
+    e\sin(\varpi)\sin(2\lambda - \lambda')
+    \\
+    &=& 
+    k\cos(2\lambda - \lambda')
+    +
+    h\sin(2\lambda - \lambda'),
+    \\
+    e\cos(\lambda' - \varpi)
+    &=& 
+    e\cos\varpi\cos\lambda'
+    +
+    e\sin\varpi\sin\lambda'
+    \\
+    &=& 
+    k\cos\lambda'
+    +
+    h\sin\lambda'.
+\end {eqnarray}
+and can write 
+\begin {eqnarray}
+    \mathcal{S}_1
+    &=& 
+    \frac{1}{2}
+    \sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)b_{1/2}^{(j)}
+    \left\{
+        k\cos[j\lambda' + (1-j)\lambda]
+        +
+        h\sin[j\lambda' + (1-j)\lambda]
+    \right\}
+    \\\nonumber 
+    &+&
+    \frac{1}{2}
+    \sum_{j=-\infty}^\infty 
+    (-1 + 2j + \alpha D)b_{1/2}^{(j)}
+    \left\{
+        k'\cos[j\lambda' + (1-j)\lambda]
+        +
+        h'\sin[j\lambda' + (1-j)\lambda]
+    \right\}
+    \\\nonumber 
+    &+&
+    \frac{\alpha}{2}
+    \left[
+    -4k'\cos(\lambda - 2\lambda') + 4h'\sin(\lambda - 2\lambda')
+    - k\cos(2\lambda - \lambda') 
+    - h\sin(2\lambda - \lambda')
+    + 3k\cos\lambda'
+    + 3h\sin\lambda'
+    \right],
+    \\
+    \mathcal{S}'_1 
+    &=& 
+    \frac{1}{2}\alpha
+    \sum_{j=-\infty}^\infty 
+    (-2j - \alpha D)b_{1/2}^{(j)}
+    \left\{
+        k\cos[j\lambda' + (1-j)\lambda]
+        +
+        h\sin[j\lambda' + (1-j)\lambda]
+    \right\}
+    \\\nonumber 
+    &+&
+    \frac{1}{2}\alpha
+    \sum_{j=-\infty}^\infty 
+    (-1 + 2j + \alpha D)b_{1/2}^{(j)}
+    \left\{
+        k'\cos[j\lambda' + (1-j)\lambda]
+        +
+        h'\sin[j\lambda' + (1-j)\lambda]
+    \right\}
+    \\\nonumber 
+    &+&
+    \frac{\alpha^{-1}}{2}
+    \left[
+    -4k\cos(\lambda' - 2\lambda) 
+    + 4h\sin(\lambda' - 2\lambda)
+    - k'\cos(2\lambda' - \lambda) 
+    - h'\sin(2\lambda' - \lambda)
+    + 3k'\cos\lambda
+    + 3h'\sin\lambda
+    \right].
+\end {eqnarray}
+To expand $\mathcal{S}_2$ and $\mathcal{S}_2'$, we note that 
+\begin {eqnarray}
+    h^2 + k^2 + h'^2 + k'^2 
+    &=& 
+    e^2\sin^2\varpi + e^2\cos^2\varpi + e'^2\sin^2\varpi' + e'^2\cos^2\varpi'
+    \\
+    &=& e^2 + e'^2 ,
+    \\
+    p^2 + q^2 + p'^2 + q'^2 
+    &=& 
+    \sin^2I\sin^2\Omega + \sin^2I\cos^2\Omega 
+    +
+    \sin^2I'\sin^2\Omega' + \sin^2I'\cos^2\Omega'
+    \\
+    &=& 
+    \sin^2I + \sin^2I'
+    \\
+    &=& 4(s^2 + s'^2),
+    \\
+    pp' + qq' 
+    &=& 
+    \sin I \sin I'\sin\Omega\sin\Omega' + \sin I\sin I'\cos\Omega\cos\Omega' 
+    \\
+    &=& \sin I \sin I'\cos(\Omega - \Omega')
+    \\
+    &=& 
+    4ss'\cos(\Omega - \Omega'),
+    \\
+    hh' + kk' 
+    &=& 
+    ee'(\sin\varpi\sin\varpi' + \cos\varpi\cos\varpi')
+    \\
+    &=& 
+    ee'\cos(\varpi - \varpi')
+\end {eqnarray}
+to obtain 
+\begin {eqnarray}
+    \mathcal{S}_2 
+    &=&
+    \frac{1}{8}(h^2 + k^2 + h'^2 + k'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(0)}
+    %\\\nonumber 
+    + 
+    \frac{1}{4}(hh' + kk')(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)}
+    \\\nonumber 
+    &+&
+    \frac{1}{4}\alpha(pp' + qq')b_{3/2}^{(1)} 
+    %\\\nonumber 
+    -
+    \frac{1}{8}\alpha (p^2 + q^2 + p'^2 + q'^2)b_{3/2}^{(1)},
+    \\
+    \mathcal{S}'_2
+    &=&
+    \frac{1}{8}\alpha(h^2 + k^2 + h'^2 + k'^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(0)}
+    %\\\nonumber 
+    + 
+    \frac{1}{4}\alpha(hh' + kk')(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)}
+    \\\nonumber 
+    &+&
+    \frac{1}{4}\alpha^2(pp' + qq')b_{3/2}^{(1)} 
+    %\\\nonumber 
+    -
+    \frac{1}{8}\alpha^2(p^2 + q^2 + p'^2 + q'^2)b_{3/2}^{(1)}.
+\end {eqnarray}
 \newpage
 \appendix
 \section{Series Expansions}
