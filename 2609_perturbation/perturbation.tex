@@ -146,6 +146,17 @@
 
 \maketitle
 
+\section*{Preface}
+This document contains the result of my frustration associated to the
+presentation of perturbation theory in standard textbooks on celestial mechanics 
+\cite{fitzpatrick}, \cite{murray_dermott}. In these books, the intermediate steps 
+between equations are typically far from obvious and require (very) lenghty 
+derivations. Consequently, this document expands on the intermediate steps so 
+that one should be able to follow the computation fully with mental arithmetic.
+I'm not an expert on the topic so it is very likely that the document will contain
+some conceptual errors. Moreover, no AI or any other system has been used for the 
+calculations or verification of their validity.
+
 \section{Planetary Disturbing Function}
 \subsection{Two-Planet Solar System}
 Consider a solar system with two planets orbiting a star. 
@@ -290,12 +301,14 @@ angle between the location vectors and the ratios between the semi-major axis an
 distance from the central body. This will allow easy expansion in terms of orbital 
 elements. Let us denote 
 \begin {eqnarray}
+    \label{eq:R_S1}
     \mathcal S
     &:=&
     \frac{a'}{\overline{\mu}'}\mathcal R
     = 
     \:\:\;\mathcal{S}_D + \;\:\:\alpha \mathcal{S}_E
     \\
+    \label{eq:R_S2}
     \mathcal S'
     &:=&
     \frac{a}{\overline{\mu}}\mathcal R'
@@ -4585,6 +4598,764 @@ to obtain
     -
     \frac{1}{8}\alpha^2(p^2 + q^2 + p'^2 + q'^2)b_{3/2}^{(1)}.
 \end {eqnarray}
+\newpage
+\section{Lagrange Planetary Equations}
+\newpage
+\section{Secular Perturbations}
+\subsection{Two-Planet Solar System}
+\subsubsection{Derivation of Secular Perturbations}
+First consider two-planet solar system and denote the two planets with 
+subscripts $1$ and $2$. Then, the disturbing function can be expanded 
+\begin {eqnarray}
+    \mathcal{S}_D 
+    &=& 
+    \frac{1}{2}\sum_{j=-\infty}^\infty 
+    \cos[j(\lambda_1 - \lambda_2)]b_{1/2}^{(j)}
+    \\\nonumber 
+    &+& 
+    \frac{e_1}{2}
+    (-2j - \alpha D)
+    \cos[j\lambda_2 + (1 - j)\lambda_1 - \varpi_1]
+    \\\nonumber 
+    &+& 
+    \frac{e_2}{2}
+    (-1 + 2j + \alpha D)    
+    \cos[j\lambda_2 + (1 - j)\lambda_1 - \varpi_2]
+    \\\nonumber 
+    &+& 
+    \frac{1}{8}(e_1^2 + e_2^2)(2\alpha D + \alpha^2D^2)b_{1/2}^{(0)}
+    \\\nonumber 
+    &+& 
+    \frac{1}{4}e_1e_2(2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)}
+    \cos(\varpi_1 - \varpi_2)    
+    \\\nonumber 
+    &+& 
+    s_1s_2\alpha b_{3/2}^{(1)}
+    \cos(\Omega_1 - \Omega_2)
+    \\\nonumber 
+    &-&
+    \frac{1}{2}(s_1^2 + s_2^2)b_{3/2}^{(1)}\alpha. 
+\end {eqnarray}
+We consider only \textbf{secular perturbations}, that is perturbations not 
+dependent on the mean longitudes $\lambda_1$ and $\lambda_2$. Periodic 
+perturbations do not contribute to the long-term averaged behaviour. To 
+further simplify the expression, we also use the results (TODO)
+\begin {eqnarray}
+    (2\alpha D + \alpha^2D^2)b_{1/2}^{(0)} &=& \alpha b_{3/2}^{(1)}
+    \\
+    (2 - 2\alpha D - \alpha^2D^2)b_{1/2}^{(1)} &=& -\alpha b_{3/2}^{(2)}
+\end {eqnarray}
+and obtain the purely secular part of the disturbing function
+\begin {eqnarray}
+    \mathcal{S}_D^{(sec)}
+    &=& 
+    \frac{1}{2}b_{1/2}^{(0)}
+    +
+    \frac{1}{8}(e_1^2 + e_2^2)\alpha b_{3/2}^{(1)}
+    - 
+    \frac{1}{4}e_1e_2\alpha b_{3/2}^{(2)}\cos(\varpi_1 - \varpi_2)
+    \\\nonumber 
+    &+& 
+    \frac{1}{4}I_1I_2\alpha b_{3/2}^{(1)}\cos(\Omega_1 - \Omega_2)
+    - 
+    \frac{1}{8}(I_1^2 + I_2^2)\alpha b_{3/2}^{(1)}.
+\end {eqnarray}
+In addition, $\mathcal{S}_I$ and $\mathcal{S}_E$ contain only periodic 
+terms. To obtain the original disturbing functions, we use 
+$(\ref{eq:R_S1})$ and $(\ref{eq:R_S2})$, to compute 
+\begin {eqnarray}
+    \mathcal{R}_1 
+    &=& 
+    \frac{\overline\mu_2}{a_2}
+    \mathcal{S}_D^{(sec)}
+    \:\:=
+    \frac{Gm_2}{a_2}
+    \mathcal{S}_D^{(sec)}
+    \\
+    \mathcal{R}_2
+    &=& 
+    \frac{\overline\mu_1}{a_1}
+    \alpha\mathcal{S}_D^{(sec)}
+    =
+    \frac{Gm_1}{a_2}
+    \mathcal{S}_D^{(sec)}
+\end {eqnarray}
+Kepler's third law
+\begin {eqnarray}
+    \mu_k &=& n_k^2a_k^3 = G(M + m_k),
+\end {eqnarray}
+allows us to eliminate $G$ and obtain 
+\begin {eqnarray}
+    \frac{Gm_2}{a_2} 
+    &=& 
+    \frac{m_2}{M + m_1}\frac{n_1^2a_1^3}{a_2}
+    = \frac{m_2}{M + m_1}n_1^2a_1^2\alpha  
+    \\
+    \frac{Gm_1}{a_2} 
+    &=& 
+    \frac{m_1}{M + m_2}\frac{n_2^2a_2^3}{a_2}
+    = \frac{m_1}{M + m_2}n_2^2a_2^2\alpha.
+\end {eqnarray}
+Thus, we can express the disturbing functions for the two planets as 
+\begin {eqnarray}
+    \mathcal{R}_1
+    &=& 
+    \frac{m_2}{M + m_1}n_1^2a_1^2\alpha\mathcal{S}_D^{(sec)}
+    \\
+    &=&
+    \frac{m_2}{M + m_1}n_1^2a_1^2
+    \left[
+        \frac{1}{2}\alpha b_{1/2}^{(0)}
+        + 
+        \frac{1}{8}(e_1^2 + e_2^2)\alpha^2 b_{3/2}^{(1)}
+        - 
+        \frac{1}{4}e_1e_2\alpha^2b_{3/2}^{(2)}\cos(\varpi_1 - \varpi_2)
+        \right.
+        \\\nonumber
+        &+&
+        \left. 
+        \frac{1}{4}I_1I_2\alpha^2b_{3/2}^{(1)}\cos(\Omega_1 - \Omega_2)
+        - 
+        \frac{1}{8}\alpha^2(I_1^2 + I_2^2)b_{3/2}^{(1)}
+    \right]
+    \\
+    \mathcal{R}_2
+    &=& 
+    \frac{m_1}{M + m_2}n_2^2a_2^2\mathcal{S}_D^{(sec)}
+    \\
+    &=&
+    \frac{m_1}{M + m_2}n_2^2a_2^2
+    \left[
+        \frac{1}{2}b_{1/2}^{(0)}
+        + 
+        \frac{1}{8}(e_1^2 + e_2^2)\alpha b_{3/2}^{(1)}
+        - 
+        \frac{1}{4}e_1e_2\alpha b_{3/2}^{(2)}\cos(\varpi_1 - \varpi_2)
+        \right.
+        \\\nonumber
+        &+&
+        \left. 
+        \frac{1}{4}I_1I_2\alpha b_{3/2}^{(1)}\cos(\Omega_1 - \Omega_2)
+        - 
+        \frac{1}{8}\alpha(I_1^2 + I_2^2)b_{3/2}^{(1)}
+    \right]
+\end {eqnarray}
+This expression can be further simplified by discarding terms that do not contribute 
+to the time evolution of orbital elements as described the Lagrange Planetary Equations.
+In particular, we note that 
+\begin {eqnarray}
+    \pdiff{e_2^2}{e_1} 
+    = 
+    \pdiff{e_1^2}{e_2} 
+    = 
+    \pdiff{I_2^2}{I_1}
+    = 
+    \pdiff{I_1^2}{I_2}
+    = 
+    0
+\end {eqnarray}
+The derivative w.r.t. $a_k$ is only relevant for the time evolution of mean anomaly,
+which is not considered here. Thus, also the first term in the square brackets can be 
+discarded. Thus, we obtain 
+\begin {eqnarray}
+    \mathcal{R}_1
+    &=&
+    \frac{m_2}{M + m_1}n_1^2a_1^2
+    \left[
+        \frac{1}{8}e_1^2\alpha^2 b_{3/2}^{(1)}
+        - 
+        \frac{1}{4}e_1e_2\alpha^2b_{3/2}^{(2)}\cos(\varpi_1 - \varpi_2)
+        \right.
+        \\\nonumber
+        &+&
+        \left. 
+        \frac{1}{4}I_1I_2\alpha^2b_{3/2}^{(1)}\cos(\Omega_1 - \Omega_2)
+        - 
+        \frac{1}{8}\alpha^2I_1^2b_{3/2}^{(1)}
+    \right]
+    \\
+    \mathcal{R}_2
+    &=&
+    \frac{m_1}{M + m_2}n_2^2a_2^2
+    \left[
+        \frac{1}{8}e_2^2\alpha b_{3/2}^{(1)}
+        - 
+        \frac{1}{4}e_1e_2\alpha b_{3/2}^{(2)}\cos(\varpi_1 - \varpi_2)
+        \right.
+        \\\nonumber
+        &+&
+        \left. 
+        \frac{1}{4}I_1I_2\alpha b_{3/2}^{(1)}\cos(\Omega_1 - \Omega_2)
+        - 
+        \frac{1}{8}\alpha I_2^2b_{3/2}^{(1)}
+    \right]
+\end {eqnarray}
+Let us denote $\alpha_{12} := \alpha = a_1 / a_2$
+\begin {eqnarray}
+    A_{jj} 
+    &:=& 
+    \frac{1}{4}
+    n_j
+    \frac{m_k}{M + m_j}
+    \alpha_{12}\overline\alpha_{12}
+    b_{3/2}^{(1)}(\alpha_{12}),
+    \\
+    A_{jk} 
+    &:=& 
+    -\frac{1}{4}
+    n_j
+    \frac{m_k}{M + m_j}
+    \alpha_{12}\overline\alpha_{12}
+    b_{3/2}^{(2)}(\alpha_{12}),
+    \\
+    B_{jj} 
+    &:=& 
+    \frac{1}{4}
+    -n_j
+    \frac{m_k}{M + m_j}
+    \alpha_{12}\overline\alpha_{12}
+    b_{3/2}^{(1)}(\alpha_{12}),
+    \\
+    B_{jk} 
+    &:=& 
+    \frac{1}{4}
+    n_j
+    \frac{m_k}{M + m_j}
+    \alpha_{12}\overline\alpha_{12}
+    b_{3/2}^{(1)}(\alpha_{12}),
+\end {eqnarray}
+where $k\neq j$ and 
+\begin {eqnarray}
+    \overline\alpha_{12} 
+    =
+    \left\{
+        \begin {array}{ll}
+            \alpha_{12}, & j=1
+            \\
+            1, & j=2
+        \end {array}
+    \right..
+\end {eqnarray}
+Then, the disturbing functions obtain more convenient expression 
+\begin {eqnarray}
+    \mathcal{R}_j
+    &=& 
+    n_ja_j^2
+    \left[
+        \frac{1}{2}A_{jj}e_j^2 
+        +
+        A_{jk}e_1e_2\cos(\varpi_1 - \varpi_2)
+        +
+        \frac{1}{2}
+        B_{jj}I_j^2 
+        +
+        B_{jk}I_1I_2\cos(\Omega_1 - \Omega_2)
+    \right].
+\end {eqnarray}
+Let's again perform change of variables
+\begin {eqnarray}
+    h_j 
+    &=& 
+    e_j\sin\varpi_j,
+    \\
+    k_j
+    &=& 
+    e_j\cos\varpi_j,
+    \\
+    p_j
+    &=& 
+    I_j\sin\Omega_j,
+    \\
+    q_j
+    &=& 
+    I_j\cos\Omega_j.
+\end {eqnarray}
+Then, we obtain
+\begin {eqnarray}
+    h_j^2 + k_j^2 
+    &=& 
+    e_j^2(\sin^2\varpi_j +  \cos^2\varpi_j)
+    = 
+    e_j^2
+    \\
+    p_j^2 + q_j^2 
+    &=& 
+    I_j^2(\sin^2\Omega_j + \cos^2\Omega_j)
+    = 
+    I_j^2
+    \\
+    h_1h_2 + k_1k_2
+    &=& 
+    e_1e_2(\sin\varpi_1\sin\varpi_2 + \cos\varpi_1\cos\varpi_2)
+    =
+    e_1e_2\cos(\varpi_1 - \varpi_2)
+    \\
+    p_1p_2 + q_1q_2 
+    &=& 
+    I_1I_2(\sin\Omega_1\sin\Omega_2 + \cos\Omega_1\cos\Omega_2)
+    = 
+    I_1I_2\cos(\Omega_1 - \Omega_2)
+\end {eqnarray}
+and 
+\begin {eqnarray}
+    \mathcal{R}_j 
+    &=&
+    n_ja_j^2
+    \left[
+        \frac{1}{2}A_{jj}(h_j^2 + k_j^2)
+        +
+        A_{jk}(h_1h_2 + k_1k_2)
+        +
+        \frac{1}{2}
+        B_{jj}(p_j^2 + q_j^2)
+        +
+        B_{jk}(p_1p_2 + q_1q_2)
+    \right].
+\end {eqnarray}
+\subsubsection{Approximation of the Planetary Equations}
+We employ first-order approximation of Lagrange's planetary equations 
+\begin {eqnarray}
+    \diff{e}{t}
+    &=&
+    -\frac{\sqrt{1 - e^2}}{na^2e}
+    \left(1 - \sqrt{1 - e^2}\right)\diff{\mathcal{R}}{\epsilon}
+    - 
+    \frac{\sqrt{1 - e^2}}{na^2e}\pdiff{\mathcal{R}}{\varpi}
+    \hspace{0.96cm}
+    \:\:\approx\:\:
+    \frac{-1}{na^2e}\pdiff{\mathcal{R}}{\varpi},
+    \\
+    \diff{\Omega}{t}
+    &=& 
+    \frac{1}{na^2\sqrt{1 - e^2}\sin I}\pdiff{\mathcal{R}}{I}
+    \hspace{5.28cm}\:\:\approx\:\: 
+    \frac{1}{na^2I}\pdiff{\mathcal{R}}{I},
+    \\
+    \diff{\varpi}{t}
+    &=& 
+    \frac{\sqrt{1 - e^2}}{na^2e}
+    \pdiff{\mathcal{R}}{e}
+    + 
+    \frac{\tan(I/2)}{na^2\sqrt{1 - e^2}}
+    \pdiff{\mathcal{R}}{I}    
+    \hspace{3.51cm}\:\:\approx\:\: 
+    \frac{1}{na^2e}\pdiff{\mathcal{R}}{e},
+    \\
+    \pdiff{I}{t}
+    &=&
+    -\frac{\tan(I/2)}{na^2\sqrt{1-e^2}}
+    \left(
+        \pdiff{\mathcal{R}}{\epsilon} + \pdiff{\mathcal{R}}{\varpi}
+    \right)
+    -
+    \frac{1}{na^2\sqrt{1-e^2}\sin I}\pdiff{\mathcal{R}}{\Omega}
+    \:\:\approx\:\:
+    \frac{-1}{na^2I}\pdiff{\mathcal{R}}{\Omega}.
+\end {eqnarray}
+In order to compute the time derivatives, we need to compute the time partial derivatives 
+of the disturbing function 
+\begin {eqnarray}
+    \pdiff{\mathcal{R}_j}{\varpi_j}
+    &=& 
+    n_ja_j^2
+    \left[
+        A_{jk}e_1e_2\pdiff{}{\varpi_j}\cos(\varpi_1 - \varpi_2)
+    \right]
+    \\
+    &=& 
+    n_ja_j^2A_{jk}e_1e_2(-1)^j\sin(\varpi_1 - \varpi_2)
+\end {eqnarray}
+\begin {eqnarray}
+    \pdiff{\mathcal{R}_j}{I_j}
+    &=& 
+    n_ja_j^2
+    \left[
+        B_{jj}I_j + B_{jk}I_k\cos(\Omega_1 - \Omega_2)
+    \right]
+    \\
+    &=&
+    n_ja_j^2B_{jj}I_j
+    +
+    n_ja_j^2B_{jk}I_k\cos(\Omega_1 - \Omega_2),
+    \\
+    \pdiff{\mathcal{R}_j}{e_j}
+    &=& 
+    n_ja_j^2
+    \left[
+        A_{jj}e_j + A_{jk}e_k\cos(\varpi_1 - \varpi_2)
+    \right]
+    \\
+    &=&
+    n_ja_j^2A_{jj}e_j + n_ja_j^2A_{jk}e_k\cos(\varpi_1 - \varpi_2),
+    \\
+    \pdiff{\mathcal{R}_j}{\Omega_j}
+    &=&
+    n_ja_j^2B_{jk}I_1I_2\pdiff{}{\Omega_j}\cos(\Omega_1 - \Omega_2)
+    \\
+    &=&
+    n_ja_j^2B_{jk}I_1I_2(-1)^j\sin(\Omega_1 - \Omega_2).
+\end {eqnarray}
+Substituting back to the planetary equations, we obtain 
+\begin{eqnarray}
+    \diff{e_j}{t}
+    &=&
+    e_kA_{jk}(-1)^k\sin(\varpi_1 - \varpi_2), 
+    \\
+    \diff{\Omega_j}{t}
+    &=&
+    B_{jj} 
+    + 
+    B_{jk}\frac{I_k}{I_j}\cos(\Omega_1 - \Omega_2),
+    \\
+    \diff{\varpi_j}{t}
+    &=&
+    A_{jj}
+    + 
+    A_{jk}\frac{e_k}{e_j}\cos(\varpi_1 - \varpi_2),
+    \\
+    \diff{I_j}{t}
+    &=& 
+    I_kB_{jk}(-1)^k\sin(\Omega_1 - \Omega_2).
+\end {eqnarray}
+Since eccentricity and inclination are small, their presence in the denominators can 
+be problematic and suggests that a change of variables is appropriate. 
+First note that 
+\begin {eqnarray}
+    \pdiff{\mathcal{R}_j}{e_j}
+    &=& 
+    \pdiff{\mathcal{R}_j}{h_j}\pdiff{h_j}{e_j}
+    \:+
+    \pdiff{\mathcal{R}_j}{k_j}\pdiff{k_j}{e_j}
+    \:\:= 
+    \frac{h_j}{e_j}\pdiff{\mathcal{R}_j}{h_j}
+    + 
+    \frac{k_j}{e_j}\pdiff{\mathcal{R}_j}{k_j},
+    \\
+    \pdiff{\mathcal{R}_j}{\varpi_j}
+    &=& 
+    \pdiff{\mathcal{R}_j}{h_j}\pdiff{h_j}{\varpi_j}
+    +
+    \pdiff{\mathcal{R}_j}{k_j}\pdiff{k_j}{\varpi_j}
+    =
+    k_j\pdiff{\mathcal{R}_j}{h_j}
+    -
+    h_j\pdiff{\mathcal{R}_j}{k_j},
+    \\
+    \pdiff{\mathcal{R}_j}{I_j}
+    &=& 
+    \pdiff{\mathcal{R}_j}{p_j}\pdiff{p_j}{I_j}
+    \:+
+    \pdiff{\mathcal{R}_j}{q_j}\pdiff{q_j}{I_j}
+    \:\:=
+    \frac{p_j}{I_j}\pdiff{\mathcal{R}_j}{p_j}
+    + 
+    \frac{q_j}{I_j}\pdiff{\mathcal{R}_j}{q_j},
+    \\
+    \pdiff{\mathcal{R}_j}{\Omega_j}
+    &=& 
+    \pdiff{\mathcal{R}_j}{p_j}\pdiff{p_j}{\Omega_j}
+    +
+    \pdiff{\mathcal{R}_j}{q_j}\pdiff{q_j}{\Omega_j}
+    \:=
+    q_j\pdiff{\mathcal{R}_j}{p_j}
+    -
+    p_j\pdiff{\mathcal{R}_j}{q_j}.
+\end {eqnarray}
+Now we can derive the approximate planetary equations for the new variables as follows 
+\begin {eqnarray}
+    \diff{h_j}{t}
+    &=&
+    \pdiff{h_j}{e_j}\diff{e_j}{t}
+    +
+    \pdiff{h_j}{\varpi_j}\diff{\varpi_j}{t}
+    \\
+    &=&
+    \frac{h_j}{e_j}
+    \left(
+        \frac{-1}{n_ja_j^2e_j}\pdiff{\mathcal{R}_j}{\varpi_j}
+    \right)
+    + 
+    k_j 
+    \left(
+        \frac{1}{n_ja_j^2e_j}\pdiff{\mathcal{R}_j}{e_j}
+    \right)
+    \\
+    &=& 
+    \frac{1}{n_ja_j^2e_j}
+    \left(
+        -\frac{h_j}{e_j}\pdiff{\mathcal{R}_j}{\varpi_j}
+        + 
+        k_j\pdiff{\mathcal{R}_j}{e_j}
+    \right)
+    \\
+    &=& 
+    \frac{1}{n_ja_j^2e_j}
+    \left[
+        -\frac{h_j}{e_j}
+        \left(
+            k_j\pdiff{\mathcal{R}_j}{h_j} - h_j \pdiff{\mathcal{R}_j}{k_j}
+        \right)
+        + 
+        k_j
+        \left(
+            \frac{h_j}{e_j}\pdiff{\mathcal{R}_j}{h_j}
+            +
+            \frac{k_j}{e_j}\pdiff{\mathcal{R}_j}{k_j}
+        \right)
+    \right]
+    \\
+    &=&
+     \frac{1}{n_ja_j^2e_j}
+     \left[
+        \pdiff{\mathcal{R}_j}{h_j}
+        \left(
+            -\frac{h_jk_j}{e_j}
+            +
+            \frac{h_jk_j}{e_j}
+        \right)
+        +
+        \pdiff{\mathcal{R}_j}{k_j}
+        \left(
+            \frac{h_j^2}{e_j}
+            +
+            \frac{k_j^2}{e_j}
+        \right)
+     \right]
+     \\
+     &=& 
+     \frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j}{k_j},
+\end {eqnarray}
+\begin {eqnarray}
+    \diff{k_j}{t}
+    &=& 
+    \pdiff{k_j}{e_j}\diff{e_j}{t} + \pdiff{k_j}{\varpi_j}\diff{\varpi_j}{t}
+    \\
+    &=&
+    \frac{k_j}{e_j}
+    \left(
+        \frac{-1}{n_ja_j^2e_j}\pdiff{\mathcal{R}_j}{\varpi_j}
+    \right)
+    - 
+    h_j 
+    \left(
+         \frac{1}{n_ja_j^2e_j}\pdiff{\mathcal{R}_j}{e_j}
+    \right)
+    \\
+    &=&
+    \frac{1}{n_ja_j^2e_j}
+    \left[
+        -\frac{k_j}{e_j}
+        \left(
+            k_j\pdiff{\mathcal{R}_j}{h_j}
+            -
+            h_j\pdiff{\mathcal{R}_j}{k_j}
+        \right)
+        - h_j
+        \left(
+            \frac{h_j}{e_j}\pdiff{\mathcal{R}_j}{h_j}
+            + 
+            \frac{k_j}{e_j}\pdiff{\mathcal{R}_j}{k_j}
+        \right)
+    \right]
+    \\
+    &=&
+    \frac{1}{n_ja_j^2e_j}
+    \left[
+        \pdiff{\mathcal{R}_j}{h_j}
+        \left(
+            -\frac{k_j^2}{e_j}
+            -\frac{h_j^2}{e_j}
+        \right)
+        +
+        \pdiff{\mathcal{R}_j}{k_j}
+        \left(
+            \frac{k_jh_j}{e_j}
+            -
+            \frac{h_jk_j}{e_j}
+        \right)
+    \right]
+    \\
+    &=& 
+    -\frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j}{h_j},
+\end {eqnarray}
+\begin {eqnarray}
+    \diff{p_j}{t}
+    &=& 
+    \pdiff{p_j}{I_j}\diff{I_j}{t} + \pdiff{p_j}{\Omega_j}\diff{\Omega_j}{t}
+    \\
+    &=&
+    \frac{p_j}{I_j}
+    \left(
+        \frac{-1}{n_ja_j^2I_j}\pdiff{\mathcal{R}_j}{\Omega_j}
+    \right)
+    +
+    q_j 
+    \left(
+        \frac{1}{n_ja_j^2I_j}\pdiff{\mathcal{R}_j}{I_j}
+    \right)
+    \\
+    &=&
+    \frac{1}{n_ja_j^2I_j}
+    \left[
+        -\frac{p_j}{I_j}
+        \left(
+            q_j\pdiff{\mathcal{R}_j}{p_j} - p_j\pdiff{\mathcal{R}_j}{q_j}
+        \right)
+        + 
+        q_j
+        \left(
+            \frac{p_j}{I_j}\pdiff{\mathcal{R}_j}{p_j} 
+            +
+            \frac{q_j}{I_j}\pdiff{\mathcal{R}_j}{q_j}
+        \right)
+    \right]
+    \\
+    &=&
+    \frac{1}{n_ja_j^2I_j}
+    \left[
+        \pdiff{\mathcal{R}_j}{p_j}
+        \left(
+            -\frac{p_jq_j}{I_j} + \frac{q_jp_j}{I_j}
+        \right)
+        +
+        \pdiff{\mathcal{R}_j}{q_j}
+        \left(
+            \frac{p_j^2}{I_j} + \frac{q_j^2}{I_j}
+        \right)
+    \right]
+    \\
+    &=& 
+    \frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j}{q_j},
+\end {eqnarray}
+\begin {eqnarray}
+    \diff{q_j}{t}
+    &=& 
+    \pdiff{q_j}{I_j}\diff{I_j}{t} + \pdiff{q_j}{\Omega_j}\diff{\Omega_j}{t}
+    \\
+    &=& 
+    \frac{q_j}{I_j}\diff{I_j}{t} - p_j\diff{\Omega_j}{t} 
+    \\
+    &=&
+    \frac{q_j}{I_j}
+    \left[
+        \frac{-1}{n_ja_j^2I_j}
+        \left(
+            q_j\pdiff{\mathcal{R}_j}{p_j}
+            - 
+            p_j\pdiff{\mathcal{R}_j}{q_j}
+        \right)
+    \right]
+    -
+    p_j
+    \left[
+        \frac{1}{n_ja_j^2I_j}
+        \left(
+            \frac{p_j}{I_j}\pdiff{\mathcal{R}_j}{p_j}
+            +
+            \frac{q_j}{I_j}\pdiff{\mathcal{R}_j}{q_j}
+        \right)
+    \right]
+    \\
+    &=&
+    \frac{1}{n_ja_j^2I_j}
+    \left[
+        \pdiff{\mathcal{R}_j}{p_j}
+        \left(
+            -\frac{q_j^2}{I_j}
+            -\frac{p_j^2}{I_j}
+        \right)
+        +
+        \pdiff{\mathcal{R}_j}{q_j}
+        \left(
+            \frac{p_jq_j}{I_j}
+            -
+            \frac{p_jq_j}{I_j}
+        \right)
+    \right]    
+    \\
+    &=&
+    \frac{-1}{n_ja_j^2}\pdiff{\mathcal{R}_j}{p_j}.
+\end {eqnarray}
+That is, collecting the result yields 
+\begin {eqnarray}
+    \diff{h_j}{t} 
+    &=&
+    \frac{1}{n_ja_j^2} 
+    \pdiff{\mathcal{R}_j}{k_j}
+    =
+    A_{jj}k_j + A_{jk}k_k
+    ,
+    \\
+    \diff{k_j}{t} 
+    &=&
+    -\frac{1}{n_ja_j^2} 
+    \pdiff{\mathcal{R}_j}{h_j}
+    =
+    -A_{jj}h_j - A_{jk}h_k
+    ,
+    \\
+    \diff{p_j}{t} 
+    &=&
+    \frac{1}{n_ja_j^2} 
+    \pdiff{\mathcal{R}_j}{q_j}
+    =
+    B_{jj}q_j + B_{jk}q_k
+    ,
+    \\
+    \diff{q_j}{t} 
+    &=&
+    -\frac{1}{n_ja_j^2} 
+    \pdiff{\mathcal{R}_j}{p_j}
+    =
+    -B_{jj}p_j - B_{jk}p_k.
+\end {eqnarray}
+\subsubsection{Laplace-Lagrange Secular Solution}
+The two-planet system is now described by the systems of differential equations 
+\begin {eqnarray}
+    \dot{\vc h} &=& A\vc k, 
+    \\
+    \dot{\vc k} &=& -A\vc h,
+    \\ 
+    \dot{\vc p} &=& B\vc q, 
+    \\
+    \dot{\vc q} &=& -B\vc p.
+\end {eqnarray}
+Let $\vc u_1, \vc u_2$ be the eigenvectors corresponding to the eigenvalues $g_1, g_2$ for 
+the matrix $A$. Let's try
+\begin {eqnarray}
+    \vc h(t) &=& \vc u_1\sin(g_1t + \beta_1) + \vc u_2\sin(g_2t + \beta_2), \\
+    \vc k(t) &=& \vc u_1\cos(g_1t + \beta_1) + \vc u_2\cos(g_2t + \beta_2).
+\end {eqnarray}
+Then, we obtain
+\begin {eqnarray}
+    \dot{\vc h(t)} 
+    &=& 
+    g_1\vc u_1\cos(g_1t + \beta_1) + g_2\vc u_2\cos(g_2t + \beta_2) \\
+    &=& 
+    A\vc u_1\cos(g_1t + \beta_1) + A\vc u_2\cos(g_2t + \beta_2) \\
+    &=& 
+    A\vc k(t),
+    \\
+    \dot{\vc k(t)}
+    &=&
+    -g_1\vc u_1\sin(g_1t + \beta_1) - g_2\vc u_2\sin(g_2t + \beta_2) \\
+    &=&
+    -A\vc u_1\sin(g_1t + \beta_1) - A\vc u_2\sin(g_2t + \beta_2) \\
+    &=&
+    -A\vc h(t),
+\end {eqnarray}
+which shows that the solution is correct. Similarly, let $\vc w_1, \vc w_2$ be the eigenvectors
+corresponding to the eigenvalues $f_1, f_2$ for the matrix $B$. This, leads to the solutions
+\begin {eqnarray}
+    \vc p(t) &=& \vc w_1\sin(f_1t + \gamma_1) + \vc w_2\sin(f_2t + \gamma_2), \\
+    \vc q(t) &=& \vc w_1\cos(f_1t + \gamma_1) + \vc w_2\cos(f_2t + \gamma_2).
+\end {eqnarray}
+Note that for any eigenvector, the eigenvector multiplied by a non-zero scalar is 
+also an eigenvector. The scaling factors for $\vc u_1, \vc u_2, \vc w_1, \vc w_2$
+and the coefficients $\beta_1, \beta_2, \gamma_1, \gamma_2$ follow from the $4+4$
+initial conditions for $h_1, k_1, p_1, q_1$ and $h_2, k_2, p_2, q_2$. This solution 
+is an instance of \textbf{classical Laplace-Lagrange secular solution}.
+
 \newpage
 \appendix
 \section{Series Expansions}
