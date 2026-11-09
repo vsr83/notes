@@ -157,6 +157,9 @@ I'm not an expert on the topic so it is very likely that the document will conta
 some conceptual errors. Moreover, no AI or any other system has been used for the 
 calculations or verification of their validity.
 
+\newpage
+\tableofcontents
+\newpage
 \section{Planetary Disturbing Function}
 \subsection{Two-Planet Solar System}
 Consider a solar system with two planets orbiting a star. 
@@ -337,7 +340,7 @@ where $\alpha := a/a'$ and
 where $\psi$ is the angle between the vectors $\vc r$ and $\vc r'$.
 
 
-\subsection{Expansion of the Disturbing Functions}
+\subsection{Expansion of $\mathcal{S}_D$}
 Let us denote
 \begin {eqnarray}
     \zeta := \frac{r - a}{a},
@@ -3256,13 +3259,7 @@ Collecting the terms, we finally get
     \cos[j\lambda' + (2-j)\lambda - 2\Omega']b_{3/2}^{(j - 1)}.
 \end {eqnarray}
 
-
-
-
-
-
-
-\subsubsection{Expansion of $\mathcal{S}_E$ and $\mathcal{S}_I$}
+\subsection{Expansion of $\mathcal{S}_E$ and $\mathcal{S}_I$}
 We will expand the expression $(\ref{eq:S_E})$
 \begin {eqnarray}
     \label{eq:S_E_repeat}
@@ -4188,7 +4185,7 @@ and
     -\cos(2\lambda - 2\lambda' - \varpi + \varpi')
     +3\cos(2\lambda - \varpi - \varpi').
 \end {eqnarray}
-\subsubsection{Approximation of Periodic Perturbations}
+\subsection{Approximation of Periodic Perturbations}
 \textbf{Periodic terms} in the disturbing function are the terms depending on mean 
 longitude while terms independent of mean longitude are called \textbf{secular terms}.
 Periodic terms are approximated $\mathcal{O}(e)$ while secular terms are approximated 
@@ -4411,7 +4408,7 @@ where we expand by order
     &-&
     \frac{1}{2}\alpha^2(s^2 + s'^2)b_{3/2}^{(1)}.
 \end {eqnarray}
-\subsubsection{Change of Variables}
+\subsection{Change of Variables}
 We do substitutions
 \begin {eqnarray}
     h &:=& e\sin\varpi, 
@@ -4810,8 +4807,8 @@ Let us denote $\alpha_{12} := \alpha = a_1 / a_2$
     \\
     B_{jj} 
     &:=& 
-    \frac{1}{4}
-    -n_j
+    -\frac{1}{4}
+    n_j
     \frac{m_k}{M + m_j}
     \alpha_{12}\overline\alpha_{12}
     b_{3/2}^{(1)}(\alpha_{12}),
@@ -5355,6 +5352,289 @@ also an eigenvector. The scaling factors for $\vc u_1, \vc u_2, \vc w_1, \vc w_2
 and the coefficients $\beta_1, \beta_2, \gamma_1, \gamma_2$ follow from the $4+4$
 initial conditions for $h_1, k_1, p_1, q_1$ and $h_2, k_2, p_2, q_2$. This solution 
 is an instance of \textbf{classical Laplace-Lagrange secular solution}.
+\subsubsection{Example: Jupiter and Saturn}
+Suppose the two planets are Jupiter and Saturn with mass ratios 
+and initial conditions 
+\begin {eqnarray}
+    \begin {array}{llll}
+        m_1/M = & 9.54786\cdot 10^{-4}, & m_2/M = &2.85837\cdot 10^{-4}
+        \\
+        a_1 = & 5.202545\:\textrm{AU}, \quad\quad & a_2 = & 9.554841\:\textrm{AU}
+        \\
+        n_1 = & 30.3374^\circ/y, & n_2 = & 12.1890^\circ/y
+        \\
+        e_1 = & 0.0474622, & e_2 = & 0.0575481
+        \\
+        \varpi_1 = & 13.983865^\circ, & \varpi_2 = & 88.719425^\circ 
+        \\
+        I_1 = & 1.30667^\circ, & I_2 = & 2.48795^\circ
+        \\
+        \Omega_1 = & 100.0381^\circ, & \Omega_2 = & 113.1334^\circ.
+    \end {array}
+\end {eqnarray}
+This implies $\alpha_{12} = 0.5444931004084735$ and we obtain via numerical integration
+\begin {eqnarray}
+    b_{3/2}^{(1)} 
+    &=&
+    3.172964573849452,
+    \\
+    b_{3/2}^{(2)} 
+    &=& 
+    2.0710972389662508.
+\end {eqnarray}
+Using the solar mass $M = 1.988416\cdot 10^{30}\:$kg, yields 
+$m_1 = 1.898511758976\cdot 10^{27}$ kg  
+and 
+$m_2 = 5.68362864192\cdot 10^{26}$ kg and 
+\begin {eqnarray}
+    A_{11} &=& \frac{1}{4}n_1\frac{m_2}{M + m_1} \alpha_{12}^2b_{3/2}^{(1)}
+    = 0.002037381396074496^\circ/y,
+    \\
+    A_{22} &=& \frac{1}{4}n_2\frac{m_1}{M + m_2} \alpha_{12}b_{3/2}^{(1)}
+    = 0.005025133599532606^\circ/y,
+    \\
+    A_{12} &=& -\frac{1}{4}n_1\frac{m_2}{M + m_1}\alpha_{12}^2b_{3/2}^{(2)}
+    = -0.001329865142178957^\circ/y,
+    \\
+    A_{21} &=& -\frac{1}{4}n_2\frac{m_1}{M + m_2}\alpha_{12}b_{3/2}^{(2)}
+    = -0.0032800682394011267^\circ/y.
+\end {eqnarray}
+\begin {eqnarray}
+    B_{11} &=& -\frac{1}{4}n_1\frac{m_2}{M + m_1}\alpha_{12}^2b_{3_2}^{(1)}
+    = -0.002037381396074496, 
+    \\
+    B_{22} &=& -\frac{1}{4}n_2\frac{m_1}{M + m_2}\alpha_{12}b_{3_2}^{(1)}
+    = -0.005025133599532606,
+    \\
+    B_{12} &=& \frac{1}{4}n_1\frac{m_2}{M + m_1}\alpha_{12}^2b_{3_2}^{(1)}
+    = 0.002037381396074496,
+    \\
+    B_{21} &=& \frac{1}{4}n_2\frac{m_1}{M + m_2}\alpha_{12}b_{3_2}^{(1)}
+    = 0.005025133599532606.
+\end {eqnarray}
+Thus, we obtain the matrices 
+\begin {eqnarray}
+    A 
+    &=& 
+    \begin {bmatrix}
+        0.00203738 & -0.00132987 \\
+        -0.00328007 & 0.00502513
+    \end {bmatrix}
+    {\:}^\circ/y,
+    \\
+    B
+    &=& 
+    \begin {bmatrix}
+        -0.00203738 & 0.00203738 \\
+         0.00502513 & -0.00502513
+    \end {bmatrix}
+    {\:}^\circ/y.
+\end {eqnarray}
+The eigenvalues and eigenvectors obtain the values
+\begin {eqnarray}
+    g_1 &=& 0.0009634346412059512, \\
+    g_2 &=& 0.006099080354401151, \\
+    \overline{\vc u}_1 &=&
+    \begin {bmatrix}
+        -0.77799125 & -0.62827511
+    \end {bmatrix}^T
+    \\
+    \overline{\vc u}_2 &=& 
+    \begin {bmatrix}
+        0.31116203 & -0.95035688
+    \end {bmatrix}^T,
+    \\
+    f_1 &=& 0 \\
+    f_2 &=& -0.007062514995607103,
+    \\
+    \overline{\vc w}_1 &=&
+    \begin {bmatrix}
+       0.70710678 & 0.70710678 
+    \end {bmatrix}^T,
+    \\
+    \overline{\vc w}_2 &=&
+    \begin {bmatrix}
+       -0.37573125 & 0.92672867 
+    \end {bmatrix}^T.
+\end {eqnarray}
+Let $S_1, S_2, T_1, T_2$ be scalars determined by initial conditions such that
+\begin {eqnarray}
+    \vc u_k &=& S_k\overline{\vc u}_k, \\
+    \vc w_k &=& T_k\overline{\vc w}_k.
+\end {eqnarray}
+Requiring that the solution agrees with the initial condition at $t=0$ implies 
+\begin {eqnarray}
+    h_1(0) 
+    &=& 
+    u_{11}\sin\beta_1 + u_{12}\sin\beta_2 
+    \:\:
+    =
+    S_1\overline{u}_{11}\sin\beta_1 + S_2\overline{u}_{12}\sin\beta_2 
+    \:
+    = 
+    e_1\sin\varpi_1
+    = 
+    0.01146918,
+    \\
+    h_2(0) 
+    &=& 
+    u_{21}\sin\beta_1 + u_{22}\sin\beta_2 
+    \:\:
+    =
+    S_1\overline{u}_{21}\sin\beta_1 + S_2\overline{u}_{22}\sin\beta_2 
+    \:
+    = 
+    e_2\sin\varpi_2
+    = 
+    0.05753373,
+    \\
+    k_1(0) 
+    &=& 
+    u_{11}\cos\beta_1 + u_{12}\cos\beta_2 
+    =
+    S_1\overline{u}_{11}\cos\beta_1 + S_2\overline{u}_{12}\cos\beta_2 
+    = 
+    e_1\cos\varpi_1
+    = 0.04605560,
+    \\
+    k_2(0) 
+    &=& 
+    u_{21}\cos\beta_1 + u_{22}\cos\beta_2 
+    =
+    S_1\overline{u}_{21}\cos\beta_1 + S_2\overline{u}_{22}\cos\beta_2 
+    = 
+    e_2\cos\varpi_2
+    = 0.001286107,
+    \\
+    p_1(0) 
+    &=& 
+    w_{11}\sin\gamma_1 + w_{12}\sin\gamma_2 
+    \:\:
+    =
+    T_1\overline{w}_{11}\sin\gamma_1 + T_2\overline{w}_{12}\sin\gamma_2 
+    \:
+    = 
+    I_1\sin\Omega_1
+    = 
+    0.02245659,
+    \\
+    p_2(0) 
+    &=& 
+    w_{21}\sin\gamma_1 + w_{22}\sin\gamma_2 
+    \:\:
+    =
+    T_1\overline{w}_{21}\sin\gamma_1 + T_2\overline{w}_{22}\sin\gamma_2 
+    \:
+    = 
+    I_2\sin\Omega_2
+    = 
+    0.03993140,
+    \\
+    q_1(0) 
+    &=& 
+    w_{11}\cos\gamma_1 + w_{12}\cos\gamma_2 
+    =
+    T_1\overline{w}_{11}\cos\gamma_1 + T_2\overline{w}_{12}\cos\gamma_2 
+    = 
+    I_1\cos\Omega_1
+    = -0.00397510,
+    \\
+    q_2(0) 
+    &=& 
+    w_{21}\cos\gamma_1 + w_{22}\cos\gamma_2 
+    =
+    T_1\overline{w}_{21}\cos\gamma_1 + T_2\overline{w}_{22}\cos\gamma_2 
+    = 
+    I_2\cos\Omega_2
+    = -0.01705970.
+\end {eqnarray}
+These equations can be expressed as a set of two linear systems of equations
+\begin {eqnarray}
+    \begin {bmatrix}
+        \overline{u}_{11} & \overline{u}_{12} & 0 & 0 \\
+        \overline{u}_{21} & \overline{u}_{22} & 0 & 0 \\
+        0 & 0 & \overline{u}_{11} & \overline{u}_{12} \\
+        0 & 0 & \overline{u}_{21} & \overline{u}_{22}
+    \end {bmatrix}
+    \begin {bmatrix}
+        S_1\sin\beta_1 \\
+        S_2\sin\beta_2 \\
+        S_1\cos\beta_1 \\
+        S_2\cos\beta_2 
+    \end {bmatrix}
+    &=& 
+    \begin {bmatrix}
+        e_1\sin\varpi_1 \\
+        e_2\sin\varpi_2 \\
+        e_1\cos\varpi_1 \\
+        e_2\cos\varpi_2
+    \end {bmatrix}
+    \\
+    \begin {bmatrix}
+        \overline{w}_{11} & \overline{w}_{12} & 0 & 0 \\
+        \overline{w}_{21} & \overline{w}_{22} & 0 & 0 \\
+        0 & 0 & \overline{w}_{11} & \overline{w}_{12} \\
+        0 & 0 & \overline{w}_{21} & \overline{w}_{22}
+    \end {bmatrix}
+    \begin {bmatrix}
+        T_1\sin\gamma_1 \\
+        T_2\sin\gamma_2 \\
+        T_1\cos\gamma_1 \\
+        T_2\cos\gamma_2 
+    \end {bmatrix}
+    &=& 
+    \begin {bmatrix}
+        I_1\sin\Omega_1 \\
+        I_2\sin\Omega_2 \\
+        I_1\cos\Omega_1 \\
+        I_2\cos\Omega_2
+    \end {bmatrix}
+\end {eqnarray}
+which can be solved 
+\begin {eqnarray}
+    \begin {bmatrix}
+        e_1\sin\varpi_1 \\
+        e_2\sin\varpi_2 \\
+        e_1\cos\varpi_1 \\
+        e_2\cos\varpi_2
+    \end {bmatrix}
+    &=&
+    \begin {bmatrix}
+        -0.77799125 & 0.31116203 & 0 & 0 \\
+        -0.62827511 & -0.95035688 & 0 & 0 \\
+        0 & 0 & -0.77799125 & 0.31116203 \\
+        0 & 0 & -0.62827511 & -0.95035688
+    \end {bmatrix}^{-1}
+    \begin {bmatrix}
+        0.01146918 \\
+        0.05753373 \\
+        0.04605560 \\
+        0.00128611
+    \end {bmatrix}
+    \quad
+\end {eqnarray}
+\begin {eqnarray}
+    \begin {bmatrix}
+        I_1\sin\Omega_1 \\
+        I_2\sin\Omega_2 \\
+        I_1\cos\Omega_1 \\
+        I_2\cos\Omega_2
+    \end {bmatrix}
+    &=&
+    \begin {bmatrix}
+        0.70710678 & -0.37573125 & 0 & 0 \\
+        0.70710678 &  0.92672867 & 0 & 0 \\
+        0 & 0 & 0.70710678 & -0.37573125 \\
+        0 & 0 & 0.70710678 &  0.92672867
+    \end {bmatrix}^{-1}
+    \begin {bmatrix}
+        0.02245659 \\
+        0.03993140 \\
+        -0.00397510 \\
+        -0.01705970
+    \end {bmatrix}
+    \quad
+\end {eqnarray}
 
 \newpage
 \appendix
