@@ -5593,10 +5593,10 @@ These equations can be expressed as a set of two linear systems of equations
 which can be solved 
 \begin {eqnarray}
     \begin {bmatrix}
-        e_1\sin\varpi_1 \\
-        e_2\sin\varpi_2 \\
-        e_1\cos\varpi_1 \\
-        e_2\cos\varpi_2
+        S_1\sin\beta_1 \\
+        S_2\sin\beta_2 \\
+        S_1\cos\beta_1 \\
+        S_2\cos\beta_2
     \end {bmatrix}
     &=&
     \begin {bmatrix}
@@ -5615,10 +5615,10 @@ which can be solved
 \end {eqnarray}
 \begin {eqnarray}
     \begin {bmatrix}
-        I_1\sin\Omega_1 \\
-        I_2\sin\Omega_2 \\
-        I_1\cos\Omega_1 \\
-        I_2\cos\Omega_2
+        T_1\sin\gamma_1 \\
+        T_2\sin\gamma_2 \\
+        T_1\cos\gamma_1 \\
+        T_2\cos\gamma_2
     \end {bmatrix}
     &=&
     \begin {bmatrix}
@@ -5635,6 +5635,150 @@ which can be solved
     \end {bmatrix}
     \quad
 \end {eqnarray}
+leading to 
+\begin {eqnarray}
+    \begin{array}{llll}
+        S_1\sin\beta_1 = & -0.03080887, & T_1\sin\gamma_1 = & 0.03888761,\\ 
+        S_2\sin\beta_2 = & -0.04017152, & T_2\sin\gamma_2 = & 0.01341677,\\
+        S_1\cos\beta_1 = & -0.04724689, & T_1\cos\gamma_1 = & -0.01095976,\\
+        S_2\cos\beta_2 = &  0.02988133, & T_2\cos\gamma_2 = & -0.01004607.
+    \end {array}
+\end {eqnarray}
+Thus, finally 
+\begin {eqnarray}
+    S_1 &=& \sqrt{(S_1\sin\beta_1)^2 + (S_1\cos\beta_1)^2} = 0.05640439,
+    \\
+    S_2 &=& \sqrt{(S_2\sin\beta_2)^2 + (S_2\cos\beta_2)^2} = 0.05006640,
+    \\ 
+    T_1 &=& \sqrt{(T_1\sin\gamma_1)^2 + (T_1\cos\gamma_1)^2} = 0.04040251,
+    \\ 
+    T_2 &=& \sqrt{(T_2\sin\gamma_2)^2 + (T_2\cos\gamma_2)^2} = 0.01676106,
+    \\
+    \beta_1 &=& \textrm{atan2}(S_1\sin\beta_1, S_1\cos\beta_1) = -146.89233296^\circ,
+    \\
+    \beta_2 &=& \textrm{atan2}(S_2\sin\beta_2, S_1\cos\beta_2) = -53.35651935^\circ,
+    \\
+    \gamma_1 &=& \textrm{atan2}(T_1\sin\gamma_1, T_1\cos\gamma_1) = 105.73951730^\circ,
+    \\
+    \gamma_2 &=& \textrm{atan2}(T_2\sin\gamma_2, T_2\cos\gamma_2) = 126.82475444^\circ.
+\end {eqnarray}
+and we can express the eigenvectors 
+\begin {eqnarray}
+    \vc u_1 
+    &=& 
+    S_1 \overline{\vc u}_1
+    =
+    \begin {bmatrix}
+        -0.04388212 & -0.03543747
+    \end{bmatrix}^T,
+    \\
+    \vc u_2 
+    &=& 
+    S_2 \overline{\vc u}_2
+    =
+    \begin {bmatrix}
+        0.01557876 & -0.04758095
+    \end{bmatrix}^T,
+    \\
+    \vc w_1 
+    &=& 
+    T_1 \overline{\vc w}_1
+    =
+    \begin {bmatrix}
+        0.02856889 & 0.02856889
+    \end{bmatrix}^T,
+    \\
+    \vc w_2
+    &=& 
+    T_2 \overline{\vc w}_2
+    =
+    \begin {bmatrix}
+        -0.00629765 & 0.01553295
+    \end{bmatrix}^T.
+\end {eqnarray}
+Now we finally can express the solution 
+\begin {eqnarray}
+    h_1(t) 
+    &=& 
+    u_{11}\sin(g_1t + \beta_1) + u_{12}\sin(g_2t + \beta_2)
+    \\
+    &-&0.04388212\sin(0.0009634346^\circ/y\cdot t - 146.89233296^\circ)
+    \\\nonumber
+    &+& 0.01557876\sin(0.0060990804^\circ/y\cdot t - 53.35651935^\circ),
+    \\
+    h_2(t) 
+    &=& 
+    u_{21}\sin(g_1t + \beta_1) + u_{22}\sin(g_2t + \beta_2)
+    \\
+    &-&0.03543747\sin(0.0009634346^\circ/y\cdot t - 146.89233296^\circ)
+    \\\nonumber
+    &-&0.04758095\sin(0.0060990804^\circ/y\cdot t - 53.35651935^\circ),
+    \\
+    k_1(t) 
+    &=& 
+    u_{11}\cos(g_1t + \beta_1) + u_{12}\cos(g_2t + \beta_2)
+    \\
+    &-&0.04388212\cos(0.0009634346^\circ/y\cdot t - 146.89233296^\circ)
+    \\\nonumber
+    &+& 0.01557876\cos(0.0060990804^\circ/y\cdot t - 53.35651935^\circ),
+    \\
+    k_2(t) 
+    &=& 
+    u_{21}\cos(g_1t + \beta_1) + u_{22}\cos(g_2t + \beta_2)
+    \\
+    &-&0.03543747\cos(0.0009634346^\circ/y\cdot t - 146.89233296^\circ)
+    \\\nonumber
+    &-&0.04758095\cos(0.0060990804^\circ/y\cdot t - 53.35651935^\circ),
+    \\
+    p_1(t) 
+    &=& 
+    w_{11}\sin(f_1t + \gamma_1) + w_{12}\sin(f_2t + \gamma_2)
+    \\
+    &=& 
+    0.02856889\sin(105.73951730^\circ)
+    \\\nonumber
+    &-&
+    0.00629765\sin(0.007062515^\circ/y\cdot t + 126.8247544^\circ),
+    \\
+    p_2(t) 
+    &=& 
+    w_{21}\sin(f_1t + \gamma_1) + w_{22}\sin(f_2t + \gamma_2)
+    \\
+    &=& 
+    0.02856889\sin(105.73951730^\circ)
+    \\\nonumber
+    &+&
+    0.01553295\sin(0.007062515^\circ/y\cdot t + 126.8247544^\circ),
+    \\
+    q_1(t) 
+    &=& 
+    w_{11}\cos(f_1t + \gamma_1) + w_{12}\cos(f_2t + \gamma_2)
+    \\
+    &=& 
+    0.02856889\cos(105.73951730^\circ)
+    \\\nonumber
+    &-&
+    0.00629765\cos(0.007062515^\circ/y\cdot t + 126.8247544^\circ),
+    \\
+    q_2(t) 
+    &=& 
+    w_{21}\cos(f_1t + \gamma_1) + w_{22}\cos(f_2t + \gamma_2)
+    \\
+    &=& 
+    0.02856889\cos(105.73951730^\circ)
+    \\\nonumber
+    &+&
+    0.01553295\cos(0.007062515^\circ/y\cdot t + 126.8247544^\circ).
+\end {eqnarray}
+The Keplerian elements computed from the solution are shown in Figure $(\ref{fig:twoplanet_elements})$.
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=65 40 800 450, clip=true] {fig/twoplanet_elements.eps}
+     \caption{\label{fig:twoplanet_elements}Evolution of Keplerian elements from two-planet 
+     secular perturbation theory.}
+  \end {center}
+\end {figure} 
+\subsection{Generalized Secular Perturbations}
 
 \newpage
 \appendix
