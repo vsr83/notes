@@ -20,7 +20,7 @@
 \usepackage {wasysym}
 \usepackage {marvosym}
 \usepackage {geometry}
-\usepackage {listings}
+\usepackage {listingsutf8}
 %\usepackage {xcolor}
 %\usepackage {mathabx}
 %\usepackage[urw-garamond]{mathdesign}
@@ -4755,6 +4755,7 @@ The derivative w.r.t. $a_k$ is only relevant for the time evolution of mean anom
 which is not considered here. Thus, also the first term in the square brackets can be 
 discarded. Thus, we obtain 
 \begin {eqnarray}
+    \label{eq:r_sec_1}
     \mathcal{R}_1
     &=&
     \frac{m_2}{M + m_1}n_1^2a_1^2
@@ -4771,6 +4772,7 @@ discarded. Thus, we obtain
         \frac{1}{8}\alpha^2I_1^2b_{3/2}^{(1)}
     \right]
     \\
+    \label{eq:r_sec_2}
     \mathcal{R}_2
     &=&
     \frac{m_1}{M + m_2}n_2^2a_2^2
@@ -4869,24 +4871,28 @@ Let's again perform change of variables
 \end {eqnarray}
 Then, we obtain
 \begin {eqnarray}
+    \label{eq:hkpq_corollaries1}
     h_j^2 + k_j^2 
     &=& 
     e_j^2(\sin^2\varpi_j +  \cos^2\varpi_j)
     = 
     e_j^2
     \\
+    \label{eq:hkpq_corollaries2}
     p_j^2 + q_j^2 
     &=& 
     I_j^2(\sin^2\Omega_j + \cos^2\Omega_j)
     = 
     I_j^2
     \\
+    \label{eq:hkpq_corollaries3}
     h_1h_2 + k_1k_2
     &=& 
     e_1e_2(\sin\varpi_1\sin\varpi_2 + \cos\varpi_1\cos\varpi_2)
     =
     e_1e_2\cos(\varpi_1 - \varpi_2)
     \\
+    \label{eq:hkpq_corollaries4}
     p_1p_2 + q_1q_2 
     &=& 
     I_1I_2(\sin\Omega_1\sin\Omega_2 + \cos\Omega_1\cos\Omega_2)
@@ -5773,13 +5779,323 @@ Now we finally can express the solution
 The Keplerian elements computed from the solution are shown in Figure $(\ref{fig:twoplanet_elements})$.
 \begin {figure}
   \begin {center}
-     \includegraphics [angle=0, width=1.0\columnwidth, viewport=65 40 800 450, clip=true] {fig/twoplanet_elements.eps}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=65 20 800 450, clip=true] {fig/twoplanet_elements.eps}
      \caption{\label{fig:twoplanet_elements}Evolution of Keplerian elements from two-planet 
      secular perturbation theory.}
   \end {center}
 \end {figure} 
 \subsection{Generalized Secular Perturbations}
+\subsubsection{Disturbing Function}
+Previously we have derived for a two-planet solar system
+$(\ref{eq:r_sec_1})$-$(\ref{eq:r_sec_2})$ repeated here for convenience
+\begin {eqnarray}
+    \label{eq:R_1_consistency}
+    \mathcal{R}_1
+    &=& 
+    \frac{m_2}{M + m_1}
+    n_1^2a_1^2
+    \left[
+        \frac{1}{8}e_1^2\alpha_{12}^2 b_{3/2}^{(1)}(\alpha_{12})
+        -
+        \frac{1}{8}I_1^2\alpha_{12}^2 b_{3/2}^{(1)}(\alpha_{12})
+    \right.
+        \\\nonumber 
+        &-& 
+    \left.
+        \frac{1}{4}e_1e_2\alpha_{12}^2 b_{3/2}^{(2)}(\alpha_{12})\cos(\varpi_1 - \varpi_2)
+        +
+        \frac{1}{4}I_1I_2\alpha_{12}^2 b_{3/2}^{(1)}(\alpha_{12})\cos(\Omega_1 - \Omega_2)
+    \right],
+    \\
+    \mathcal{R}_2 
+    &=& 
+    \frac{m_1}{M + m_2}
+    n_2^2a_2^2
+    \left[
+        \frac{1}{8}e_2^2\alpha_{12} b_{3/2}^{(1)}(\alpha_{12})
+        -
+        \frac{1}{8}I_2^2\alpha_{12} b_{3/2}^{(1)}(\alpha_{12})
+    \right.
+        \\\nonumber 
+        &-& 
+    \left.
+        \frac{1}{4}e_1e_2\alpha_{12} b_{3/2}^{(2)}(\alpha_{12})\cos(\varpi_1 - \varpi_2)
+        +
+        \frac{1}{4}I_1I_2\alpha_{12} b_{3/2}^{(1)}(\alpha_{12})\cos(\Omega_1 - \Omega_2)
+    \right].
+\end {eqnarray}
+The power of $\alpha_{12}$ is different in the two equations, which superficially might 
+suggest that all such interactions cannot be represented with expressions of the same 
+form. However, this apparent issue is resolved if we note that 
+\begin {eqnarray}
+    b_{s}^{(j)}(1/\alpha)
+    =
+    \frac{1}{\pi}
+    \int_0^{2\pi}
+    \frac{\cos j\psi d\psi}{[1 - (2/\alpha)\cos\psi + 1/\alpha^2]^s}
+    =
+    \frac{\alpha^{2s}}{\pi}
+    \int_0^{2\pi}
+    \frac{\cos j\psi d\psi}{[\alpha^2 - 2\alpha\cos\psi + 1]^s}
+    =
+    \alpha^{2s}b_{s}^{(j)}(\alpha),
+\end {eqnarray}
+which implies that 
+\begin {eqnarray}
+    b_{3/2}^{(j)}(\alpha_{21}) = \alpha_{12}^3b_{3/2}^{(j)}(\alpha_{12})
+\end {eqnarray}
+and
+\begin {eqnarray}
+    \alpha_{12}b_{3/2}^{(j)}(\alpha_{12})
+    =
+    \alpha_{21}^2b_{3/2}^{(j)}(\alpha_{21}).
+\end {eqnarray}
+This allows us to write 
+\begin {eqnarray}
+    \mathcal{R}_2 
+    &=& 
+    \frac{m_1}{M + m_2}
+    n_2^2a_2^2
+    \left[
+        \frac{1}{8}e_2^2\alpha_{21}^2 b_{3/2}^{(1)}(\alpha_{21})
+        -
+        \frac{1}{8}I_2^2\alpha_{21}^2 b_{3/2}^{(1)}(\alpha_{21})
+    \right.
+        \\\nonumber 
+        &-& 
+    \left.
+        \frac{1}{4}e_1e_2\alpha_{21}^2 b_{3/2}^{(2)}(\alpha_{21})\cos(\varpi_1 - \varpi_2)
+        +
+        \frac{1}{4}I_1I_2\alpha_{21}^2 b_{3/2}^{(1)}(\alpha_{21})\cos(\Omega_1 - \Omega_2)
+    \right].
+\end {eqnarray}
+Thus, we can always use an expression with the same form $(\ref{eq:R_1_consistency})$
+for all disturbing functions 
+describing the perturbation from two-planet interaction.
+For $n$-planet solar system, the disturbing function for the $j$:th planet is the sum 
+of two-planet disturbing functions $(\ref{eq:R_1_consistency})$ from all planets 
+\begin {eqnarray}
+    \label{eq:secular_n_body_dist}
+    \mathcal{R}_j^{(sec)}
+    &=& 
+    n_j^2a_j^2
+    \sum_{\substack{k\neq j\\k=1}}^n 
+    \frac{m_k}{M + m_j}
+    \left[
+        \frac{1}{8}e_j^2\alpha_{jk}^2 b_{3/2}^{(1)}(\alpha_{jk})
+        -
+        \frac{1}{8}I_j^2\alpha_{jk}^2 b_{3/2}^{(1)}(\alpha_{jk})
+    \right.
+    \\\nonumber
+    &-&
+    \left.
+        \frac{1}{4}e_je_k\alpha_{jk}^2b_{3/2}^{(2)}(\alpha_{jk})\cos(\varpi_j - \varpi_k)
+        +
+        \frac{1}{4}I_jI_k\alpha_{jk}^2b_{3/2}^{(1)}(\alpha_{jk})\cos(\Omega_j - \Omega_k)
+    \right],
+\end {eqnarray}
+where $\alpha_{jk} = a_j/a_k$. Change of variables 
+\begin {eqnarray}
+    h_j 
+    &:=&
+    e_j\sin\varpi_j,
+    \\
+    k_j 
+    &:=&
+    e_j\cos\varpi_j,
+    \\
+    p_j 
+    &:=&
+    I_j\sin\Omega_j,
+    \\
+    q_j 
+    &:=&
+    I_j\cos\Omega_j
+\end {eqnarray}
+and $(\ref{eq:hkpq_corollaries1})$-$(\ref{eq:hkpq_corollaries4})$
+allow us to transform $(\ref{eq:secular_n_body_dist})$ into 
+\begin {eqnarray}
+    \label{eq:secular_n_body_dist2}
+    \mathcal{R}_j^{(sec)}
+    &=& 
+    n_j^2a_j^2
+    \sum_{\substack{k\neq j\\k=1}}^n 
+    \frac{m_k}{M + m_j}
+    \left[
+        \frac{1}{8}(h_j^2 + k_j^2)\alpha_{jk}^2 b_{3/2}^{(1)}(\alpha_{jk})
+        -
+        \frac{1}{8}(p_j^2 + q_j^2)\alpha_{jk}^2 b_{3/2}^{(1)}(\alpha_{jk})
+    \right.
+    \\\nonumber
+    &-&
+    \left.
+        \frac{1}{4}\alpha_{jk}^2b_{3/2}^{(2)}(\alpha_{jk})(h_jh_k + k_jk_k))
+        +
+        \frac{1}{4}\alpha_{jk}^2b_{3/2}^{(1)}(\alpha_{jk})(p_jp_k + q_jq_k)
+    \right].
+\end {eqnarray}
 
+\subsubsection{Laplace-Lagrange Secular Solution}
+Let us define $A, B\in\mathbb{R}^{n\times n}$ :
+\begin {eqnarray}
+    A_{jj} 
+    &:=& 
+    +\frac{1}{4}n_j
+    \sum_{\substack{k\neq j\\k=1}}^n
+    \frac{m_k}{M + m_j}\alpha_{jk}^2b_{3/2}^{(1)}(\alpha_{jk}),
+    \\
+    B_{jj}
+    &:=& 
+    -\frac{1}{4}n_j
+    \sum_{\substack{k\neq j\\k=1}}^n
+    \frac{m_k}{M + m_j}\alpha_{jk}^2b_{3/2}^{(1)}(\alpha_{jk}),
+    \\
+    A_{jk}
+    &:=& 
+    -\frac{1}{4}n_j
+    \sum_{\substack{k\neq j\\k=1}}^n
+    \frac{m_k}{M + m_j}\alpha_{jk}^2b_{3/2}^{(2)}(\alpha_{jk}),
+    \\
+    B_{jk}
+    &:=& 
+    +\frac{1}{4}n_j
+    \sum_{\substack{k\neq j\\k=1}}^n
+    \frac{m_k}{M + m_j}\alpha_{jk}^2b_{3/2}^{(1)}(\alpha_{jk}).
+\end {eqnarray}
+Then, $(\ref{eq:secular_n_body_dist2})$ can be rewritten as 
+\begin {eqnarray}
+    \mathcal{R}_j^{(sec)}
+    =
+    n_ja_j^2
+    \left[
+        \frac{1}{2}A_{jj}(h_j^2 + k_j^2)
+        + 
+        \frac{1}{2}B_{jj}(p_j^2 + q_j^2)
+        +
+        \sum_{k\neq j}A_{jk}(h_jh_k + k_jk_k)
+        +
+        \sum_{k\neq j}B_{jk}(p_jp_k + q_jq_k)
+    \right].
+\end {eqnarray}
+Computing the derivatives 
+\begin {eqnarray}
+    \pdiff{\mathcal{R}_j^{(sec)}}{h_j} 
+    &=&
+    n_ja_j^2
+    \sum_{k=1}^{n}
+    A_{jk}h_k,
+    \\
+    \pdiff{\mathcal{R}_j^{(sec)}}{k_j} 
+    &=&
+    n_ja_j^2
+    \sum_{k=1}^{n}
+    A_{jk}k_k,
+    \\
+    \pdiff{\mathcal{R}_j^{(sec)}}{p_j} 
+    &=&
+    n_ja_j^2
+    \sum_{k=1}^{n}
+    B_{jk}p_k,
+    \\
+    \pdiff{\mathcal{R}_j^{(sec)}}{q_j} 
+    &=&
+    n_ja_j^2
+    \sum_{k=1}^{n}
+    B_{jk}q_k
+\end {eqnarray}
+again makes the computation of time derivatives straight-forward 
+\begin {eqnarray}
+    \diff{h_j}{t}
+    &=& 
+    +\frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j^{(sec)}}{k_j}
+    = 
+    +\sum_{k=1}^{n}
+    A_{jk}k_k,
+    \\
+    \diff{k_j}{t}
+    &=& 
+    -\frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j^{(sec)}}{h_j}
+    = 
+    -\sum_{k=1}^{n}
+    A_{jk}h_k,
+    \\
+    \diff{p_j}{t}
+    &=& 
+    +\frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j^{(sec)}}{q_j}
+    = 
+    +\sum_{k=1}^{n}
+    B_{jk}q_k,
+    \\
+    \diff{q_j}{t}
+    &=& 
+    -\frac{1}{n_ja_j^2}\pdiff{\mathcal{R}_j^{(sec)}}{p_j}
+    = 
+    -\sum_{k=1}^{n}
+    B_{jk}p_k.
+\end {eqnarray}
+In matrix notation, we again obtain the equations 
+\begin {eqnarray}
+    \dot{\vc h} 
+    &=& 
+    A\vc k,
+    \\
+    \dot{\vc k} 
+    &=& 
+    -A\vc h, 
+    \\
+    \dot{\vc p} 
+    &=& 
+    B\vc q,
+    \\
+    \dot{\vc q} 
+    &=& 
+    -B\vc p,
+\end {eqnarray}
+which is solved by 
+\begin {eqnarray}
+    \vc h(t) &=& \sum_{k=1}^{n}\vc u_k\sin(g_k + \beta_k), \\
+    \vc k(t) &=& \sum_{k=1}^{n}\vc u_k\sin(g_k + \beta_k), \\
+    \vc p(t) &=& \sum_{k=1}^{n}\vc w_k\sin(f_k + \gamma_k), \\
+    \vc q(t) &=& \sum_{k=1}^{n}\vc w_k\sin(f_k + \gamma_k),
+\end {eqnarray}
+where $\vc u_1, .. , \vc u_n$ and $\vc w_1, .., \vc w_n$ are the eigenvectors 
+for the matrices $A$ and $B$ corresponding to eigenvalues $g_1, .., g_n$ and 
+$f_1, .., f_n$. Again, the coefficients $\beta_1, .., \beta_n$ and 
+$\gamma_1, .., \gamma_n$ and scaling factors for the eigenvectors are determined 
+by the initial conditions.
+\subsubsection{Example: Long-Term Behavior of the Major Planets}
+Consider 8 planets with following initial conditions 
+\begin {eqnarray}
+    \nonumber
+    \begin {array}{ccccccccc}
+    k & a_k (\textrm{au}) & n_k (\textrm{rad/s}) & e_k & \varpi_k (\textrm{deg}) & I_k (\textrm{deg}) & \Omega_k (\textrm{deg}) \\
+    1 & 0.38709843  & 8.26690092e-07 & 0.20563661 &  77.45771895 & 7.005594325 & 48.33961819 \\
+    2 & 0.72332102  & 3.23652312e-07 & 0.00676399 & 131.76755713 & 3.39777540  & 76.67261496 \\
+    3 & 1.00000018  & 1.99101877e-07 & 0.01673163 & 102.93005885 & -0.00054346 & -5.11260389 \\
+    4 & 1.52371243  & 1.05857191e-07 & 0.09336511 & -23.91744784 & 1.85181869  & 49.71320984 \\
+    5 & 5.20248019  & 1.67867410e-08 & 0.04853590 &  14.27495244 & 1.29861416  & 100.29282654\\
+    6 & 9.54149883  & 6.75634752e-09 & 0.05550825 &  92.86136063 & 2.49424102  & 113.63998702\\
+    7 & 19.18797948 & 2.36886562e-09 & 0.04685740 & 172.43404441 & 0.77298127  & 73.96250215 \\
+    8 & 30.06952752 & 1.20752489e-09 & 0.00895439 &  46.68158724 & 1.77005520  & 131.78635853
+    \end {array}
+\end {eqnarray}
+The resulting system can be built and solved with the Python code in the Appendix B.
+As an example of the outputs, Figure \ref{fig:majorplanets_elements} depicts the long-term 
+evolution of the outer planets. Due to the large amount of approximations involved, 
+the results are not very accurate but reveal the basic characteristics of long-term change.
+\begin {figure}
+  \begin {center}
+     \includegraphics [angle=0, width=1.0\columnwidth, viewport=20 20 550 650, clip=true] {fig/major_planets.eps}
+     \caption{\label{fig:majorplanets_elements}Evolution of Keplerian elements from 
+     secular perturbation theory.}
+  \end {center}
+\end {figure} 
+
+
+
+%[2.76648266e-12 2.66285432e-12 3.44850555e-12 1.12879063e-12 8.39148390e-13 5.72530103e-13 4.16239253e-13 9.75096727e-14]
+%[319.01392211 336.17931438 131.02264951 194.99817001 269.65490343 210.12243963 110.01076366  67.98548816]
+%[127.29040491  75.57257623 116.85209803 138.33287002 200.23412441 315.58767328 107.49746554 202.85087838]\end {eqnarray}
 \newpage
 \appendix
 \section{Series Expansions}
@@ -6143,6 +6459,11 @@ and in the special case $n=1$
 \subsubsection{$\sin f$}
 \subsection{$r/a$}
 
+\section{Long-Term Secular Evolution of the Solar System}
+\lstset{inputencoding=utf8}
+\begin {footnotesize}
+\lstinputlisting[language=Python, breaklines=true]{python/secular.py}
+\end {footnotesize}
 \newpage
 
 \begin {thebibliography}{1}
